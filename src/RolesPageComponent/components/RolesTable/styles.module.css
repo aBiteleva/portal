@@ -1,0 +1,21 @@
+.iconColumn {
+    display: flex;
+    justify-content: center;
+}
+
+.leftButton{
+    margin-right: 5px;
+}
+
+.rightButton{
+    margin-left: 5px;
+}
+
+.rolesColumn{
+    display: flex;
+    flex-direction: column;
+}
+
+.table {
+    margin: 8px;
+}

@@ -1,0 +1,19 @@
+.buttons{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.header{
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+}
+
+.buttonLeft{
+    margin-right: 5px;
+}
+
+.buttonRight{
+    margin-left: 5px;
+}

@@ -1,0 +1,14 @@
+.formModal{
+    margin-top: 30px;
+}
+
+.footer{
+    margin-top: 30px;
+    display: flex;
+    justify-content: end;
+}
+
+.errorMessage{
+    color: red;
+    text-align: center;
+}
