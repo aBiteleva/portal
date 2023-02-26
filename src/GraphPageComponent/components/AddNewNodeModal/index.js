@@ -1,12 +1,32 @@
-import {Button, Input, Modal} from "antd";
+import {Button, Input, Modal, Select} from "antd";
 import styles from "./styles.module.css"
 import {Controller, useForm} from "react-hook-form";
 import {useEffect} from "react";
 
+const {Option} = Select;
+
+const typeOptions = [
+    {value: 'event', label: "Событие"},
+    {value: 'action', label: "Правило"},
+    {value: 'without', label: "Без типа"},
+];
+
+const shapeOptions = [
+    {value: 'circle', label: "Круг"},
+    {value: 'box', label: "Прямоугольник"},
+    {value: 'triangle', label: "Треугольник"},
+    {value: 'star', label: "Звезда"},
+    {value: 'dimond', label: "Ромб"},
+    {value: 'image', label: "Картинка"}
+]
+
 const AddNewNodeModal = ({isVisible, onCancel, onOk, state}) => {
 
-    const {reset, control, handleSubmit, register} = useForm({
+    const {reset, control, handleSubmit, register, watch} = useForm({
         label: "",
+        type: "",
+        shape: "",
+        image: "",
         color: "",
         parent: "1",
         child: "0"
@@ -15,6 +35,9 @@ const AddNewNodeModal = ({isVisible, onCancel, onOk, state}) => {
     useEffect(() => {
         reset({
             label: "",
+            type: "",
+            shape: "",
+            image: "",
             color: "",
             parent: "1",
             child: "0"
@@ -37,6 +60,59 @@ const AddNewNodeModal = ({isVisible, onCancel, onOk, state}) => {
                     defaultValue=''
                 />
             </div>
+
+            <div className={styles.formItem}>
+                <div className={styles.formItemTittle}>Тип</div>
+                <Controller
+                    render={({field}) =>
+                        <Select
+                            {...register("type", {
+                                required: 'Выберите тип'
+                            })}
+                            className={styles.formItemSelect}
+                            {...field}>
+                            {typeOptions.map(option => <Option value={option.value}>{option.label}</Option>)}
+                        </Select>}
+                    name="type"
+                    control={control}
+                    defaultValue='event'
+                />
+            </div>
+
+            <div className={styles.formItem}>
+                <div className={styles.formItemTittle}>Форма</div>
+                <Controller
+                    render={({field}) =>
+                        <Select
+                            {...register("shape", {
+                                required: 'Выберите форму'
+                            })}
+                            className={styles.formItemSelect}
+                            {...field}
+                        >
+                            {shapeOptions.map(option => <Option value={option.value}>{option.label}</Option>)}
+                        </Select>}
+                    name="shape"
+                    control={control}
+                    defaultValue='box'
+                />
+            </div>
+
+            {watch('shape') === 'image' && <div className={styles.formItem}>
+                <div className={styles.formItemTittle}>URL картинки</div>
+                <Controller
+                    render={({field}) =>
+                        <Input
+                            {...register("image", {
+                                required: 'Введите URL картинки',
+                            })}
+                            {...field}
+                        />}
+                    name="image"
+                    control={control}
+                    defaultValue=''
+                />
+            </div>}
 
             <div className={styles.formItem}>
                 <div className={styles.formItemTittle}>Цвет</div>

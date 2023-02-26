@@ -50,7 +50,7 @@ const MainTemplate = ({page, actions, children}) => {
                         {page}
                     </div>
                     <div className={styles.headerIcons}>
-                        {actions.map(act => <div className={styles.icon}><Button onClick={act.onClick} type="text"
+                        {actions.map((act, index) => <div key={index+Math.random()} className={styles.icon}><Button onClick={act.onClick} type="text"
                                                                                  className={styles.iconComponent}>{act.icon}</Button>
                         </div>)}
                     </div>
