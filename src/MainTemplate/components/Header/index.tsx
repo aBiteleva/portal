@@ -14,6 +14,7 @@ const Header = () => {
             <a>О проекте</a>
             <a>Тарифы</a>
             <a>Еще</a>
+            <Icon name='arrowDown' />
         </div>
 
     </div>
