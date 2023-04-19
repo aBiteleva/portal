@@ -1,13 +1,19 @@
 @import "./variables";
 
-.leftPanel {
+.rightPanel {
   width: 22%;
   height: 100%;
   position: relative;;
   background: $dark-blue-color;
-  border-right: 1px solid $border-color;
+  border-left: 1px solid $border-color;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   font-weight: 700;
+  padding-left: 4px;
 }
+
+.line {
+  margin: 0 4px 6px 0;
+  background-color: $yellow-color;
+}
+

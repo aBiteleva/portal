@@ -3,6 +3,7 @@ import styles from './styles.module.scss'
 import {Button} from "antd";
 import Header from "./components/Header";
 import LeftPanel from "./components/LeftPanel";
+import RightPanel from "./components/RightPanel";
 
 interface MainTemplateInterface {
     page: string,
@@ -18,22 +19,23 @@ const MainTemplate: FC<MainTemplateInterface> = ({page, actions, children}) => {
             <LeftPanel />
 
             <div className={styles.pageContent}>
-                <div className={styles.pageHeader}>
-                    <div className={styles.headerText}>
-                        {page}
-                    </div>
-                    <div className={styles.headerIcons}>
-                        {actions.map(act => <div className={styles.icon}><Button onClick={act.onClick} type="text"
-                                                                                 className={styles.iconComponent}>{act.icon}</Button>
-                        </div>)}
-                    </div>
-                </div>
-                <div className={styles.content}>
-                    <div className={styles.contentHeader}></div>
-                    {children}
-                </div>
+                {/*<div className={styles.pageHeader}>*/}
+                {/*    <div className={styles.headerText}>*/}
+                {/*        {page}*/}
+                {/*    </div>*/}
+                {/*    <div className={styles.headerIcons}>*/}
+                {/*        {actions.map(act => <div className={styles.icon}><Button onClick={act.onClick} type="text"*/}
+                {/*                                                                 className={styles.iconComponent}>{act.icon}</Button>*/}
+                {/*        </div>)}*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+                {/*<div className={styles.content}>*/}
+                {/*    <div className={styles.contentHeader}></div>*/}
+                {/*    {children}*/}
+                {/*</div>*/}
             </div>
 
+            <RightPanel />
         </div>
 
         {/*{children}*/}
