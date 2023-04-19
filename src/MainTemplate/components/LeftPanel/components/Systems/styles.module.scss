@@ -1,0 +1,61 @@
+@import "./variables";
+
+@mixin block($background, $text) {
+  height: 24px;
+  margin: 4px;
+  padding: 4px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  background-color: $background;
+
+  > div {
+    align-self: center;
+    margin-right: 6px;
+    color: $text;
+  }
+}
+
+
+.header {
+  color: $yellow-color;
+  display: flex;
+  flex-direction: row;
+  padding: 4px;
+  justify-content: space-between;
+
+  svg {
+    width: 12px;
+  }
+}
+
+.systems {
+  &Blocks {
+    display: flex;
+    flex-direction: column;
+
+    > div[id='Zavod'] {
+      @include block($yellow-color, $dark-blue-color)
+    }
+
+    div[id='Home'] {
+      @include block($hover-yellow-color, $light-yellow-color)
+    }
+
+    div[id='Study'], div[id='Logs'] {
+      @include block($dark-blue-color, $light-yellow-color);
+      margin-top: 0;
+    }
+  }
+}
+
+.line {
+  margin: 0 4px 6px 4px;
+  background-color: $yellow-color;
+}
+
+.navigationContent {
+  position: absolute;
+  top: 60px;
+  left: 10px
+}

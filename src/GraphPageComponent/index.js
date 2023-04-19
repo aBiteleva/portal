@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {PlusOutlined} from "@ant-design/icons";
-import MainTemplate from "../MainTemplate";
+import MainTemplate from "../MainTemplate/index2";
 import GraphComponent from "./components/GraphComponent";
 
 const GraphPageComponent = () => {

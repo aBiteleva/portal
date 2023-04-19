@@ -1,0 +1,13 @@
+@import "./variables";
+
+body {
+  margin: 0;
+  background-color: $background-color;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: $light-grey-color;
+}
+
+svg, img {
+  width: 20px;
+}

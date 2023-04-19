@@ -3,7 +3,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import AddNewUserModal from "./components/AddNewUserModal";
 import {useState} from "react";
 import {getRolesData} from "../core/store/rolesStore";
-import MainTemplate from "../MainTemplate";
+import MainTemplate from "../MainTemplate/index2";
 
 const RolesPageComponent = () => {
     const [dataSource, setDataSource] = useState(getRolesData());
