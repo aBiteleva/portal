@@ -1,0 +1,19 @@
+@import "./variables";
+
+.leftPanel {
+  width: 16%;
+  height: 100%;
+  position: relative;;
+  background: $dark-blue-color;
+  border-right: 1px solid $border-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-weight: 700;
+}
+
+.navigationContent {
+  position: absolute;
+  top: 60px;
+  left: 10px
+}
