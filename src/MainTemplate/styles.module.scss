@@ -16,63 +16,10 @@
     justify-content: end;
 }
 
-.userIcons {
-    margin-right: 8px;
-    display: flex;
-    flex-direction: row;
-}
-
 .container {
     display: flex;
     flex-direction: row;
     height: 100%;
-}
-
-.navigation {
-    width: 22%;
-    height: 100%;
-
-    position: relative;
-
-    background: rgba(0, 178, 255, 0.2);
-    border-radius: 30px;
-}
-
-.navigationHeader {
-    position: absolute;
-    width: 100%;
-    height: 50px;
-    left: 0;
-    top: 0;
-
-    background: rgba(0, 178, 255, 0.7);
-    border-radius: 30px 30px 0 0;
-
-    display: flex;
-    justify-content: space-between;
-}
-
-.navigationContent {
-    position: absolute;
-    top: 60px;
-    left: 10px
-}
-
-.headerIcons {
-    display: flex;
-    flex-direction: row;
-    margin-right: 10px;
-}
-
-.headerText {
-    margin-left: 20px;
-    margin-top: 4px;
-    font-family: 'SF Pro Display', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 42px;
-    color: rgb(1, 88, 126);
 }
 
 .pageContent {
@@ -81,58 +28,4 @@
     width: 78%;
     margin-left: 14px;
 }
-
-.pageHeader{
-    width: 100%;
-    height: 50px;
-    display: flex;
-    flex-direction: row;
-
-    border-radius: 0 0 30px 30px;
-    background: rgba(0, 178, 255, 0.2);
-}
-
-.content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    margin-top: 12px;
-
-    border-radius: 30px;
-    background: rgba(0, 178, 255, 0.2);
-    overflow: scroll;
-}
-
-.contentHeader {
-    width: 100%;
-    height: 50px;
-    left: 0;
-    top: 0;
-
-    background: rgba(0, 178, 255, 0.7);
-    border-radius: 30px 30px 0 0;
-}
-
-.icon {
-    background-color: white;
-    border-radius: 50px;
-    width: 25px;
-    height: 25px;
-    margin-left: 10px;
-    margin-top: 12px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-
-.iconComponent {
-    color: rgba(0, 96, 137, 1);
-    border-radius: 50px;
-    width: 5px;
-    height: 25px;
-    text-align: center;
-    padding-right: 29px;
-    padding-bottom: 26px;
-}
-
 

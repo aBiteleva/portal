@@ -23,6 +23,8 @@ import home from './Home.svg';
 //@ts-ignore
 import info from './Info.svg';
 //@ts-ignore
+import korzina from './Korzina.svg';
+//@ts-ignore
 import logo from './Logo.svg';
 //@ts-ignore
 import logs from './Logs.svg';
@@ -58,6 +60,7 @@ export default {
     exit,
     home,
     info,
+    korzina,
     logo,
     logs,
     plus,
