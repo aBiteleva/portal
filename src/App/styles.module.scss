@@ -10,5 +10,38 @@ body {
 }
 
 svg, img {
-  width: 20px;
+  width: 18px;
+}
+
+.rightPanelBlock {
+  display: flex;
+  flex-direction: column;
+  color: $yellow-color;
+  height: 24px;
+  font-weight: 500;
+
+  &Title {
+    font-weight: 600;
+    padding: 4px;
+  }
+
+  &Action {
+    display: flex;
+    flex-direction: row;
+    margin: 4px 8px;
+
+    &Text {
+      align-self: center;
+    }
+
+    > div {
+      margin-top: 2px;
+      margin-right: 6px;
+    }
+  }
+}
+
+.line {
+  margin: 0 4px 6px 4px;
+  background-color: $yellow-color;
 }

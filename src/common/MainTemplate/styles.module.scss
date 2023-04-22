@@ -1,0 +1,37 @@
+@import "../../../variables";
+
+.mainTemplate{
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 14px);
+    position: relative;
+}
+
+.header{
+    height: 40px;
+
+    background: $dark-blue-color;
+
+    display: flex;
+    justify-content: end;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.pageContent {
+    display: flex;
+    flex-direction: column;
+    width: 78%;
+    padding: 6px;
+
+    &Title {
+        text-transform: uppercase;
+        color: $light-yellow-color;
+        font-weight: 700;
+    }
+}
+
