@@ -39,6 +39,8 @@ import rules from './Rules.svg';
 //@ts-ignore
 import save from './Save.svg'
 //@ts-ignore
+import status from './Status.svg'
+//@ts-ignore
 import study from './Study.svg';
 //@ts-ignore
 import tag from './Tag.svg';
@@ -68,6 +70,7 @@ export default {
     rename,
     rules,
     save,
+    status,
     study,
     tag,
     user,
