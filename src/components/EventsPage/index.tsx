@@ -1,5 +1,5 @@
 import React from 'react';
-import stylesCommon from "../../App/styles.module.scss";
+import stylesCommon from "../../common/styles/styles.module.scss";
 import styles from "./styles.module.scss";
 import MainTemplate from "../../common/MainTemplate";
 

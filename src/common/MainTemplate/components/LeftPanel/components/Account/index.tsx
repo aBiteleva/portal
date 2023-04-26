@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss'
 import Icon from "../../../../../components/Icon";
-import stylesCommon from '../../../../../../App/styles.module.scss'
+import stylesCommon from '../../../../../styles/styles.module.scss'
 
 const Account = () => {
     return <div>

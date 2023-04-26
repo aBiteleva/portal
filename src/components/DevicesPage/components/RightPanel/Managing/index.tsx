@@ -10,12 +10,12 @@ const Managing = () => {
             <div className={stylesCommon.rightPanelBlockActionText}>Статус</div>
         </div>
         <div className={stylesCommon.rightPanelBlockAction}>
-            <Icon name='rename'/>
-            <div className={stylesCommon.rightPanelBlockActionText}>Переименовать</div>
+            <Icon name='plus'/>
+            <div className={stylesCommon.rightPanelBlockActionText}>Добавить тэг</div>
         </div>
         <div className={stylesCommon.rightPanelBlockAction}>
-            <Icon name='color'/>
-            <div className={stylesCommon.rightPanelBlockActionText}>Цвет</div>
+            <Icon name='analyse'/>
+            <div className={stylesCommon.rightPanelBlockActionText}>Анализ правила</div>
         </div>
         <div className={stylesCommon.rightPanelBlockAction}>
             <Icon name='korzina'/>

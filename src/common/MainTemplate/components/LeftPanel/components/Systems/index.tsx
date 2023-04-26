@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.module.scss'
-import stylesCommon from '../../../../../../App/styles.module.scss'
+import stylesCommon from '../../../../../styles/styles.module.scss'
 import Icon from "../../../../../components/Icon";
 import resource from '../../../../../../../public/icons/icons';
 
