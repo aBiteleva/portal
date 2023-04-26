@@ -6,16 +6,12 @@ const Managing = () => {
     return <>
         <div className={stylesCommon.rightPanelBlockTitle}>Управление</div>
         <div className={stylesCommon.rightPanelBlockAction}>
-            <Icon name='status'/>
-            <div className={stylesCommon.rightPanelBlockActionText}>Статус</div>
+            <Icon name='plus'/>
+            <div className={stylesCommon.rightPanelBlockActionText}>Добавить</div>
         </div>
         <div className={stylesCommon.rightPanelBlockAction}>
-            <Icon name='rename'/>
-            <div className={stylesCommon.rightPanelBlockActionText}>Переименовать</div>
-        </div>
-        <div className={stylesCommon.rightPanelBlockAction}>
-            <Icon name='color'/>
-            <div className={stylesCommon.rightPanelBlockActionText}>Цвет</div>
+            <Icon name='info'/>
+            <div className={stylesCommon.rightPanelBlockActionText}>Информация</div>
         </div>
         <div className={stylesCommon.rightPanelBlockAction}>
             <Icon name='korzina'/>

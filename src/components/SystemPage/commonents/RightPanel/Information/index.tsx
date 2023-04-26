@@ -1,6 +1,6 @@
 
 import React from "react";
-import stylesCommon from "../../../../../App/styles.module.scss";
+import stylesCommon from "../../../../../common/styles/styles.module.scss";
 import Icon from "../../../../../common/components/Icon";
 
 const Information = () => {
