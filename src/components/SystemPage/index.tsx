@@ -6,7 +6,7 @@ import Managing from "./commonents/RightPanel/Managing";
 import Elements from "./commonents/RightPanel/Elements";
 import Information from "./commonents/RightPanel/Information";
 import AddButton from "./commonents/AddButton";
-import Header from "./commonents/RightPanel/Header";
+import Header from "../../common/components/Header";
 import SystemElements from "./commonents/SystemElements";
 
 const SystemRightPanel = () => {

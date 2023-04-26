@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.module.scss'
-import Icon from "../../../../../common/components/Icon";
+import Icon from "../Icon";
 
 const Header = () => {
     return <div className={styles.header}>

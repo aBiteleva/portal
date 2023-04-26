@@ -3,13 +3,13 @@ import stylesCommon from "../../common/styles/styles.module.scss";
 import MainTemplate from "../../common/MainTemplate";
 import Toolbar from "./components/Toolbar";
 import Devices from "./components/Devices";
-// import Header from "../../common/components/Header";
+import Header from "../../common/components/Header";
 import Managing from "./components/RightPanel/Managing";
 
 const DevicesRightPanel = () => {
     return <>
         <div className={stylesCommon.rightPanelBlock}>
-            {/*<Header />*/}
+            <Header />
             <hr className={stylesCommon.line}/>
             <Managing/>
         </div>
