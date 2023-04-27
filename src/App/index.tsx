@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import SystemPage from '../components/SystemPage';
-import './styles.module.scss';
+import '../common/styles/styles.module.scss';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import EventsPage from "../components/EventsPage";
 import LoginPage from "../components/LoginPage";
