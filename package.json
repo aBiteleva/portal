@@ -52,12 +52,9 @@
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.13.3"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "*.(ts|tsx|js|jsx)": ["yarn run lint:write", "git add"]
+    "*.{js,ts,tsx,json}": [
+      "eslint --fix"
+    ]
   }
 }
