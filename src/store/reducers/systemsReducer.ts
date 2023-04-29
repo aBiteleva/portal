@@ -1,4 +1,4 @@
-import {SystemsAction, SystemsActionTypes, SystemsState} from "../types/systemsTypes";
+import {SystemsAction, SystemsActionTypes, SystemsState} from '../types/systemsTypes';
 
 
 const initialState: SystemsState = {
@@ -6,11 +6,11 @@ const initialState: SystemsState = {
     currentSystem: null,
     loading: false,
     error: null
-}
+};
 export const systemsReducer = (state = initialState, action: SystemsAction): SystemsState => {
-    switch (action.type){
+    switch (action.type) {
         case SystemsActionTypes.SET_CURRENT_SYSTEM:
-            return {...state, currentSystem: action.payload}
+            return {...state, currentSystem: action.payload};
         case SystemsActionTypes.FETCH_SYSTEM:
             return {...state, loading: true, error: null, systems: []};
         case SystemsActionTypes.FETCH_SYSTEM_SUCCESS:
@@ -18,6 +18,6 @@ export const systemsReducer = (state = initialState, action: SystemsAction): Sys
         case SystemsActionTypes.FETCH_SYSTEM_ERROR:
             return {...state, loading: false, error: action.payload, systems: []};
         default:
-            return state
+            return state;
     }
-}
+};

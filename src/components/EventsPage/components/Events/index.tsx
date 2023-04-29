@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import commonStyles from '../../../../common/styles/styles.module.scss';
-import {mock} from "../../resources/mock";
-import Icon from "../../../../common/components/Icon";
-import {Switch} from "antd";
+import {mock} from '../../resources/mock';
+import Icon from '../../../../common/components/Icon';
+import {Switch} from 'antd';
 
 const Events = () => {
     return <>
@@ -11,10 +11,10 @@ const Events = () => {
             <div key={tag.Id} className={styles.tagContainer}>
                 <div className={styles.tagHeader}>
                     <div className={styles.tagName}>
-                        <Icon name='tag'/>
+                        <Icon name="tag"/>
                         <div>{tag.Name}</div>
                     </div>
-                    <Icon name='arrowDown'/>
+                    <Icon name="arrowDown"/>
                 </div>
                 <div className={commonStyles.elementsContainer}>
                     {tag.Events.map(element => (
@@ -28,7 +28,7 @@ const Events = () => {
                 </div>
             </div>
         ))}
-    </>
+    </>;
 };
 
 export default Events;

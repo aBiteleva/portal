@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import commonStyles from '../../../../common/styles/styles.module.scss';
-import {Switch} from "antd";
-import {useAppDispatch, useTypedSelector} from "../../../../hooks/useTypedSelector";
-import {useAction} from "../../../../hooks/useAction";
+import {Switch} from 'antd';
+import {useAppDispatch, useTypedSelector} from '../../../../hooks/useTypedSelector';
+import {useAction} from '../../../../hooks/useAction';
 import variables from '../../../../../variables.module.scss';
 
 const SystemElements = () => {
@@ -11,15 +11,15 @@ const SystemElements = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(() => fetchSystems())
-    }, [])
+        dispatch(() => fetchSystems());
+    }, []);
 
-    if(loading){
-        return <div>Идёт загрузка...</div>
+    if (loading) {
+        return <div>Идёт загрузка...</div>;
     }
 
-    if(error){
-        return <div>{error}</div>
+    if (error) {
+        return <div>{error}</div>;
     }
 
     return <div className={commonStyles.elementsContainer}>
@@ -42,10 +42,10 @@ const SystemElements = () => {
                         }
                         : undefined}>Id: {element.Id}</div>
                 </div>
-                <div className={commonStyles.switch}><Switch size='small' checked={element.IsCheck}/></div>
+                <div className={commonStyles.switch}><Switch size="small" checked={element.IsCheck}/></div>
             </div>
         ))}
-    </div>
+    </div>;
 };
 
 export default SystemElements;
