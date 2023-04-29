@@ -11,8 +11,6 @@ const Elements = () => {
       <div className={stylesCommon.rightPanelBlockAction}>
         <Icon name="events" />
         <div className={stylesCommon.rightPanelBlockActionText}>
-          {/*eslint-disable-next-line*/}
-
           <Link
             style={{ textDecoration: 'none', color: variables.yellowColor }}
             to="/events"
