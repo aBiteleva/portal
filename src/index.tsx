@@ -15,3 +15,5 @@ root.render(
     <Provider store={store}>
         <App/>
     </Provider>)
+
+export type AppDispatch = typeof store.dispatch

@@ -1,6 +1,5 @@
 import React, {FC, ReactNode} from 'react';
 import styles from './styles.module.scss'
-import {Button} from "antd";
 import Header from "./components/Header";
 import LeftPanel from "./components/LeftPanel";
 import RightPanel from "./components/RightPanel";

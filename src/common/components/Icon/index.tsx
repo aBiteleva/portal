@@ -1,11 +1,12 @@
-import React, {FC} from 'react';
+import React, {FC, MouseEventHandler} from 'react';
 import resource from "../../../../public/icons/icons";
 
 interface IconInterface {
     style?: object,
     className?: string,
     color?: string,
-    name: string
+    name: string,
+    onClick?: MouseEventHandler<HTMLDivElement>
 }
 
 export const getResource = (name:  any) => {
@@ -17,15 +18,18 @@ const Icon: FC<IconInterface> = ({
                                      className,
                                      style = {},
                                      color,
-                                     name
+                                     name,
+                                     onClick
                                  }) => {
 
     const element = getResource(name);
 
     return <>{element && <div
+        onClick={onClick}
         style={{
             ...style,
-            color
+            color,
+            cursor: onClick && 'pointer'
         }}
         className={className}
         dangerouslySetInnerHTML={{__html: element}}

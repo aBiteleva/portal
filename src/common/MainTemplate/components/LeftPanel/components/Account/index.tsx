@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {FC} from 'react';
 import styles from './styles.module.scss'
 import Icon from "../../../../../components/Icon";
 import stylesCommon from '../../../../../../App/styles.module.scss'
+import {useAppDispatch} from "../../../../../../hooks/useTypedSelector";
+import {useAction} from "../../../../../../hooks/useAction";
 
-const Account = () => {
+const Account: FC = () => {
+    const {logout} = useAction();
+    const dispatch = useAppDispatch();
+
     return <div>
         <hr className={stylesCommon.line} />
         <div className={styles.accountBlock}>
@@ -18,7 +23,7 @@ const Account = () => {
             </div>
             <div className={styles.actions}>
                 <Icon name='preference'/>
-                <Icon name='exit'/>
+                <Icon name='exit' onClick={() => dispatch(() => logout())}/>
             </div>
 
         </div>
