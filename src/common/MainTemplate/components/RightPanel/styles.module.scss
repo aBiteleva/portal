@@ -1,0 +1,13 @@
+@import "../../../../../variables";
+
+.rightPanel {
+  width: 22%;
+  height: 100%;
+  position: relative;;
+  background: $dark-blue-color;
+  border-left: 1px solid $border-color;
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  padding-left: 4px;
+}

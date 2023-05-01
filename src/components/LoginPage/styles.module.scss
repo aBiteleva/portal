@@ -1,0 +1,46 @@
+@import "../../../variables";
+
+.auth {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+
+  &Component {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 450px;
+  }
+
+  &Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 90px;
+    background-color: #eee;
+    border: 1px solid #e2e2e2;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .15));
+    border-radius: 3px;
+    width: 100%;
+
+    .input {
+      margin-bottom: 18px;
+    }
+
+    .button {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+
+  &Title {
+    font-size: 16px;
+    font-weight: 700;
+    color: $dark-blue-color;
+    margin-bottom: 20px;
+  }
+}

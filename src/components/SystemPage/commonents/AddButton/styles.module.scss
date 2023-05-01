@@ -1,0 +1,19 @@
+@import "../../../../../variables";
+
+.addButton {
+    button {
+        display: flex;
+        flex-direction: row;
+        background-color: inherit;
+        border: 1px solid $border-color;
+        border-radius: 5px;
+        color: $light-yellow-color;
+        padding: 2px 4px;
+
+        svg {
+            width: 12px;
+            margin-top: 2px;
+            margin-left: 4px;
+        }
+    }
+}
