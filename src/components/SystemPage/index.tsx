@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import MainTemplate from '../../common/MainTemplate';
 import stylesCommon from '../../common/styles/styles.module.scss';
 import styles from './styles.module.scss';
@@ -8,10 +8,11 @@ import Information from './commonents/RightPanel/Information';
 import AddButton from './commonents/AddButton';
 import Header from '../../common/components/Header';
 import SystemElements from './commonents/SystemElements';
+import {useAppDispatch, useTypedSelector} from "../../hooks/useTypedSelector";
+import {useAction} from "../../hooks/useAction";
+import {setCurrentSystems, setSystemPagesWay} from "../../store/action-creators/systems";
 
 const SystemRightPanel = () => {
-    console.log('hrl');
-
     return <>
         <div className={stylesCommon.rightPanelBlock}>
             <Header/>
@@ -25,11 +26,55 @@ const SystemRightPanel = () => {
     </>;
 };
 const SystemPage = () => {
-    return <MainTemplate blocks={<SystemRightPanel/>} page="ARS / системы / завод - краснореченская 107">
+    const {
+        isLoading,
+        error,
+        systems,
+        currentSystem,
+        systemPagesWay,
+        currentSystems
+    } = useTypedSelector(state => state.systemsValues);
+    const {fetchSystems, setSystemPagesWay, setCurrentSystems} = useAction();
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(() => fetchSystems());
+    }, []);
+
+    useEffect(() => {
+        setCurrentSystems(systems);
+        dispatch(() => setSystemPagesWay([{
+            name: 'ARS',
+            code: '0000',
+            systems
+        }]));
+    }, [systems])
+
+    if (isLoading) {
+        return <div>Идёт загрузка...</div>;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
+
+    const onDoubleClick = (elementChildren: any[]) => {
+        if (elementChildren && elementChildren.length > 0) {
+            dispatch(() => setSystemPagesWay([...systemPagesWay, {
+                name: currentSystem.name,
+                code: currentSystem.code,
+                systems: elementChildren
+            }]));
+            setCurrentSystems(elementChildren);
+        }
+    }
+
+
+    return <MainTemplate blocks={<SystemRightPanel/>}>
         <div className={styles.addButton}>
             <AddButton/>
         </div>
-        <SystemElements/>
+        <SystemElements systems={currentSystems} onDoubleClick={onDoubleClick}/>
     </MainTemplate>;
 };
 

@@ -1,48 +1,42 @@
-import React, {useEffect} from 'react';
+import React, {FC} from 'react';
 import commonStyles from '../../../../common/styles/styles.module.scss';
 import {Switch} from 'antd';
-import {useAppDispatch, useTypedSelector} from '../../../../hooks/useTypedSelector';
+import {useTypedSelector} from '../../../../hooks/useTypedSelector';
 import {useAction} from '../../../../hooks/useAction';
 import variables from '../../../../../variables.module.scss';
 
-const SystemElements = () => {
-    const {loading, error, systems, currentSystem} = useTypedSelector(state => state.systemsValues);
-    const {fetchSystems, setCurrentSystem} = useAction();
-    const dispatch = useAppDispatch();
+interface SystemElementsInterface {
+    systems: any[],
+    onDoubleClick: (elementChildren: any[]) => void;
+}
+const SystemElements: FC<SystemElementsInterface> = ({systems, onDoubleClick}) => {
 
-    useEffect(() => {
-        dispatch(() => fetchSystems());
-    }, []);
-
-    if (loading) {
-        return <div>Идёт загрузка...</div>;
-    }
-
-    if (error) {
-        return <div>{error}</div>;
-    }
+    const {currentSystem} = useTypedSelector(state => state.systemsValues);
+    const {setCurrentSystem} = useAction();
 
     return <div className={commonStyles.elementsContainer}>
-        {systems.map(element => (
+        {systems?.map(element => (
             <div
                 className={commonStyles.element}
-                style={currentSystem === element.Id
+                style={currentSystem.code === element.code
                     ? {
                         background: variables.yellowColor,
                         color: variables.darkBlueColor
                     }
                     : undefined}
-                key={element.Id}
-                onClick={() => setCurrentSystem(element.Id)}>
+                key={element.code}
+                onClick={() => setCurrentSystem(element)}
+                onDoubleClick={() => onDoubleClick(element.children)}
+            >
                 <div className={commonStyles.text}>
-                    <div>{element.Name}</div>
-                    <div className={commonStyles.textId} style={currentSystem === element.Id
+                    <div>{element.name}</div>
+                    <div className={commonStyles.textId} style={currentSystem.code === element.code
                         ? {
                             color: variables.greyColor
                         }
-                        : undefined}>Id: {element.Id}</div>
+                        : undefined}>Id: {element.code}</div>
                 </div>
-                <div className={commonStyles.switch}><Switch size="small" checked={element.IsCheck}/></div>
+                <div className={commonStyles.switch}><Switch size="small" checked={element?.IsCheck}/></div>
             </div>
         ))}
     </div>;
