@@ -5,6 +5,16 @@ export interface SystemsInterface {
     children: SystemsInterface[]
 }
 
+export interface AddSystemInterface {
+    name: string
+}
+
+export interface DeleteSystemInterface {
+    code: string,
+    confirmAttach: boolean,
+    confirmComponent: boolean
+}
+
 export interface SystemPagesWayInterface {
     name: string,
     code: string,

@@ -11,6 +11,7 @@ import SystemElements from './commonents/SystemElements';
 import {useAppDispatch, useTypedSelector} from "../../hooks/useTypedSelector";
 import {useAction} from "../../hooks/useAction";
 import {setCurrentSystems, setSystemPagesWay} from "../../store/action-creators/systems";
+import AddModal from "./commonents/AddModal";
 
 const SystemRightPanel = () => {
     return <>
@@ -36,6 +37,8 @@ const SystemPage = () => {
     } = useTypedSelector(state => state.systemsValues);
     const {fetchSystems, setSystemPagesWay, setCurrentSystems} = useAction();
     const dispatch = useAppDispatch();
+
+    const [isAddModalVisible, setIsAddModalVisible] = useState(false);
 
     useEffect(() => {
         dispatch(() => fetchSystems());
@@ -72,9 +75,10 @@ const SystemPage = () => {
 
     return <MainTemplate blocks={<SystemRightPanel/>}>
         <div className={styles.addButton}>
-            <AddButton/>
+            <AddButton onClick={() => setIsAddModalVisible(true)}/>
         </div>
         <SystemElements systems={currentSystems} onDoubleClick={onDoubleClick}/>
+        <AddModal isVisible={isAddModalVisible} setIsVisible={setIsAddModalVisible}/>
     </MainTemplate>;
 };
 

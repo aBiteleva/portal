@@ -20,18 +20,19 @@ const MainTemplate: FC<MainTemplateInterface> = ({blocks, children}) => {
 
     const onPageNameClick = (page: SystemPagesWayInterface) => {
         dispatch(() => setCurrentSystems(page.systems));
-        systemPagesWay.splice(systemPagesWay.indexOf(page)+1, 1);
-        console.log({systemPagesWay})
+        systemPagesWay.splice(systemPagesWay.indexOf(page) + 1, systemPagesWay.length);
     };
 
     return <div className={styles.mainTemplate}>
-        <Header />
+        <Header/>
         <div className={styles.container}>
-            <LeftPanel />
+            <LeftPanel/>
 
             <div className={styles.pageContent}>
-                {systemPagesWay?.map(page => <div key={page.code} onClick={() => onPageNameClick(page)} className={styles.pageContentTitle}>{page.name} / </div>)}
-
+                <div className={styles.pageContentHeader}>
+                    {systemPagesWay?.map(page => <div key={page.code} onClick={() => onPageNameClick(page)}
+                                                      className={styles.pageContentHeaderTitle}>{page.name} / </div>)}
+                </div>
                 {children}
             </div>
 

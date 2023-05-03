@@ -6,7 +6,7 @@ interface IconInterface {
     className?: string,
     color?: string,
     name: string,
-    onClick?: MouseEventHandler<HTMLDivElement>
+    onClick?: () => void
 }
 
 export const getResource = (name:  any) => {

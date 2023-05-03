@@ -39,6 +39,11 @@ svg, img {
       margin-right: 6px;
     }
   }
+
+  &Action:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 
 .line {
@@ -81,6 +86,7 @@ svg, img {
   }
 
   .element:hover {
+    cursor: pointer;
     background-color: $hover-yellow-color;
   }
 }

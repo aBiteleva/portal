@@ -9,9 +9,7 @@
 
 .header{
     height: 40px;
-
     background: $dark-blue-color;
-
     display: flex;
     justify-content: end;
 }
@@ -28,10 +26,17 @@
     width: 78%;
     padding: 6px;
 
-    &Title {
-        text-transform: uppercase;
-        color: $light-yellow-color;
-        font-weight: 700;
+    &Header {
+        display: flex;
+        flex-direction: row;
+
+        &Title {
+            text-transform: uppercase;
+            color: $light-yellow-color;
+            font-weight: 700;
+            margin-left: 4px;
+            cursor: pointer;
+        }
     }
 }
 
