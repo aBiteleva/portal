@@ -1,0 +1,120 @@
+@import "../../../variables.module";
+
+body {
+  margin: 0;
+  background-color: $background-color;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: $light-grey-color;
+  font-weight: 500;
+}
+
+svg, img {
+  width: 18px;
+}
+
+.rightPanelBlock {
+  display: flex;
+  flex-direction: column;
+  color: $yellow-color;
+  height: 24px;
+  font-weight: 500;
+
+  &Title {
+    font-weight: 600;
+    padding: 4px;
+  }
+
+  &Action {
+    display: flex;
+    flex-direction: row;
+    margin: 4px 8px;
+
+    &Text {
+      align-self: center;
+    }
+
+    > div {
+      margin-top: 2px;
+      margin-right: 6px;
+    }
+  }
+
+  &Action:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+.line {
+  margin: 0 4px 6px 4px;
+  background-color: $yellow-color;
+}
+
+.elementsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .element {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    background-color: $dark-blue-color;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    height: 34px;
+    width: 200px;
+    padding: 4px;
+    margin: 6px;
+
+    .text {
+      display: flex;
+      flex-direction: column;
+
+      &Id {
+        color: $middle-white;
+        font-size: 10px;
+        margin-top: 4px;
+      }
+    }
+    .switch {
+      align-self: start;
+    }
+  }
+
+  .element:hover {
+    cursor: pointer;
+    background-color: $hover-yellow-color;
+  }
+}
+
+.toolbar{
+  display: flex;
+  flex-direction: row;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+  margin: 8px 0;
+  padding: 6px;
+
+  > div {
+    display: flex;
+    flex-direction: row;
+    text-transform: uppercase;
+    margin-left: 12px;
+
+    div {
+      margin-left: 4px;
+    }
+
+    svg {
+      width: 14px;
+    }
+  }
+
+  > div:first-child {
+    margin-left: 0;
+  }
+}

@@ -19,6 +19,8 @@ import events from './Events.svg'
 //@ts-ignore
 import exit from './Exit.svg';
 //@ts-ignore
+import exportIcon from './Export.svg';
+//@ts-ignore
 import home from './Home.svg';
 //@ts-ignore
 import info from './Info.svg';
@@ -60,6 +62,7 @@ export default {
     edit,
     events,
     exit,
+    exportIcon,
     home,
     info,
     korzina,

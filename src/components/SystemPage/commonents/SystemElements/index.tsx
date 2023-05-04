@@ -1,25 +1,45 @@
-import React from 'react';
-import styles from './styles.module.scss';
-import { useSelector } from "react-redux";
-import {Switch} from "antd";
-import {mock} from "../../resources/mock";
-import {useTypedSelector} from "../../../../hooks/useTypedSelector";
+import React, {FC} from 'react';
+import commonStyles from '../../../../common/styles/styles.module.scss';
+import {Switch} from 'antd';
+import {useTypedSelector} from '../../../../hooks/useTypedSelector';
+import {useAction} from '../../../../hooks/useAction';
+import variables from '../../../../../variables.module.scss';
 
-const SystemElements = () => {
-    const {systems, currentSystem} = useTypedSelector(state => state.systemsValues)
-    console.log(systems)
+interface SystemElementsInterface {
+    systems: any[],
+    onDoubleClick: (elementChildren: any[]) => void;
+}
+const SystemElements: FC<SystemElementsInterface> = ({systems, onDoubleClick}) => {
 
-    return <div className={styles.systemElementsContent}>
-        {mock.map(element => (
-            <div className={styles.element}>
-                <div className={styles.text}>
-                    <div>{element.Name}</div>
-                    <div className={styles.textId}>Id: {element.Id}</div>
+    const {currentSystem} = useTypedSelector(state => state.systemsValues);
+    const {setCurrentSystem} = useAction();
+
+    return <div className={commonStyles.elementsContainer}>
+        {systems?.map(element => (
+            <div
+                className={commonStyles.element}
+                style={currentSystem.code === element.code
+                    ? {
+                        background: variables.yellowColor,
+                        color: variables.darkBlueColor
+                    }
+                    : undefined}
+                key={element.code}
+                onClick={() => setCurrentSystem(element)}
+                onDoubleClick={() => onDoubleClick(element.children)}
+            >
+                <div className={commonStyles.text}>
+                    <div>{element.name}</div>
+                    <div className={commonStyles.textId} style={currentSystem.code === element.code
+                        ? {
+                            color: variables.greyColor
+                        }
+                        : undefined}>Id: {element.code}</div>
                 </div>
-                <div className={styles.switch}><Switch size='small' checked={element.IsCheck}/></div>
+                <div className={commonStyles.switch}><Switch size="small" checked={element?.IsCheck}/></div>
             </div>
         ))}
-    </div>
+    </div>;
 };
 
 export default SystemElements;

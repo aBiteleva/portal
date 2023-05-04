@@ -5,9 +5,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: prod ? 'production' : 'development',
+    devtool: prod ? undefined : 'source-map',
     entry: './src/index.tsx',
     output: {
         path: __dirname + '/dist/',
+        publicPath: '/'
+    },
+    devServer: {
+        historyApiFallback: true
     },
     module: {
         rules: [
@@ -36,7 +41,7 @@ module.exports = {
             }
         ]
     },
-    devtool: prod ? undefined : 'source-map',
+
     plugins: [
         new HtmlWebpackPlugin({
             template: 'index.html',

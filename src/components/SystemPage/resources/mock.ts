@@ -79,5 +79,4 @@ export const mock = [
         Name: 'Цех по монтажу двигателя',
         IsCheck: false
     },
-
-]
+];
