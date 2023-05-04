@@ -25,7 +25,7 @@ const SystemElements: FC<SystemElementsInterface> = ({systems, onDoubleClick}) =
                     }
                     : undefined}
                 key={element.code}
-                onClick={() => setCurrentSystem(element)}
+                onClick={() => setCurrentSystem({...element, systems})}
                 onDoubleClick={() => onDoubleClick(element.children)}
             >
                 <div className={commonStyles.text}>
