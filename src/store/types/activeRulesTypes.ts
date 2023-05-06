@@ -13,17 +13,25 @@ export interface ActiveRulesInterface {
     event: EventResponse[]
 }
 
+export enum RulesPerformance {
+    list= 'list',
+    lang = 'lang',
+    graph = 'graph',
+    table = 'table'
+}
 
 export interface ActiveRulesState {
     activeRules: ActiveRulesInterface[],
     isLoading: boolean,
-    error: string | null
+    error: string | null,
+    currentPerformance: RulesPerformance
 }
 
 export enum ActiveRulesActionTypes {
     FETCH_RULES_SYSTEM_CODE = 'FETCH_RULES_SYSTEM_CODE',
     FETCH_RULES_SYSTEM_CODE_SUCCESS = 'FETCH_RULES_SYSTEM_CODE_SUCCESS',
-    FETCH_RULES_SYSTEM_CODE_ERROR = 'FETCH_RULES_SYSTEM_CODE_ERROR'
+    FETCH_RULES_SYSTEM_CODE_ERROR = 'FETCH_RULES_SYSTEM_CODE_ERROR',
+    SET_CURRENT_PERFORMANCE = 'SET_CURRENT_PERFORMANCE'
 }
 
 interface FetchActiveRulesBySystemCodeAction {
@@ -40,5 +48,10 @@ interface FetchActiveRulesBySystemCodeErrorAction {
     payload: string;
 }
 
+interface SetCurrentPerformanceAction {
+    type: ActiveRulesActionTypes.SET_CURRENT_PERFORMANCE;
+    payload: RulesPerformance;
+}
+
 export type ActiveRulesAction = FetchActiveRulesBySystemCodeAction
-    | FetchActiveRulesBySystemCodeSuccessAction |FetchActiveRulesBySystemCodeErrorAction
+    | FetchActiveRulesBySystemCodeSuccessAction |FetchActiveRulesBySystemCodeErrorAction | SetCurrentPerformanceAction

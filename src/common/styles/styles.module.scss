@@ -80,6 +80,7 @@ svg, img {
         margin-top: 4px;
       }
     }
+
     .switch {
       align-self: start;
     }
@@ -91,27 +92,35 @@ svg, img {
   }
 }
 
-.toolbar{
+.toolbar {
   display: flex;
   flex-direction: row;
   border: 1px solid $border-color;
   border-radius: 5px;
   margin: 8px 0;
   padding: 6px;
+  color: $light-grey-color;
+  text-transform: uppercase;
+  align-items: center;
+  font-weight: 400;
+  font-size: 14px;
 
-  > div {
-    display: flex;
-    flex-direction: row;
-    text-transform: uppercase;
-    margin-left: 12px;
+  > div [class="ant-select-selector"] {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
 
-    div {
-      margin-left: 4px;
+    >span {
+      color: $light-grey-color !important;
     }
+  }
 
-    svg {
-      width: 14px;
-    }
+  > div [class="ant-select-arrow"] {
+    color: $light-grey-color;
+  }
+
+  > div [class="ant-select-selector"]:hover {
+    border-color: $border-color !important;
   }
 
   > div:first-child {

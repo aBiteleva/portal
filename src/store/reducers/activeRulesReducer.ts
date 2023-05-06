@@ -1,9 +1,10 @@
-import {ActiveRulesAction, ActiveRulesActionTypes, ActiveRulesState} from "../types/activeRulesTypes";
+import {ActiveRulesAction, ActiveRulesActionTypes, ActiveRulesState, RulesPerformance} from "../types/activeRulesTypes";
 
 const initialState: ActiveRulesState = {
     activeRules: [],
     isLoading: false,
-    error: null
+    error: null,
+    currentPerformance: RulesPerformance.list
 };
 
 export const activeRulesReducer = (state = initialState, action: ActiveRulesAction): ActiveRulesState => {
@@ -14,6 +15,8 @@ export const activeRulesReducer = (state = initialState, action: ActiveRulesActi
             return {...state, isLoading: false, error: null, activeRules: action.payload};
         case ActiveRulesActionTypes.FETCH_RULES_SYSTEM_CODE_ERROR:
             return {...state, isLoading: false, error: action.payload, activeRules: []};
+            case ActiveRulesActionTypes.SET_CURRENT_PERFORMANCE:
+            return {...state, currentPerformance: action.payload};
         default:
             return state;
     }

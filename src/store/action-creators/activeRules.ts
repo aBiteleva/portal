@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux';
-import {ActiveRulesAction, ActiveRulesActionTypes} from "../types/activeRulesTypes";
+import {ActiveRulesAction, ActiveRulesActionTypes, RulesPerformance} from "../types/activeRulesTypes";
 import {ActiveRuleService} from "../../api/services/ActiveRuleService";
 
 export const fetchActiveRuleBySystemCode = (code: string): any => {
@@ -14,5 +14,9 @@ export const fetchActiveRuleBySystemCode = (code: string): any => {
             dispatch({type: ActiveRulesActionTypes.FETCH_RULES_SYSTEM_CODE_ERROR, payload: 'Произошла ошибка загрузки систем: ' + e});
         }
     };
+};
+
+export const setCurrentPerformance = (performance: RulesPerformance): ActiveRulesAction => {
+    return {type: ActiveRulesActionTypes.SET_CURRENT_PERFORMANCE, payload: performance};
 };
 
