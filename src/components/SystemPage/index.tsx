@@ -54,7 +54,7 @@ const SystemPage = () => {
     }, [systems])
 
     if (isLoading) {
-        return <div>Идёт загрузка...</div>;
+        return <div>Идёт загрузка систем...</div>;
     }
 
     if (error) {
@@ -64,7 +64,7 @@ const SystemPage = () => {
     const onDoubleClick = (elementChildren: any[]) => {
         if (elementChildren && elementChildren.length > 0) {
             dispatch(() => setSystemPagesWay([...systemPagesWay, {
-                name: currentSystem.name,
+                name: ` / ${currentSystem.name}`,
                 code: currentSystem.code,
                 systems: elementChildren
             }]));

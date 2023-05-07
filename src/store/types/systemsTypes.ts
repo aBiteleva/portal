@@ -1,8 +1,8 @@
 export interface SystemsInterface {
     name: string,
     code: string,
-    parentCode?: string,
-    children: SystemsInterface[]
+    children: SystemsInterface[],
+    parentCode?: string
 }
 
 export interface AddSystemInterface {

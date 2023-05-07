@@ -22,7 +22,6 @@ export const setSystemPagesWay = (systemPagesWay: SystemPagesWayInterface[]): Sy
 
 export const fetchSystems = (): any => {
     return async (dispatch: Dispatch<SystemsAction>) => {
-        console.log('fetch')
         try {
             dispatch({type: SystemsActionTypes.FETCH_SYSTEM});
             const response = await SystemService.fetchSystems(true);

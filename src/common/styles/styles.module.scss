@@ -66,7 +66,7 @@ svg, img {
     border: 1px solid $border-color;
     border-radius: 5px;
     height: 34px;
-    width: 200px;
+    width: 214px;
     padding: 4px;
     margin: 6px;
 
@@ -80,6 +80,7 @@ svg, img {
         margin-top: 4px;
       }
     }
+
     .switch {
       align-self: start;
     }
@@ -91,30 +92,83 @@ svg, img {
   }
 }
 
-.toolbar{
+.toolbar {
   display: flex;
   flex-direction: row;
   border: 1px solid $border-color;
   border-radius: 5px;
   margin: 8px 0;
   padding: 6px;
-
-  > div {
-    display: flex;
-    flex-direction: row;
-    text-transform: uppercase;
-    margin-left: 12px;
-
-    div {
-      margin-left: 4px;
-    }
-
-    svg {
-      width: 14px;
-    }
-  }
+  color: $light-grey-color;
+  text-transform: capitalize;
+  align-items: center;
+  font-weight: 400;
+  font-size: 12px;
 
   > div:first-child {
     margin-left: 0;
   }
+}
+
+div[class="ant-select-selector"] {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+
+  >span {
+    color: $light-grey-color !important;
+  }
+}
+
+span[class="ant-select-arrow"] {
+  color: $light-grey-color !important;
+}
+
+div[class="ant-select-selector"]:hover {
+  border-color: $border-color !important;
+}
+
+div[class~="ant-table-wrapper"] {
+  width: 100%;
+}
+
+div[class~="ant-table"] {
+  width: 100%;
+  background: transparent !important;
+  color: $light-grey-color !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+
+th[class="ant-table-cell"] {
+  background: transparent !important;
+  color: $light-grey-color !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  border-bottom: 1px solid $border-color !important;
+}
+
+td[class="ant-table-cell"] {
+  border-right: 1px solid $border-color;
+  border-bottom: 1px solid $border-color !important;
+}
+
+td[class="ant-table-cell"]:last-child {
+  border-right: none;
+}
+
+tr[class~="ant-table-row"]:last-child {
+  td{
+    border-bottom: none !important;
+  }
+}
+
+td[class="ant-table-cell ant-table-cell-row-hover"] {
+  background: $background-color-opacity !important;
+  border-right: 1px solid $border-color;
+  border-bottom: 1px solid $border-color !important;
+}
+
+td[class="ant-table-cell ant-table-cell-row-hover"]:last-child {
+  border-right: none !important;
 }

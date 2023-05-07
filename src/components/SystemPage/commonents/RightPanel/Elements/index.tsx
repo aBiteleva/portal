@@ -24,7 +24,7 @@ const Elements = () => {
                 <div className={stylesCommon.rightPanelBlockActionText}>
                     <Link
                         style={{textDecoration: 'none', color: variables.yellowColor}}
-                        to="/devices"
+                        to="/active-rules"
                     >
                         Список правил
                     </Link>
