@@ -108,6 +108,16 @@ svg, img {
   > div:first-child {
     margin-left: 0;
   }
+
+  &Extra {
+    text-transform: uppercase;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    top: 75px;
+    left: 29vw;
+  }
 }
 
 div[class="ant-select-selector"] {

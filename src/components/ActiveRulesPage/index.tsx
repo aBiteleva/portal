@@ -6,7 +6,6 @@ import Header from '../../common/components/Header';
 import Managing from './components/RightPanel/Managing';
 import {useAppDispatch, useTypedSelector} from "../../hooks/useTypedSelector";
 import {useAction} from "../../hooks/useAction";
-import Toolbar from "./components/Toolbar";
 import {RulesPerformance} from "../../store/types/activeRulesTypes";
 import RuleGraph from "./components/Performance/RuleGraph";
 import RuleTable from "./components/Performance/RuleTable";
@@ -58,7 +57,6 @@ const ActiveRulesPage = () => {
     }
 
     return <MainTemplate blocks={<ActiveRulesRightPanel/>}>
-        <Toolbar />
         {getCurrentPerformance()}
     </MainTemplate>;
 };
