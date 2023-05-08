@@ -1,4 +1,4 @@
-import React, {FC, MouseEventHandler} from 'react';
+import React, {FC} from 'react';
 import resource from "../../../../public/icons/icons";
 
 interface IconInterface {
@@ -6,10 +6,10 @@ interface IconInterface {
     className?: string,
     color?: string,
     name: string,
-    onClick?: MouseEventHandler<HTMLDivElement>
+    onClick?: () => void
 }
 
-export const getResource = (name:  any) => {
+export const getResource = (name: any) => {
     //@ts-ignore
     return resource[name];
 };

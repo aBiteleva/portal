@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import SystemPage from '../components/SystemPage';
-import './styles.module.scss';
+import '../common/styles/styles.module.scss';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import EventsPage from "../components/EventsPage";
+import ActiveRulesPage from "../components/ActiveRulesPage";
 import LoginPage from "../components/LoginPage";
 import {useAction} from "../hooks/useAction";
 import {useAppDispatch, useTypedSelector} from "../hooks/useTypedSelector";
@@ -30,7 +30,7 @@ const App = (props: any) => {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<SystemPage {...props} />} />
-                <Route path="/events" element={<EventsPage {...props} />} />
+                <Route path="/active-rules" element={<ActiveRulesPage {...props} />} />
             </Routes>
         </BrowserRouter>
     );

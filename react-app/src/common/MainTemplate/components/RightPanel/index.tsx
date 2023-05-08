@@ -1,6 +1,6 @@
 import React, {FC, ReactNode} from 'react';
 // @ts-ignore
-import styles from './styles.module.scss'
+import styles from './styles.module.scss';
 
 interface RightPanelInterface {
     blocks: ReactNode,
