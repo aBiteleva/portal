@@ -23,7 +23,10 @@
   },
   "scripts": {
     "dev": "webpack serve --port 3000",
-    "build": "NODE_ENV=production webpack"
+    "build": "NODE_ENV=production webpack",
+    "lint:es": "eslint --ext .js,.jsx,.ts,.tsx src --fix",
+    "lint": "tsc && npm run eslint",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
