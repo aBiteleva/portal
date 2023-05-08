@@ -30,6 +30,7 @@ const App = (props: any) => {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<SystemPage {...props} />} />
+                <Route path="/event" element={<div>1345</div>} />
                 <Route path="/active-rules" element={<ActiveRulesPage {...props} />} />
             </Routes>
         </BrowserRouter>

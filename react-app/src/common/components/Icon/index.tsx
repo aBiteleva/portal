@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
-import resource from "../../../../public/icons/icons";
+import resource from "../Icon/resources/icons";
+import * as calendar from '../../../../../root-config/public/images/Calendar.svg'
 
 interface IconInterface {
     style?: object,
@@ -24,16 +25,21 @@ const Icon: FC<IconInterface> = ({
 
     const element = getResource(name);
 
-    return <>{element && <div
+    console.log(element)
+
+    return <>
+        {element && <div
+        // src="images/Copy.svg"
         onClick={onClick}
         style={{
             ...style,
-            color,
+            color: '#fff',
             cursor: onClick && 'pointer'
         }}
         className={className}
         dangerouslySetInnerHTML={{__html: element}}
-    />}</>;
+    />}
+    </>;
 };
 
 export default Icon;

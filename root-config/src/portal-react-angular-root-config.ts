@@ -12,13 +12,13 @@ import { LifeCycles, registerApplication, start } from "single-spa";
 registerApplication({
   name: "@portal-react-angular/react-app",
   app: () => System.import<LifeCycles>("@portal-react-angular/react-app"),
-  activeWhen: ["/"],
+  activeWhen: "/",
 });
 
 registerApplication({
   name: "@portal-react-angular/angular-app",
   app: () => System.import<LifeCycles>("@portal-react-angular/angular-app"),
-  activeWhen: ["/"],
+  activeWhen: ["/event"],
   customProps: { domElement: document.getElementById("angular") },
 });
 
