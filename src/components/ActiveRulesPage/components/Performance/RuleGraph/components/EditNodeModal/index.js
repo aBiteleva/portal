@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import {Button, Input, Modal} from 'antd';
 import styles from './styles.module.css';
 import {useForm, Controller} from 'react-hook-form';
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 const EditNodeModal = ({isVisible, onCancel, onEdit, node}) => {
 
     const {reset, control, handleSubmit} = useForm();
@@ -37,6 +37,13 @@ const EditNodeModal = ({isVisible, onCancel, onEdit, node}) => {
             </div>
         </form>
     </Modal>;
+};
+
+EditNodeModal.propTypes = {
+    isVisible: PropTypes.bool,
+    onCancel: PropTypes.func,
+    onEdit: PropTypes.func,
+    node: PropTypes.object
 };
 
 export default EditNodeModal;

@@ -7,18 +7,10 @@ import Managing from './components/RightPanel/Managing';
 import {useAppDispatch, useTypedSelector} from '../../hooks/useTypedSelector';
 import {useAction} from '../../hooks/useAction';
 import {RulesPerformance} from '../../store/types/activeRulesTypes';
-import RuleGraph from './components/Performance/RuleGraph';
+import RuleGraph from './components/Performance/RuleGraph/index';
 import RuleTable from './components/Performance/RuleTable';
+import RightPanel from './components/RightPanel';
 
-const ActiveRulesRightPanel = () => {
-    return <>
-        <div className={stylesCommon.rightPanelBlock}>
-            <Header/>
-            <hr className={stylesCommon.line}/>
-            <Managing/>
-        </div>
-    </>;
-};
 const ActiveRulesPage = () => {
     const {currentSystem, systemPagesWay} = useTypedSelector(state => state.systemsValues);
     const {isLoading, error, currentPerformance} = useTypedSelector(state => state.activeRulesValues);
@@ -46,9 +38,13 @@ const ActiveRulesPage = () => {
     const getCurrentPerformance = () => {
         switch (currentPerformance) {
             case RulesPerformance.list:
-                return <RuleList />;
+                return <MainTemplate blocks={<RightPanel/>}>
+                    <RuleList />
+                </MainTemplate>;
             case RulesPerformance.table:
-                return <RuleTable />;
+                return <MainTemplate blocks={<RightPanel/>}>
+                    <RuleTable />
+                </MainTemplate>;
             case RulesPerformance.lang:
                 return <></>;
             case RulesPerformance.graph:
@@ -56,9 +52,7 @@ const ActiveRulesPage = () => {
         }
     };
 
-    return <MainTemplate blocks={<ActiveRulesRightPanel/>}>
-        {getCurrentPerformance()}
-    </MainTemplate>;
+    return getCurrentPerformance();
 };
 
 export default ActiveRulesPage;

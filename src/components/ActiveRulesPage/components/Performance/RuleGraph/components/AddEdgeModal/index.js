@@ -2,19 +2,19 @@ import React, {useEffect} from 'react';
 import {Button, Input, Modal} from 'antd';
 import styles from './styles.module.css';
 import {Controller, useForm} from 'react-hook-form';
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 const AddEdgeModal = ({isVisible, onCancel, onOk}) => {
 
     const {reset, control, handleSubmit, register} = useForm({
-        parent: '0',
-        child: '0'
+        parent: '',
+        child: ''
     });
 
     useEffect(() => {
         reset({
-            parent: '0',
-            child: '0'
+            parent: '',
+            child: ''
         });
     }, []);
 
@@ -54,6 +54,12 @@ const AddEdgeModal = ({isVisible, onCancel, onOk}) => {
             </div>
         </form>
     </Modal>;
+};
+
+AddEdgeModal.propTypes = {
+    isVisible: PropTypes.bool,
+    onCancel: PropTypes.func,
+    onOk: PropTypes.func
 };
 
 export default AddEdgeModal;
