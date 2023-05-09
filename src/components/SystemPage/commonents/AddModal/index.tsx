@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import styles from './styles.module.scss';
-import {Button, Form, Input, Modal} from "antd";
-import {useAction} from "../../../../hooks/useAction";
-import {useAppDispatch} from "../../../../hooks/useTypedSelector";
-import {AddSystemInterface} from "../../../../store/types/systemsTypes";
+import {Button, Form, Input, Modal} from 'antd';
+import {useAction} from '../../../../hooks/useAction';
+import {useAppDispatch} from '../../../../hooks/useTypedSelector';
+import {AddSystemInterface} from '../../../../store/types/systemsTypes';
 
 interface AddModalInterface {
     isVisible: boolean;
@@ -16,13 +16,13 @@ const AddModal: FC<AddModalInterface> = ({isVisible, setIsVisible}) => {
 
     const handleCancel = () => {
         setIsVisible(false);
-    }
+    };
 
     const onFinish = async (data: AddSystemInterface) => {
         await dispatch(() => addSystem(data));
 
         setIsVisible(false);
-    }
+    };
 
     return <>
         <Modal
@@ -30,7 +30,7 @@ const AddModal: FC<AddModalInterface> = ({isVisible, setIsVisible}) => {
             open={isVisible}
             onCancel={handleCancel}
             footer={[
-                <Button type='primary' form="addSystemForm" key="submit" htmlType="submit">
+                <Button type="primary" form="addSystemForm" key="submit" htmlType="submit">
                     Сохранить
                 </Button>
             ]}

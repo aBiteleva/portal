@@ -1,10 +1,13 @@
-import {useEffect, useState} from "react";
-import Graph from "react-graph-vis";
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import Graph from 'react-graph-vis';
 import variables from '../../../../../../../../variables.module.scss';
-import {Select} from "antd";
-import commonStyles from "../../../../../../../common/styles/styles.module.scss";
-import EditNodeModal from "../EditNodeModal";
+import {Select} from 'antd';
+import commonStyles from '../../../../../../../common/styles/styles.module.scss';
+// eslint-disable-next-line import/namespace
+import EditNodeModal from '../EditNodeModal';
+import AddEdgeModal from '../AddEdgeModal';
+import styles from '../../styles.module.scss';
+import Icon from '../../../../../../../common/components/Icon';
 
 const options = {
     layout: {
@@ -44,27 +47,28 @@ const getColor = (type) => {
         case 'event':
             return variables.eventColor;
     }
-}
+};
 
 const GraphComponent = () => {
         const [currentNode, setCurrentNode] = useState();
         const [currentNodeId, setCurrentNodeId] = useState();
 
         useEffect(() => {
-            setCurrentNode(state.graph.nodes.find(node => node.id === currentNodeId))
-        }, [currentNodeId, state?.graph.nodes])
+            setCurrentNode(state.graph.nodes.find(node => node.id === currentNodeId));
+        }, [currentNodeId, state?.graph.nodes]);
 
         const [isEditGraphModalVisible, setIsEditGraphModalVisible] = useState(false);
+        const [isAddEdgeModalVisible, setIsAddEdgeModalVisible] = useState(false);
 
         const [state, setState] = useState({
             counter: 5,
             graph: {
                 nodes: [
-                    {id: 1, label: "Node 1", x: -20, y: -150},
-                    {id: 2, label: "Node 2", x: 50, y: 0},
-                    {id: 3, label: "Node 3", x: -100, y: 150},
-                    {id: 4, label: "Node 4", x: 0, y: 150},
-                    {id: 5, label: "Node 5", x: 100, y: 150}
+                    {id: 1, label: 'Node 1', x: -20, y: -150},
+                    {id: 2, label: 'Node 2', x: 50, y: 0},
+                    {id: 3, label: 'Node 3', x: -100, y: 150},
+                    {id: 4, label: 'Node 4', x: 0, y: 150},
+                    {id: 5, label: 'Node 5', x: 100, y: 150}
                 ],
                 edges: [
                     {from: 1, to: 2},
@@ -74,26 +78,23 @@ const GraphComponent = () => {
                 ]
             },
             events: {
-                select: function ({nodes, edges, pointer: {canvas}}) {
-                    console.log("Selected nodes:");
+                select: function ({nodes, edges}) {
+                    console.log('Selected nodes:');
                     console.log(nodes);
-                    console.log("Selected edges:");
+                    console.log('Selected edges:');
                     console.log(edges);
                 },
-                click: function ({nodes, edges, pointer: {DOM}}) {
+                click: function ({nodes, edges}) {
                     setCurrentNodeId(nodes[0]);
                     this.setSelection({nodes, edges});
                 },
                 doubleClick: ({nodes, edges, pointer: {canvas}}) => {
                     createNode(nodes, edges, canvas.x, canvas.y);
-                },
-                oncontext: () => setIsEditGraphModalVisible(true)
+                }
             }
         });
 
         const onOk = data => {
-            // const parentElem = state.graph.nodes.find(node => node.id === Number(data.parent));
-
             setState(({graph: {nodes, edges}, counter, ...rest}) => {
                 const id = counter + 1;
                 return {
@@ -110,15 +111,31 @@ const GraphComponent = () => {
                         ],
                         edges: [
                             ...edges,
-                            // {from: parentElem.id, to: id},
-                            // data.child ? {from: id, to: data.child} : null
                         ]
                     },
                     counter: id,
                     ...rest
-                }
+                };
             });
-        }
+        };
+
+        const onAddEdge = data => {
+            setState(({graph: {nodes, edges}, ...rest}) => {
+                return {
+                    graph: {
+                        nodes: [
+                            ...nodes
+                        ],
+                        edges: [
+                            ...edges,
+                            data.child && data.parent ? {from: data?.parent, to: data.child} : null
+                        ]
+                    },
+                    ...rest
+                };
+            });
+            setIsAddEdgeModalVisible(false);
+        };
 
         const onEdit = data => {
             setState(({graph: {nodes, edges}, counter, ...rest}) => {
@@ -132,8 +149,9 @@ const GraphComponent = () => {
                         edges: [
                             ...edges
                         ]
-                    }
-                }
+                    },
+                    ...rest
+                };
             });
             setIsEditGraphModalVisible(false);
         };
@@ -155,9 +173,26 @@ const GraphComponent = () => {
                     },
                     counter: id,
                     ...rest
-                }
+                };
             });
-        }
+        };
+
+        const onRemoveNode = () => {
+            const temp = state.graph.nodes.filter(node => node.id !== currentNode.id);
+            setState(({graph: { edges}, ...rest}) => {
+                return {
+                    graph: {
+                        nodes: [
+                            ...temp,
+                        ],
+                        edges: [
+                            ...edges,
+                        ]
+                    },
+                    ...rest
+                };
+            });
+        };
 
         const {graph, events} = state;
 
@@ -176,16 +211,60 @@ const GraphComponent = () => {
                     />
                     <div>Легенда</div>
                 </div>
+                <div className={styles.rightPanelGraph}>
+                    <hr className={stylesCommon.line}/>
+                    <div className={commonStyles.rightPanelBlock}>
+                        <div className={commonStyles.rightPanelBlockTitle}>Управление элементом</div>
+                        <div className={stylesCommon.rightPanelBlockAction}>
+                            <Icon name="plus"/>
+                            <div
+                                className={commonStyles.rightPanelBlockActionText}
+                                onClick={() => setIsAddEdgeModalVisible(true)}>
+                                Добавить связь
+                            </div>
+                        </div>
+                        <div className={stylesCommon.rightPanelBlockAction}>
+                            <Icon name="edit"/>
+                            <div
+                                className={commonStyles.rightPanelBlockActionText}
+                                onClick={() => setIsEditGraphModalVisible(true)}>
+                                Изменить
+                            </div>
+                        </div>
+                        <div className={stylesCommon.rightPanelBlockAction}>
+                            <Icon name="info"/>
+                            <div
+                                className={commonStyles.rightPanelBlockActionText}
+                                onClick={() => setIsEditGraphModalVisible(true)}>
+                                Информация
+                            </div>
+                        </div>
+                        <div className={stylesCommon.rightPanelBlockAction} style={{color: variables.redColor}}>
+                            <Icon name="korzina"/>
+                            <div
+                                className={commonStyles.rightPanelBlockActionText}
+                                onClick={onRemoveNode}>
+                                Удалить
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <Graph graph={graph} options={options} events={events} style={{height: "640px", width: '100%'}}/>
+                <Graph graph={graph} options={options} events={events} style={{height: '640px', width: '100%'}}/>
                 <EditNodeModal
                     node={currentNode}
                     onEdit={onEdit}
                     isVisible={isEditGraphModalVisible}
                     onCancel={() => setIsEditGraphModalVisible(false)}
                 />
+                <AddEdgeModal
+                    node={currentNode}
+                    onOk={onAddEdge}
+                    isVisible={isAddEdgeModalVisible}
+                    onCancel={() => setIsAddEdgeModalVisible(false)}
+                />
             </div>
-        </>
+        </>;
     }
 ;
 

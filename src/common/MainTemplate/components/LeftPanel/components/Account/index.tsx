@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
-import styles from './styles.module.scss'
-import Icon from "../../../../../components/Icon";
-import stylesCommon from '../../../../../../common/styles/styles.module.scss'
-import {useAppDispatch} from "../../../../../../hooks/useTypedSelector";
-import {useAction} from "../../../../../../hooks/useAction";
+import styles from './styles.module.scss';
+import Icon from '../../../../../components/Icon';
+import stylesCommon from '../../../../../../common/styles/styles.module.scss';
+import {useAppDispatch} from '../../../../../../hooks/useTypedSelector';
+import {useAction} from '../../../../../../hooks/useAction';
 
 const Account: FC = () => {
     const {logout} = useAction();
@@ -22,12 +22,12 @@ const Account: FC = () => {
 
             </div>
             <div className={styles.actions}>
-                <Icon name='preference'/>
-                <Icon name='exit' onClick={() => dispatch(() => logout())}/>
+                <Icon name="preference"/>
+                <Icon name="exit" onClick={() => dispatch(() => logout())}/>
             </div>
 
         </div>
-    </div>
+    </div>;
 };
 
 export default Account;

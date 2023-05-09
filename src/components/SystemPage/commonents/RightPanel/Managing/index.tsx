@@ -1,9 +1,9 @@
 import React from 'react';
 import Icon from '../../../../../common/components/Icon';
 import stylesCommon from '../../../../../common/styles/styles.module.scss';
-import {useAction} from "../../../../../hooks/useAction";
-import {useAppDispatch, useTypedSelector} from "../../../../../hooks/useTypedSelector";
-import {DeleteSystemInterface} from "../../../../../store/types/systemsTypes";
+import {useAction} from '../../../../../hooks/useAction';
+import {useAppDispatch, useTypedSelector} from '../../../../../hooks/useTypedSelector';
+import {DeleteSystemInterface} from '../../../../../store/types/systemsTypes';
 
 const Managing = () => {
     const {currentSystem} = useTypedSelector(state => state.systemsValues);
@@ -17,7 +17,7 @@ const Managing = () => {
             confirmComponent: false
         };
 
-        await dispatch(() => deleteSystem(body))
+        await dispatch(() => deleteSystem(body));
     };
 
     return <>

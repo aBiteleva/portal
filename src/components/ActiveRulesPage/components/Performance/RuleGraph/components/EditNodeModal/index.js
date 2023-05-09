@@ -1,19 +1,20 @@
-import React from 'react';
-import {Button, Input, Modal} from "antd";
-import styles from "./styles.module.css"
-import {useForm, Controller} from "react-hook-form";
-import {useEffect} from "react";
+import React, {useEffect} from 'react';
+import {Button, Input, Modal} from 'antd';
+import styles from './styles.module.css';
+import {useForm, Controller} from 'react-hook-form';
 
+// eslint-disable-next-line react/prop-types
 const EditNodeModal = ({isVisible, onCancel, onEdit, node}) => {
 
     const {reset, control, handleSubmit} = useForm();
 
     useEffect(() => {
         reset({
+            // eslint-disable-next-line react/prop-types
             label: node?.label
-        })
+        });
 
-    }, [node])
+    }, [node]);
 
 
     return <Modal title="Редактирование ноды" open={isVisible} onCancel={onCancel} footer={false}>
@@ -25,6 +26,7 @@ const EditNodeModal = ({isVisible, onCancel, onEdit, node}) => {
                     name="label"
                     control={control}
                     rules={{required: true}}
+                    // eslint-disable-next-line react/prop-types
                     defaultValue={node?.label}
                 />
             </div>
@@ -34,7 +36,7 @@ const EditNodeModal = ({isVisible, onCancel, onEdit, node}) => {
                 </Button>
             </div>
         </form>
-    </Modal>
-}
+    </Modal>;
+};
 
 export default EditNodeModal;

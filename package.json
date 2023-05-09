@@ -25,14 +25,8 @@
     "dev": "webpack serve --port 3000",
     "build": "NODE_ENV=production webpack",
     "lint:es": "eslint --ext .js,.jsx,.ts,.tsx src --fix",
-    "lint": "tsc && npm run eslint",
+    "lint": "tsc && npm run lint",
     "prepare": "husky install"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",
@@ -45,10 +39,19 @@
     "@types/redux": "^3.6.0",
     "@types/redux-thunk": "^2.1.0",
     "@types/vis": "^4.21.24",
+    "@typescript-eslint/eslint-plugin": "^5.59.2",
+    "@typescript-eslint/parser": "^5.59.2",
     "babel-loader": "^9.1.2",
     "color-string": "^1.9.1",
     "css-loader": "^6.7.3",
     "css-modules-typescript-loader": "^4.0.1",
+    "eslint": "^8.39.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "html-webpack-plugin": "^5.5.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
@@ -61,10 +64,5 @@
     "webpack": "^5.79.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.13.3"
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx,json}": [
-      "eslint --fix"
-    ]
   }
 }

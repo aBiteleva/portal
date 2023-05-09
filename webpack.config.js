@@ -14,15 +14,18 @@ module.exports = {
     devServer: {
         historyApiFallback: true
     },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js', '.json']
+    },
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader",
+                    loader: 'babel-loader',
                     options: {
-                        presets: ["@babel/preset-react", "@babel/preset-env"],
+                        presets: ['@babel/preset-react', '@babel/preset-env'],
                     },
                 },
             },
@@ -40,9 +43,9 @@ module.exports = {
             },
             {
                 test: /\.scss$/, use: [
-                    {loader: "style-loader"},
-                    {loader: "css-loader", options: {modules: true}},
-                    {loader: "sass-loader"},
+                    {loader: 'style-loader'},
+                    {loader: 'css-loader', options: {modules: true}},
+                    {loader: 'sass-loader'},
                 ]
             },
             {

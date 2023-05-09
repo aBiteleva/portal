@@ -1,7 +1,7 @@
 import React from 'react';
 import commonStyles from '../../../../../common/styles/styles.module.scss';
-import {useTypedSelector} from "../../../../../hooks/useTypedSelector";
-import PerformanceSelect from "../../PerformanceSelect";
+import {useTypedSelector} from '../../../../../hooks/useTypedSelector';
+import PerformanceSelect from '../../PerformanceSelect';
 
 const RuleList = () => {
     const {activeRules} = useTypedSelector(state => state.activeRulesValues);

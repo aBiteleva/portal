@@ -4,11 +4,11 @@ import MainTemplate from '../../common/MainTemplate';
 import RuleList from './components/Performance/RuleList';
 import Header from '../../common/components/Header';
 import Managing from './components/RightPanel/Managing';
-import {useAppDispatch, useTypedSelector} from "../../hooks/useTypedSelector";
-import {useAction} from "../../hooks/useAction";
-import {RulesPerformance} from "../../store/types/activeRulesTypes";
-import RuleGraph from "./components/Performance/RuleGraph";
-import RuleTable from "./components/Performance/RuleTable";
+import {useAppDispatch, useTypedSelector} from '../../hooks/useTypedSelector';
+import {useAction} from '../../hooks/useAction';
+import {RulesPerformance} from '../../store/types/activeRulesTypes';
+import RuleGraph from './components/Performance/RuleGraph';
+import RuleTable from './components/Performance/RuleTable';
 
 const ActiveRulesRightPanel = () => {
     return <>
@@ -33,7 +33,7 @@ const ActiveRulesPage = () => {
         }]);
 
         dispatch(() => fetchActiveRuleBySystemCode(currentSystem.code));
-    }, [currentSystem])
+    }, [currentSystem]);
 
     if (isLoading) {
         return <div>Идёт загрузка активных правил...</div>;
@@ -46,15 +46,15 @@ const ActiveRulesPage = () => {
     const getCurrentPerformance = () => {
         switch (currentPerformance) {
             case RulesPerformance.list:
-                return <RuleList />
+                return <RuleList />;
             case RulesPerformance.table:
-                return <RuleTable />
+                return <RuleTable />;
             case RulesPerformance.lang:
-                return <></>
+                return <></>;
             case RulesPerformance.graph:
-                return <RuleGraph />
+                return <RuleGraph />;
         }
-    }
+    };
 
     return <MainTemplate blocks={<ActiveRulesRightPanel/>}>
         {getCurrentPerformance()}

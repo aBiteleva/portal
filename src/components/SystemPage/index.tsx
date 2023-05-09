@@ -8,10 +8,10 @@ import Information from './commonents/RightPanel/Information';
 import AddButton from './commonents/AddButton';
 import Header from '../../common/components/Header';
 import SystemElements from './commonents/SystemElements';
-import {useAppDispatch, useTypedSelector} from "../../hooks/useTypedSelector";
-import {useAction} from "../../hooks/useAction";
-import {setCurrentSystems, setSystemPagesWay} from "../../store/action-creators/systems";
-import AddModal from "./commonents/AddModal";
+import {useAppDispatch, useTypedSelector} from '../../hooks/useTypedSelector';
+import {useAction} from '../../hooks/useAction';
+import {setCurrentSystems, setSystemPagesWay} from '../../store/action-creators/systems';
+import AddModal from './commonents/AddModal';
 
 const SystemRightPanel = () => {
     return <>
@@ -51,7 +51,7 @@ const SystemPage = () => {
             code: '0000',
             systems
         }]));
-    }, [systems])
+    }, [systems]);
 
     if (isLoading) {
         return <div>Идёт загрузка систем...</div>;
@@ -70,7 +70,7 @@ const SystemPage = () => {
             }]));
             setCurrentSystems(elementChildren);
         }
-    }
+    };
 
 
     return <MainTemplate blocks={<SystemRightPanel/>}>

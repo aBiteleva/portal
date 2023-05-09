@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Tag} from "antd";
+import {Switch, Tag} from 'antd';
 
 export const columns = [
     {

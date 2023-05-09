@@ -1,4 +1,4 @@
-import {ActiveRulesAction, ActiveRulesActionTypes, ActiveRulesState, RulesPerformance} from "../types/activeRulesTypes";
+import {ActiveRulesAction, ActiveRulesActionTypes, ActiveRulesState, RulesPerformance} from '../types/activeRulesTypes';
 
 const initialState: ActiveRulesState = {
     activeRules: [],

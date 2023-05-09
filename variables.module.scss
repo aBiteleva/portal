@@ -13,6 +13,7 @@ $edges-color: rgba(43, 151, 253, 1);
 $action-color: rgb(13, 41, 194);
 $condition-color: rgb(28, 145, 189);
 $event-color: rgba(253, 44, 169, 1);
+$red-color: rgba(244, 67, 54, 1);
 
 :export {
   darkBlueColor: $dark-blue-color;
@@ -29,4 +30,5 @@ $event-color: rgba(253, 44, 169, 1);
   actionColor: $action-color;
   conditionColor: $condition-color;
   eventColor: $event-color;
+  redColor: $red-color;
 }

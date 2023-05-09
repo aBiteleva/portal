@@ -38,9 +38,9 @@ export const addSystem = (body: AddSystemInterface) => {
     return async (dispatch: Dispatch<SystemsAction>) => {
         try {
             await SystemService.addSystem(body);
-            dispatch(fetchSystems())
+            dispatch(fetchSystems());
         } catch (e) {
-            console.error('Произошла ошибка добавления системы: ', e)
+            console.error('Произошла ошибка добавления системы: ', e);
         }
     };
 };
@@ -49,9 +49,9 @@ export const deleteSystem = (body: DeleteSystemInterface) => {
     return async (dispatch: Dispatch<SystemsAction>) => {
         try {
             await SystemService.deleteSystem(body);
-            dispatch(fetchSystems())
+            dispatch(fetchSystems());
         } catch (e) {
-            console.error('Произошла ошибка удаления системы: ', e)
+            console.error('Произошла ошибка удаления системы: ', e);
         }
     };
 };

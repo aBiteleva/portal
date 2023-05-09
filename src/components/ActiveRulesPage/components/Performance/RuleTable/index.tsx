@@ -1,9 +1,9 @@
 import React from 'react';
 import commonStyles from '../../../../../common/styles/styles.module.scss';
-import {Table} from "antd";
-import {columns} from "./resources/columns";
-import {useTypedSelector} from "../../../../../hooks/useTypedSelector";
-import PerformanceSelect from "../../PerformanceSelect";
+import {Table} from 'antd';
+import {columns} from './resources/columns';
+import {useTypedSelector} from '../../../../../hooks/useTypedSelector';
+import PerformanceSelect from '../../PerformanceSelect';
 
 const RuleTable = () => {
     const {activeRules} = useTypedSelector(state => state.activeRulesValues);
