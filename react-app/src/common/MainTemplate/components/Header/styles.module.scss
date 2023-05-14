@@ -1,0 +1,45 @@
+@import "../../../../../variables.module";
+
+.header{
+    height: 40px;
+    background: $dark-blue-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-bottom: 1px solid $border-color;
+
+    &Title {
+        font-size: 16px;
+        font-weight: 700;
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+
+        &Img {
+            margin: 3px 3px 3px 6px;
+        }
+
+        &Text {
+            margin-top: 3px;
+        }
+    }
+
+    &Menu {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        a {
+            margin-right: 4px;
+            margin-left: 4px;
+        }
+
+        svg {
+            width: 10px;
+        }
+    }
+}
+
+

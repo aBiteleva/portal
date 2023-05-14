@@ -1,0 +1,45 @@
+@import "../../../../../../../variables.module";
+
+@mixin block($background, $text) {
+  height: 24px;
+  margin: 4px;
+  padding: 4px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  background-color: $background;
+
+  > div {
+    align-self: center;
+    margin-right: 6px;
+    color: $text;
+  }
+}
+
+
+.header {
+  color: $yellow-color;
+  display: flex;
+  flex-direction: row;
+  padding: 4px;
+  justify-content: space-between;
+}
+
+.systems {
+  &Blocks {
+    display: flex;
+    flex-direction: column;
+
+    >div {
+      @include block($dark-blue-color, $light-yellow-color);
+      gap: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    >div:hover {
+      background-color: $hover-yellow-color;
+    }
+  }
+}
+

@@ -1,0 +1,26 @@
+@import "../../../../variables.module";
+
+.header {
+  display: flex;
+  flex-direction: row;
+  color: $light-yellow-color;
+  font-weight: 600;
+  height: 24px;
+  margin: 4px 4px 4px 0;
+  padding: 4px 4px 4px 0;
+  align-items: center;
+  gap: 10px;
+
+  > div {
+    margin-right: 6px;
+  }
+
+  &Text {
+    display: flex;
+    flex-direction: column;
+
+    &Name {
+      font-weight: 500;
+    }
+  }
+}
