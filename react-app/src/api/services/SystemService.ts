@@ -1,6 +1,6 @@
-import {AxiosResponse} from "axios";
-import api from "../htttp";
-import {AddSystemInterface, DeleteSystemInterface, SystemsInterface} from "../../store/types/systemsTypes";
+import {AxiosResponse} from 'axios';
+import api from '../htttp';
+import {AddSystemInterface, DeleteSystemInterface, SystemsInterface} from '../../store/types/systemsTypes';
 
 export class SystemService {
     static async fetchSystems(attached: boolean = true): Promise<AxiosResponse<SystemsInterface[]>> {
@@ -8,11 +8,11 @@ export class SystemService {
     }
 
     static async addSystem(body: AddSystemInterface): Promise<AxiosResponse<any[]>> {
-        return api.post<any[]>(`/system`, body);
+        return api.post<any[]>('/system', body);
     }
 
     static async deleteSystem(data: DeleteSystemInterface): Promise<AxiosResponse<any[]>> {
-        return api.delete<any[]>(`/system`, {data});
+        return api.delete<any[]>('/system', {data});
     }
     }
 

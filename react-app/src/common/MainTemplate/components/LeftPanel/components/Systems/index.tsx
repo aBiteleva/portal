@@ -1,13 +1,9 @@
 import React from 'react';
-// @ts-ignore
 import styles from './styles.module.scss';
-// @ts-ignore
 import stylesCommon from '../../../../../styles/styles.module.scss';
 import Icon from '../../../../../components/Icon';
 
-
 const LeftPanel = () => {
-
     return <div className={styles.systems}>
         <div className={styles.header}>
             <div>Системы</div>

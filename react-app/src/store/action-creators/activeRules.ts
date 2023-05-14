@@ -1,6 +1,6 @@
 import {Dispatch} from 'redux';
-import {ActiveRulesAction, ActiveRulesActionTypes, RulesPerformance} from "../types/activeRulesTypes";
-import {ActiveRuleService} from "../../api/services/ActiveRuleService";
+import {ActiveRulesAction, ActiveRulesActionTypes, RulesPerformance} from '../types/activeRulesTypes';
+import {ActiveRuleService} from '../../api/services/ActiveRuleService';
 
 export const fetchActiveRuleBySystemCode = (code: string): any => {
     return async (dispatch: Dispatch<ActiveRulesAction>) => {

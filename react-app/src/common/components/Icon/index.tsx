@@ -1,45 +1,36 @@
 import React, {FC} from 'react';
-import resource from "../Icon/resources/icons";
-import * as calendar from '../../../../../root-config/public/images/Calendar.svg'
+import variables from '../../../../variables.module.scss';
 
 interface IconInterface {
-    style?: object,
+    width?: number | string,
+    height?: number | string,
     className?: string,
     color?: string,
     name: string,
     onClick?: () => void
 }
 
-export const getResource = (name: any) => {
-    //@ts-ignore
-    return resource[name];
-};
-
 const Icon: FC<IconInterface> = ({
                                      className,
-                                     style = {},
+                                     width,
+                                     height,
                                      color,
                                      name,
                                      onClick
                                  }) => {
 
-    const element = getResource(name);
 
-    console.log(element)
-
-    return <>
-        {element && <div
-        // src="images/Copy.svg"
-        onClick={onClick}
-        style={{
-            ...style,
-            color: '#fff',
-            cursor: onClick && 'pointer'
-        }}
+    return <svg
+        width={width || 20}
+        height={height || 20}
+        cursor={onClick && 'pointer'}
         className={className}
-        dangerouslySetInnerHTML={{__html: element}}
-    />}
-    </>;
+        fill={color || variables.yellowColor}
+        onClick={onClick}
+        viewBox="0 0 100 100"
+    >
+        <use xlinkHref={`/icons.svg#${name}`}></use>
+    </svg>;
 };
 
 export default Icon;

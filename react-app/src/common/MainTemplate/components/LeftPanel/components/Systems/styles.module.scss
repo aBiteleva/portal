@@ -23,10 +23,6 @@
   flex-direction: row;
   padding: 4px;
   justify-content: space-between;
-
-  svg {
-    width: 12px;
-  }
 }
 
 .systems {
@@ -36,6 +32,9 @@
 
     >div {
       @include block($dark-blue-color, $light-yellow-color);
+      gap: 10px;
+      display: flex;
+      align-items: center;
     }
 
     >div:hover {

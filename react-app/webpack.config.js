@@ -1,5 +1,5 @@
-const { merge } = require("webpack-merge");
-const singleSpaDefaults = require("webpack-config-single-spa-react-ts");
+const { merge } = require('webpack-merge');
+const singleSpaDefaults = require('webpack-config-single-spa-react-ts');
 
 const prod = process.env.NODE_ENV === 'production';
 
@@ -7,8 +7,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (webpackConfigEnv, argv) => {
   const defaultConfig = singleSpaDefaults({
-    orgName: "portal-react-angular",
-    projectName: "react-app",
+    orgName: 'portal-react-angular',
+    projectName: 'react-app',
     webpackConfigEnv,
     argv,
   });
@@ -36,21 +36,21 @@ module.exports = (webpackConfigEnv, argv) => {
         },
         {
           test: /\.scss$/, use: [
-            {loader: "style-loader"},
-            {loader: "css-loader", options: {modules: true}},
-            {loader: "sass-loader"},
+            {loader: 'style-loader'},
+            {loader: 'css-loader', options: {modules: true}},
+            {loader: 'sass-loader'},
           ]
         },
         {
           test: /\.svg$/,
           loader: 'svg-inline-loader',
-        },
+        }
       ]
     },
     devtool: prod ? undefined : 'source-map',
     plugins: [
       new MiniCssExtractPlugin(),
-    ],
+    ]
   });
 };
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {AuthService} from "../services/AuthService";
+import {AuthService} from '../services/AuthService';
 
-export const STATIC_URL = 'http://localhost:4000'
+export const STATIC_URL = 'http://localhost:4000';
 
 const api = axios.create({
     withCredentials: true,
@@ -25,7 +25,7 @@ api.interceptors.response.use(config => {
             return api.request(originalRequest);
 
         } catch (e) {
-            console.log('Не авторизован')
+            console.error('Не авторизован');
         }
     }
     throw error;

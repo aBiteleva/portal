@@ -1,11 +1,9 @@
 import React, {FC} from 'react';
-// @ts-ignore
-import styles from './styles.module.scss'
-import Icon from "../../../../../components/Icon";
-// @ts-ignore
-import stylesCommon from '../../../../../../common/styles/styles.module.scss'
-import {useAppDispatch} from "../../../../../../hooks/useTypedSelector";
-import {useAction} from "../../../../../../hooks/useAction";
+import styles from './styles.module.scss';
+import Icon from '../../../../../components/Icon';
+import stylesCommon from '../../../../../../common/styles/styles.module.scss';
+import {useAppDispatch} from '../../../../../../hooks/useTypedSelector';
+import {useAction} from '../../../../../../hooks/useAction';
 
 const Account: FC = () => {
     const {logout} = useAction();
@@ -15,7 +13,7 @@ const Account: FC = () => {
         <hr className={stylesCommon.line} />
         <div className={styles.accountBlock}>
             <div className={styles.userInfo}>
-                <img src={'images/avatar.jpeg'} className={styles.avatar}>
+                <img alt="avatar" src={'images/avatar.jpeg'} className={styles.avatar}>
                 </img>
                 <div className={styles.text}>
                     <div>Иванов И.И.</div>
@@ -24,12 +22,12 @@ const Account: FC = () => {
 
             </div>
             <div className={styles.actions}>
-                <Icon name='preference'/>
-                <Icon name='exit' onClick={() => dispatch(() => logout())}/>
+                <Icon name="preference"/>
+                <Icon name="exit" onClick={() => dispatch(() => logout())}/>
             </div>
 
         </div>
-    </div>
+    </div>;
 };
 
 export default Account;

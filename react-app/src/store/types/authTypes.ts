@@ -4,11 +4,11 @@ export interface AuthState {
 }
 
 export enum AuthActionTypes {
-    SET_AUTH = "SET_AUTH",
-    SET_LOADING = "SET_LOADING",
-    LOGIN = "LOGIN",
-    REGISTRATION = "REGISTRATION",
-    LOGOUT = "LOGOUT"
+    SET_AUTH = 'SET_AUTH',
+    SET_LOADING = 'SET_LOADING',
+    LOGIN = 'LOGIN',
+    REGISTRATION = 'REGISTRATION',
+    LOGOUT = 'LOGOUT'
 }
 
 interface SetAuthAction {

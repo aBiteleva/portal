@@ -29,6 +29,7 @@
     &Menu {
         display: flex;
         flex-direction: row;
+        align-items: center;
 
         a {
             margin-right: 4px;

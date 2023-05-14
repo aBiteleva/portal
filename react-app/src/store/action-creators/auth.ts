@@ -1,6 +1,6 @@
-import {Dispatch} from "redux";
-import {AuthAction, AuthActionTypes} from "../types/authTypes";
-import {AuthService} from "../../api/services/AuthService";
+import {Dispatch} from 'redux';
+import {AuthAction, AuthActionTypes} from '../types/authTypes';
+import {AuthService} from '../../api/services/AuthService';
 
 export const setAuth = (isAuth: boolean): AuthAction => {
     return {type: AuthActionTypes.SET_AUTH, payload: isAuth};
@@ -18,9 +18,9 @@ export const login = (email: string, password: string) => {
             localStorage.setItem('refreshToken', response.data.refreshToken);
             dispatch(setAuth(true));
         } catch (e: any) {
-            console.log(e.response.data.message?.[0]?.message || e.response.data.message);
+            console.error(e.response.data.message?.[0]?.message || e.response.data.message);
         }
-    }
+    };
 };
 
 export const registration = (email: string, password: string) => {
@@ -28,9 +28,9 @@ export const registration = (email: string, password: string) => {
         try {
             const response = await AuthService.registration(email, password);
         } catch (e: any) {
-            console.log(e.response.data.message?.[0]?.message || e.response.data.message);
+            console.error(e.response.data.message?.[0]?.message || e.response.data.message);
         }
-    }
+    };
 };
 
 export const logout = () => {
@@ -44,9 +44,9 @@ export const logout = () => {
                 dispatch(setAuth(false));
             }
         } catch (e: any) {
-            console.log(e.response.data.message?.[0]?.message || e.response.data.message);
+            console.error(e.response.data.message?.[0]?.message || e.response.data.message);
         }
-    }
+    };
 };
 
 export const checkAuth = () => {
@@ -61,9 +61,9 @@ export const checkAuth = () => {
                 dispatch(setAuth(true));
             }
         } catch (e: any) {
-            console.log(e.response.data.message?.[0]?.message || e.response.data.message);
+            console.error(e.response.data.message?.[0]?.message || e.response.data.message);
         } finally {
             setLoading(false);
         }
-    }
+    };
 };

@@ -1,15 +1,15 @@
 import React from 'react';
-// @ts-ignore
 import styles from './styles.module.scss';
 import Icon from '../../../components/Icon';
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from 'react-router-dom';
+import variables from '../../../../../variables.module.scss';
 
 const Header = () => {
     const navigate = useNavigate();
 
     return <div className={styles.header}>
         <div className={styles.headerTitle} onClick={() => navigate('/')}>
-            <Icon name="logo" className={styles.headerTitleImg} />
+            <Icon name="logo" className={styles.headerTitleImg} color={variables.whiteColor}/>
             <div className={styles.headerTitleText}>ARS</div>
         </div>
         <div className={styles.headerMenu}>
@@ -18,7 +18,7 @@ const Header = () => {
             <a>О проекте</a>
             <a>Тарифы</a>
             <a>Еще</a>
-            <Icon name="arrowDown"/>
+            <Icon name="arrowDown" color={variables.whiteColor}/>
         </div>
 
     </div>;
