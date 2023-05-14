@@ -3,6 +3,7 @@ import SystemPage from '../pages/SystemPage';
 import '../common/styles/styles.module.scss';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import ActiveRulesPage from '../pages/ActiveRulesPage';
+import EventsPage from '../pages/EventsPage';
 import LoginPage from '../pages/LoginPage';
 import {useAction} from '../hooks/useAction';
 import {useAppDispatch, useTypedSelector} from '../hooks/useTypedSelector';
@@ -31,6 +32,7 @@ const App = (props: any) => {
             <Routes>
                 <Route path="/" element={<SystemPage {...props} />} />
                 <Route path="/active-rules" element={<ActiveRulesPage {...props} />} />
+                <Route path="/events" element={<EventsPage {...props} />} />
             </Routes>
         </BrowserRouter>
     );

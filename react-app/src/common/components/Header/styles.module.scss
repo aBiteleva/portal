@@ -15,12 +15,9 @@
     margin-right: 6px;
   }
 
-  &Text {
+  &__text {
     display: flex;
     flex-direction: column;
-
-    &Name {
-      font-weight: 500;
-    }
+    font-weight: 600;
   }
 }
