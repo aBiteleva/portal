@@ -4,7 +4,14 @@ const initialState: ActiveRulesState = {
     activeRules: [],
     isLoading: false,
     error: null,
-    currentPerformance: RulesPerformance.list
+    currentPerformance: RulesPerformance.list,
+    currentActiveRule: {
+        code: '',
+        description: '',
+        condition: null,
+        action: null,
+        event: []
+    }
 };
 
 export const activeRulesReducer = (state = initialState, action: ActiveRulesAction): ActiveRulesState => {
@@ -15,8 +22,10 @@ export const activeRulesReducer = (state = initialState, action: ActiveRulesActi
             return {...state, isLoading: false, error: null, activeRules: action.payload};
         case ActiveRulesActionTypes.FETCH_RULES_SYSTEM_CODE_ERROR:
             return {...state, isLoading: false, error: action.payload, activeRules: []};
-            case ActiveRulesActionTypes.SET_CURRENT_PERFORMANCE:
+        case ActiveRulesActionTypes.SET_CURRENT_PERFORMANCE:
             return {...state, currentPerformance: action.payload};
+        case ActiveRulesActionTypes.SET_CURRENT_ACTIVE_RULE:
+            return {...state, currentActiveRule: action.payload};
         default:
             return state;
     }

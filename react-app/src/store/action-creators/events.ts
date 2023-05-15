@@ -43,7 +43,7 @@ export const deleteEvent = (body: DeleteEventInterface, currentSystemCode: strin
             await EventsService.deleteEvent(body);
             dispatch(fetchEventsBySystemCode(currentSystemCode));
         } catch (e) {
-            console.error('Произошла ошибка удаления системы: ', e);
+            console.error('Произошла ошибка удаления события: ', e);
         }
     };
 };

@@ -1,6 +1,21 @@
 import {Dispatch} from 'redux';
-import {ActiveRulesAction, ActiveRulesActionTypes, RulesPerformance} from '../types/activeRulesTypes';
+import {
+    ActiveRulesAction,
+    ActiveRulesActionTypes,
+    ActiveRulesInterface, AddActiveRuleInterface, DeleteActiveRuleInterface,
+    RulesPerformance
+} from '../types/activeRulesTypes';
 import {ActiveRuleService} from '../../api/services/ActiveRuleService';
+
+export const setCurrentPerformance = (performance: RulesPerformance): ActiveRulesAction => {
+    return {type: ActiveRulesActionTypes.SET_CURRENT_PERFORMANCE, payload: performance};
+};
+
+export const setCurrentActiveRule = (activeRule: ActiveRulesInterface): any => {
+    return (dispatch: Dispatch<ActiveRulesAction>) => {
+        dispatch({type: ActiveRulesActionTypes.SET_CURRENT_ACTIVE_RULE, payload: activeRule});
+    };
+};
 
 export const fetchActiveRuleBySystemCode = (code: string): any => {
     return async (dispatch: Dispatch<ActiveRulesAction>) => {
@@ -16,7 +31,25 @@ export const fetchActiveRuleBySystemCode = (code: string): any => {
     };
 };
 
-export const setCurrentPerformance = (performance: RulesPerformance): ActiveRulesAction => {
-    return {type: ActiveRulesActionTypes.SET_CURRENT_PERFORMANCE, payload: performance};
+export const addActiveRule = (body: AddActiveRuleInterface, currentSystemCode: string) => {
+    return async (dispatch: Dispatch<ActiveRulesAction>) => {
+        try {
+            await ActiveRuleService.addActiveRule(body);
+            dispatch(fetchActiveRuleBySystemCode(currentSystemCode));
+        } catch (e) {
+            console.error('Произошла ошибка добавления активного правила: ', e);
+        }
+    };
+};
+
+export const deleteActiveRule = (body: DeleteActiveRuleInterface, currentSystemCode: string) => {
+    return async (dispatch: Dispatch<ActiveRulesAction>) => {
+        try {
+            await ActiveRuleService.deleteActiveRule(body);
+            dispatch(fetchActiveRuleBySystemCode(currentSystemCode));
+        } catch (e) {
+            console.error('Произошла ошибка удаления активного правила: ', e);
+        }
+    };
 };
 

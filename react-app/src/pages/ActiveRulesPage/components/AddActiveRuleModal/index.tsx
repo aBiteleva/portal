@@ -3,24 +3,24 @@ import styles from './styles.module.scss';
 import {Button, Form, Input, Modal} from 'antd';
 import {useAction} from '../../../../hooks/useAction';
 import {useAppDispatch} from '../../../../hooks/useTypedSelector';
-import {AddEventInterface} from '../../../../store/types/eventsTypes';
+import {AddActiveRuleInterface} from '../../../../store/types/activeRulesTypes';
 
-interface AddEventModalInterface {
+interface AddActiveRuleModalInterface {
     isVisible: boolean;
     setIsVisible: (isVisible: boolean) => void;
     currentSystemCode: string;
 }
 
-const AddEventModal: FC<AddEventModalInterface> = ({isVisible, setIsVisible, currentSystemCode}) => {
-    const {addEvent} = useAction();
+const AddEventModal: FC<AddActiveRuleModalInterface> = ({isVisible, setIsVisible, currentSystemCode}) => {
+    const {addActiveRule} = useAction();
     const dispatch = useAppDispatch();
 
     const handleCancel = () => {
         setIsVisible(false);
     };
 
-    const onFinish = async (data: AddEventInterface) => {
-        await dispatch(() => addEvent(data, currentSystemCode));
+    const onFinish = async (data: AddActiveRuleInterface) => {
+        await dispatch(() => addActiveRule(data, currentSystemCode));
 
         setIsVisible(false);
     };
@@ -38,8 +38,8 @@ const AddEventModal: FC<AddEventModalInterface> = ({isVisible, setIsVisible, cur
         >
             <Form
                 name="addSystemForm"
-                labelCol={{span: 8}}
-                wrapperCol={{span: 14}}
+                labelCol={{span: 6}}
+                wrapperCol={{span: 16}}
                 onFinish={onFinish}
                 className={styles.form}
             >
@@ -51,15 +51,15 @@ const AddEventModal: FC<AddEventModalInterface> = ({isVisible, setIsVisible, cur
                     <Input/>
                 </Form.Item>
                 <Form.Item
-                    label="Код контекста"
-                    name="contextParamCode"
+                    label="Условие"
+                    name="condition"
                     rules={[{required: true, message: 'Заполните поле'}]}
                 >
                     <Input/>
                 </Form.Item>
                 <Form.Item
-                    label="Код компонента"
-                    name="codeComponent"
+                    label="Действие"
+                    name="action"
                     rules={[{required: true, message: 'Заполните поле'}]}
                 >
                     <Input/>

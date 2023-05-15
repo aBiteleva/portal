@@ -24,14 +24,27 @@ export interface ActiveRulesState {
     activeRules: ActiveRulesInterface[],
     isLoading: boolean,
     error: string | null,
-    currentPerformance: RulesPerformance
+    currentPerformance: RulesPerformance,
+    currentActiveRule: ActiveRulesInterface
 }
+
+export interface AddActiveRuleInterface {
+    description: string,
+    condition: string,
+    action: string
+}
+
+export interface DeleteActiveRuleInterface {
+    code: string
+}
+
 
 export enum ActiveRulesActionTypes {
     FETCH_RULES_SYSTEM_CODE = 'FETCH_RULES_SYSTEM_CODE',
     FETCH_RULES_SYSTEM_CODE_SUCCESS = 'FETCH_RULES_SYSTEM_CODE_SUCCESS',
     FETCH_RULES_SYSTEM_CODE_ERROR = 'FETCH_RULES_SYSTEM_CODE_ERROR',
-    SET_CURRENT_PERFORMANCE = 'SET_CURRENT_PERFORMANCE'
+    SET_CURRENT_PERFORMANCE = 'SET_CURRENT_PERFORMANCE',
+    SET_CURRENT_ACTIVE_RULE = 'SET_CURRENT_ACTIVE_RULE'
 }
 
 interface FetchActiveRulesBySystemCodeAction {
@@ -53,5 +66,11 @@ interface SetCurrentPerformanceAction {
     payload: RulesPerformance;
 }
 
+interface SetCurrentActiveRuleAction {
+    type: ActiveRulesActionTypes.SET_CURRENT_ACTIVE_RULE;
+    payload: ActiveRulesInterface;
+}
+
 export type ActiveRulesAction = FetchActiveRulesBySystemCodeAction
-    | FetchActiveRulesBySystemCodeSuccessAction |FetchActiveRulesBySystemCodeErrorAction | SetCurrentPerformanceAction
+    | FetchActiveRulesBySystemCodeSuccessAction |FetchActiveRulesBySystemCodeErrorAction
+    | SetCurrentPerformanceAction | SetCurrentActiveRuleAction
