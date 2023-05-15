@@ -11,6 +11,7 @@ interface SystemElementsInterface {
     systems: any[],
     onDoubleClick: (elementChildren: any[]) => void;
 }
+
 const SystemElements: FC<SystemElementsInterface> = ({systems, onDoubleClick}) => {
 
     const {currentSystem} = useTypedSelector(state => state.systemsValues);
@@ -32,11 +33,15 @@ const SystemElements: FC<SystemElementsInterface> = ({systems, onDoubleClick}) =
             >
                 <div className={commonStyles.text}>
                     <div>{element.name}</div>
-                    <div className={commonStyles.textId} style={currentSystem.code === element.code
-                        ? {
-                            color: variables.greyColor
-                        }
-                        : undefined}>Id: {element.code}</div>
+                    <div className={commonStyles.textId}
+                         style={currentSystem.code === element.code
+                             ? {
+                                 color: variables.greyColor
+                             }
+                             : undefined}
+                    >
+                        Id: {element.code}
+                    </div>
                 </div>
                 <div className={commonStyles.switch}><Switch size="small" checked={element?.IsCheck}/></div>
             </div>

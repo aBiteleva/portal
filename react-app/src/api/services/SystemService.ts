@@ -14,5 +14,5 @@ export class SystemService {
     static async deleteSystem(data: DeleteSystemInterface): Promise<AxiosResponse<any[]>> {
         return api.delete<any[]>('/system', {data});
     }
-    }
+}
 

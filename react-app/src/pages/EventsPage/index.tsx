@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useAppDispatch, useTypedSelector} from '../../hooks/useTypedSelector';
 import {useAction} from '../../hooks/useAction';
 import EventsElements from './commonents/EventsElements';
-import RightPanel from '../ActiveRulesPage/components/RightPanel';
+import RightPanel from './commonents/RightPanel';
 import MainTemplate from '../../common/MainTemplate';
 
 const EventsPage = () => {

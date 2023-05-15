@@ -7,7 +7,7 @@ import {DeleteSystemInterface} from '../../../../../store/types/systemsTypes';
 
 const Managing = () => {
     const {currentSystem} = useTypedSelector(state => state.systemsValues);
-    const {fetchSystems, deleteSystem} = useAction();
+    const {deleteSystem} = useAction();
     const dispatch = useAppDispatch();
 
     const onHandleDeleteSystem = async () => {
