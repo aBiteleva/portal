@@ -4,7 +4,7 @@ const initialState: ActiveRulesState = {
     activeRules: [],
     isLoading: false,
     error: null,
-    currentPerformance: RulesPerformance.list,
+    currentPerformance: RulesPerformance.tag,
     currentActiveRule: {
         code: '',
         description: '',

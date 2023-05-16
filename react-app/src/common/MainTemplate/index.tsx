@@ -16,17 +16,23 @@ interface MainTemplateInterface {
 
 const MainTemplate: FC<MainTemplateInterface> = ({blocks, children}) => {
     const {systemPagesWay} = useTypedSelector(state => state.systemsValues);
-    const {setCurrentSystems, setSystemPagesWay} = useAction();
+    const {setCurrentSystems} = useAction();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
 
     const onPageNameClick = (page: SystemPagesWayInterface) => {
-        if (location.pathname !== '/') {
+        console.log({page});
+        if (location.pathname === '/editor-active-rules'
+            && systemPagesWay.indexOf(page) + 1 === systemPagesWay.length) {
+            navigate('/active-rules');
+            dispatch(() => setCurrentSystems(page.systems));
+            systemPagesWay.splice(systemPagesWay.indexOf(page)-1, systemPagesWay.length);
+        } else {
             navigate('/');
+            dispatch(() => setCurrentSystems(page.systems));
+            systemPagesWay.splice(systemPagesWay.indexOf(page)+1, systemPagesWay.length);
         }
-        dispatch(() => setCurrentSystems(page.systems));
-        systemPagesWay.splice(systemPagesWay.indexOf(page) + 1, systemPagesWay.length);
     };
 
     return <div className={styles.mainTemplate}>

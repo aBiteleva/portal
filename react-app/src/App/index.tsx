@@ -7,6 +7,7 @@ import EventsPage from '../pages/EventsPage';
 import LoginPage from '../pages/LoginPage';
 import {useAction} from '../hooks/useAction';
 import {useAppDispatch, useTypedSelector} from '../hooks/useTypedSelector';
+import EditorActiveRulesPage from '../pages/EditorActiveRulesPage';
 
 const App = (props: any) => {
     const {isAuth, isLoading} = useTypedSelector(state => state.auth);
@@ -32,6 +33,7 @@ const App = (props: any) => {
             <Routes>
                 <Route path="/" element={<SystemPage {...props} />} />
                 <Route path="/active-rules" element={<ActiveRulesPage {...props} />} />
+                <Route path="/editor-active-rules" element={<EditorActiveRulesPage {...props} />} />
                 <Route path="/events" element={<EventsPage {...props} />} />
             </Routes>
         </BrowserRouter>

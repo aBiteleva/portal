@@ -3,7 +3,7 @@ import {Select} from 'antd';
 import {useAction} from '../../../../hooks/useAction';
 import {setCurrentPerformance} from '../../../../store/action-creators/activeRules';
 
-const PerformanceSelect = () => {
+const RulePerformanceSelect = () => {
     const {setCurrentPerformance} = useAction();
 
   return <>
@@ -12,13 +12,11 @@ const PerformanceSelect = () => {
           size="small"
           onChange={value => setCurrentPerformance(value)}
           options={[
-              {value: 'list', label: 'Списочное'},
-              {value: 'table', label: 'Табличное'},
-              {value: 'lang', label: 'Языковое'},
-              {value: 'graph', label: 'Графовое'}
+              {value: 'tag', label: 'Тэговое'},
+              {value: 'table', label: 'Табличное'}
           ]}
       />
     </>;
 };
 
-export default PerformanceSelect;
+export default RulePerformanceSelect;

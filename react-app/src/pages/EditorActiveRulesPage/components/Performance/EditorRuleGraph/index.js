@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import commonStyles from '../../../../../common/styles/styles.module.scss';
 import GraphComponent from './components/GraphComponent';
-import PerformanceSelect from '../../PerformanceSelect';
+import EditorRulePerformanceSelect from '../../EditorRulePerformanceSelect';
 import {createNode, onAddEdge, onEdit, onOk, onRemoveNode} from './helpers/handlers';
 import {Select} from 'antd';
 import EditNodeModal from './components/EditNodeModal';
@@ -10,9 +10,9 @@ import Icon from '../../../../../common/components/Icon';
 import variables from '../../../../../../variables.module.scss';
 import MainTemplate from '../../../../../common/MainTemplate';
 import Header from '../../../../../common/components/Header';
-import Managing from '../../RightPanel/Managing';
+import Managing from '../../../../ActiveRulesPage/components/RightPanel/Managing';
 
-const RuleGraph = () => {
+const EditorRuleGraph = () => {
     const [currentNodeId, setCurrentNodeId] = useState();
     const [currentNode, setCurrentNode] = useState();
     const [isEditGraphModalVisible, setIsEditGraphModalVisible] = useState(false);
@@ -102,7 +102,7 @@ const RuleGraph = () => {
     const RuleGraphToolbar = () => {
         return (
             <div className={commonStyles.toolbar}>
-                <PerformanceSelect/>
+                <EditorRulePerformanceSelect/>
                 <Select
                     placeholder="Добавить"
                     size="small"
@@ -144,4 +144,4 @@ const RuleGraph = () => {
     </MainTemplate>;
 };
 
-export default RuleGraph;
+export default EditorRuleGraph;

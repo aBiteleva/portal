@@ -29,8 +29,6 @@ const EventsPage = () => {
         return <div>{error}</div>;
     }
 
-    console.log({events});
-
     return <MainTemplate blocks={<RightPanel/>}>
         <EventsElements />
     </MainTemplate>;

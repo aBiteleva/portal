@@ -14,10 +14,8 @@ export interface ActiveRulesInterface {
 }
 
 export enum RulesPerformance {
-    list= 'list',
-    lang = 'lang',
-    graph = 'graph',
-    table = 'table'
+    tag= 'tag',
+    table = 'table',
 }
 
 export interface ActiveRulesState {
@@ -25,7 +23,7 @@ export interface ActiveRulesState {
     isLoading: boolean,
     error: string | null,
     currentPerformance: RulesPerformance,
-    currentActiveRule: ActiveRulesInterface
+    currentActiveRule: ActiveRulesInterface | null
 }
 
 export interface AddActiveRuleInterface {
@@ -68,7 +66,7 @@ interface SetCurrentPerformanceAction {
 
 interface SetCurrentActiveRuleAction {
     type: ActiveRulesActionTypes.SET_CURRENT_ACTIVE_RULE;
-    payload: ActiveRulesInterface;
+    payload: ActiveRulesInterface | null;
 }
 
 export type ActiveRulesAction = FetchActiveRulesBySystemCodeAction

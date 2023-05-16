@@ -1,3 +1,5 @@
+import {ActiveRulesInterface} from './activeRulesTypes';
+
 export interface SystemsInterface {
     name: string,
     code: string,
@@ -18,13 +20,13 @@ export interface DeleteSystemInterface {
 export interface SystemPagesWayInterface {
     name: string,
     code: string,
-    systems: SystemsInterface[]
+    systems: SystemsInterface[] | ActiveRulesInterface[]
 }
 
 export interface SystemsState {
     systems: SystemsInterface[] | [],
     currentSystem: SystemsInterface,
-    currentSystems: SystemsInterface[] | [],
+    currentSystems: SystemsInterface[] | ActiveRulesInterface[] | [],
     isLoading: boolean,
     error: string | null,
     systemPagesWay: SystemPagesWayInterface[]
@@ -46,7 +48,7 @@ interface SetCurrentSystemAction {
 
 interface SetCurrentSystemsAction {
     type: SystemsActionTypes.SET_CURRENT_SYSTEMS;
-    payload: SystemsInterface[];
+    payload: SystemsInterface[] | ActiveRulesInterface[];
 }
 
 interface SetSystemPagesWayAction {

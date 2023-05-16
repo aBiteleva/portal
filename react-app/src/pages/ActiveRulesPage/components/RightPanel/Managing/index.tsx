@@ -14,11 +14,13 @@ const Managing = () => {
     const dispatch = useAppDispatch();
 
     const onHandleDeleteActiveRule = async () => {
-        const body: DeleteActiveRuleInterface = {
-            code: currentActiveRule.code
-        };
+        if(currentActiveRule) {
+            const body: DeleteActiveRuleInterface = {
+                code: currentActiveRule.code
+            };
 
-        await dispatch(() => deleteActiveRule(body, currentSystem.code));
+            await dispatch(() => deleteActiveRule(body, currentSystem.code));
+        }
     };
     return <>
         <div className={stylesCommon.rightPanelBlockTitle}>Управление</div>

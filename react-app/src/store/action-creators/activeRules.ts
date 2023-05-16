@@ -11,7 +11,7 @@ export const setCurrentPerformance = (performance: RulesPerformance): ActiveRule
     return {type: ActiveRulesActionTypes.SET_CURRENT_PERFORMANCE, payload: performance};
 };
 
-export const setCurrentActiveRule = (activeRule: ActiveRulesInterface): any => {
+export const setCurrentActiveRule = (activeRule: ActiveRulesInterface | null): any => {
     return (dispatch: Dispatch<ActiveRulesAction>) => {
         dispatch({type: ActiveRulesActionTypes.SET_CURRENT_ACTIVE_RULE, payload: activeRule});
     };
