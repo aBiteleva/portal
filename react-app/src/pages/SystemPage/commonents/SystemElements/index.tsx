@@ -1,10 +1,8 @@
 import React, {FC} from 'react';
-// @ts-ignore
 import commonStyles from '../../../../common/styles/styles.module.scss';
 import {Switch} from 'antd';
 import {useTypedSelector} from '../../../../hooks/useTypedSelector';
 import {useAction} from '../../../../hooks/useAction';
-// @ts-ignore
 import variables from '../../../../../variables.module.scss';
 
 interface SystemElementsInterface {

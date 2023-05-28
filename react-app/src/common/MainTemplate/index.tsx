@@ -22,12 +22,11 @@ const MainTemplate: FC<MainTemplateInterface> = ({blocks, children}) => {
     const location = useLocation();
 
     const onPageNameClick = (page: SystemPagesWayInterface) => {
-        console.log({page});
         if (location.pathname === '/editor-active-rules'
             && systemPagesWay.indexOf(page) + 1 === systemPagesWay.length) {
             navigate('/active-rules');
             dispatch(() => setCurrentSystems(page.systems));
-            systemPagesWay.splice(systemPagesWay.indexOf(page)-1, systemPagesWay.length);
+            systemPagesWay.splice(systemPagesWay.indexOf(page)+1, systemPagesWay.length);
         } else {
             navigate('/');
             dispatch(() => setCurrentSystems(page.systems));

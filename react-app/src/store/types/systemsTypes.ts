@@ -4,6 +4,7 @@ export interface SystemsInterface {
     name: string,
     code: string,
     children: SystemsInterface[],
+    parent?: string | null,
     parentCode?: string
 }
 
