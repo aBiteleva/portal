@@ -1,13 +1,28 @@
 import variables from '../../../../../../../variables.module.scss';
 
-const getColor = (type) => {
+export const getColor = (type) => {
     switch (type) {
-        case 'action':
+        case 'Action':
             return variables.actionColor;
-        case 'condition':
+        case 'Condition':
             return variables.conditionColor;
-        case 'event':
+        case 'Atomic event':
+        case 'Complex event':
+        case 'Aggregation event':
             return variables.eventColor;
+    }
+};
+
+export const getShape = (type) => {
+    switch (type) {
+        case 'Action':
+            return 'ellipse';
+        case 'Condition':
+            return 'diamond';
+        case 'Atomic event':
+        case 'Complex event':
+        case 'Aggregation event':
+            return 'box';
     }
 };
 
@@ -27,8 +42,9 @@ export const onOk = (data, setGraphData) => {
                     ...nodes,
                     {
                         id,
-                        label: `${data[0].toUpperCase()}: ${data}`,
+                        label: data!=='condition' && `${data}\nId: ${id}`,
                         color: {background: getColor(data)},
+                        shape: getShape(data),
                         x: Math.random() * 600 - 300,
                         y: Math.random() * 600 - 300
                     }

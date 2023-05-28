@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import commonStyles from '../../../../../common/styles/styles.module.scss';
 import GraphComponent from './components/GraphComponent';
 import EditorRulePerformanceSelect from '../../EditorRulePerformanceSelect';
-import {createNode, onAddEdge, onEdit, onOk, onRemoveNode} from './helpers/handlers';
+import {createNode, getColor, getShape, onAddEdge, onEdit, onOk, onRemoveNode} from './helpers/handlers';
 import {Select} from 'antd';
 import EditNodeModal from './components/EditNodeModal';
 import AddEdgeModal from './components/AddEdgeModal';
@@ -21,11 +21,28 @@ const EditorRuleGraph = () => {
         counter: 5,
         graph: {
             nodes: [
-                {id: 1, label: 'Node 1', x: -20, y: -150},
-                {id: 2, label: 'Node 2', x: 50, y: 0},
-                {id: 3, label: 'Node 3', x: -100, y: 150},
-                {id: 4, label: 'Node 4', x: 0, y: 150},
-                {id: 5, label: 'Node 5', x: 100, y: 150}
+                {
+                    id: 1, label: 'Atomic event\n Id: 1', shape: getShape('Atomic event'),
+                    color: {background: getColor('Atomic event')}, x: -20, y: -150
+                },
+                {
+                    id: 2,
+                    label: '',
+                    shape: getShape('Condition'),
+                    color: {background: getColor('Condition')}, x: 50, y: 0
+                },
+                {
+                    id: 3, label: 'Action\nId: 3', shape: getShape('Action'),
+                    color: {background: getColor('Action')}, x: -100, y: 150
+                },
+                {
+                    id: 4, label: 'Action\nId: 4', shape: getShape('Action'),
+                    color: {background: getColor('Action')}, x: 0, y: 150
+                },
+                {
+                    id: 5, label: 'Action\nId: 5', shape: getShape('Action'),
+                    color: {background: getColor('Action')}, x: 100, y: 150
+                }
             ],
             edges: [
                 {from: 1, to: 2},
@@ -108,9 +125,9 @@ const EditorRuleGraph = () => {
                     size="small"
                     onChange={value => onOk(value, setState)}
                     options={[
-                        {value: 'event', label: 'Событие'},
-                        {value: 'condition', label: 'Условие'},
-                        {value: 'action', label: 'Действие'}
+                        {value: 'Atomic event', label: 'Событие'},
+                        {value: 'Condition', label: 'Условие'},
+                        {value: 'Action', label: 'Действие'}
                     ]}
                 />
                 <div>Легенда</div>
