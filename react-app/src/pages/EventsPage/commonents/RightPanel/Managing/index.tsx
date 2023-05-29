@@ -1,35 +1,33 @@
 import React, {useState} from 'react';
 import Icon from '../../../../../common/components/Icon';
 import stylesCommon from '../../../../../common/styles/styles.module.scss';
+import AddEventModal from '../../AddEventModal';
 import {useAppDispatch, useTypedSelector} from '../../../../../hooks/useTypedSelector';
 import {useAction} from '../../../../../hooks/useAction';
-import {DeleteActiveRuleInterface} from '../../../../../store/types/activeRulesTypes';
-import AddActiveRuleModal from '../../AddActiveRuleModal';
+import {DeleteEventInterface} from '../../../../../store/types/eventsTypes';
 
 const Managing = () => {
-    const [isAddActiveRuleModalVisible, setIsAddActiveRuleModalVisible] = useState(false);
-    const {currentActiveRule} = useTypedSelector(state => state.activeRulesValues);
+    const [isAddEventModalVisible, setIsAddEventModalVisible] = useState(false);
     const {currentSystem} = useTypedSelector(state => state.systemsValues);
-    const {deleteActiveRule} = useAction();
+    const {currentEvent} = useTypedSelector(state => state.eventsValues);
+    const {deleteEvent} = useAction();
     const dispatch = useAppDispatch();
 
-    const onHandleDeleteActiveRule = async () => {
-        if(currentActiveRule) {
-            const body: DeleteActiveRuleInterface = {
-                code: currentActiveRule.code
-            };
+    const onHandleDeleteEvent = async () => {
+        const body: DeleteEventInterface = {
+            codeEvent: currentEvent.code,
+            codeComponent: currentEvent.component[0].code
+        };
 
-            await dispatch(() => deleteActiveRule(body, currentSystem.code));
-        }
+        await dispatch(() => deleteEvent(body, currentSystem.code));
     };
+
     return <>
         <div className={stylesCommon.rightPanelBlockTitle}>Управление</div>
         <div className={stylesCommon.rightPanelBlockAction}>
             <Icon name="plus"/>
-            <div
-                className={stylesCommon.rightPanelBlockActionText}
-                onClick={() => setIsAddActiveRuleModalVisible(true)}
-            >
+            <div className={stylesCommon.rightPanelBlockActionText}
+                 onClick={() => setIsAddEventModalVisible(true)}>
                 Добавить
             </div>
         </div>
@@ -41,14 +39,14 @@ const Managing = () => {
             <Icon name="korzina"/>
             <div
                 className={stylesCommon.rightPanelBlockActionText}
-                onClick={onHandleDeleteActiveRule}
+                onClick={onHandleDeleteEvent}
             >
                 Удалить
             </div>
         </div>
-        <AddActiveRuleModal
-            isVisible={isAddActiveRuleModalVisible}
-            setIsVisible={setIsAddActiveRuleModalVisible}
+        <AddEventModal
+            isVisible={isAddEventModalVisible}
+            setIsVisible={setIsAddEventModalVisible}
             currentSystemCode={currentSystem.code}
         />
     </>;

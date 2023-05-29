@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import commonStyles from '../../../../../common/styles/styles.module.scss';
 import GraphComponent from './components/GraphComponent';
-import PerformanceSelect from '../../PerformanceSelect';
-import {createNode, onAddEdge, onEdit, onOk, onRemoveNode} from './helpers/handlers';
+import EditorRulePerformanceSelect from '../../EditorRulePerformanceSelect';
+import {createNode, getColor, getShape, onAddEdge, onEdit, onOk, onRemoveEdge, onRemoveNode} from './helpers/handlers';
 import {Select} from 'antd';
 import EditNodeModal from './components/EditNodeModal';
 import AddEdgeModal from './components/AddEdgeModal';
@@ -10,22 +10,46 @@ import Icon from '../../../../../common/components/Icon';
 import variables from '../../../../../../variables.module.scss';
 import MainTemplate from '../../../../../common/MainTemplate';
 import Header from '../../../../../common/components/Header';
-import Managing from '../../RightPanel/Managing';
+import Managing from '../../../../ActiveRulesPage/components/RightPanel/Managing';
 
-const RuleGraph = () => {
+const EditorRuleGraph = () => {
     const [currentNodeId, setCurrentNodeId] = useState();
     const [currentNode, setCurrentNode] = useState();
+    const [currentEdgeId, setCurrentEdgeId] = useState();
+    const [currentEdge, setCurrentEdge] = useState();
+    const [currentPointer, setCurrentPointer] = useState({x: 0, y: 0});
     const [isEditGraphModalVisible, setIsEditGraphModalVisible] = useState(false);
     const [isAddEdgeModalVisible, setIsAddEdgeModalVisible] = useState(false);
     const [state, setState] = useState({
         counter: 5,
         graph: {
             nodes: [
-                {id: 1, label: 'Node 1', x: -20, y: -150},
-                {id: 2, label: 'Node 2', x: 50, y: 0},
-                {id: 3, label: 'Node 3', x: -100, y: 150},
-                {id: 4, label: 'Node 4', x: 0, y: 150},
-                {id: 5, label: 'Node 5', x: 100, y: 150}
+                {
+                    id: 1, label: 'Atomic event\n Id: 1', shape: getShape('Atomic event'),
+                    color: {background: getColor('Atomic event')}, x: -20, y: -150
+                },
+                {
+                    id: 2,
+                    label: 'Condition\n Id: 2',
+                    font: {
+                        color: 'transparent',
+                        strokeColor: 'transparent'
+                    },
+                    shape: getShape('Condition'),
+                    color: {background: getColor('Condition')}, x: 50, y: 0
+                },
+                {
+                    id: 3, label: 'Action\n Id: 3', shape: getShape('Action'),
+                    color: {background: getColor('Action')}, x: -100, y: 150
+                },
+                {
+                    id: 4, label: 'Action\n Id: 4', shape: getShape('Action'),
+                    color: {background: getColor('Action')}, x: 0, y: 150
+                },
+                {
+                    id: 5, label: 'Action\n Id: 5', shape: getShape('Action'),
+                    color: {background: getColor('Action')}, x: 100, y: 150
+                }
             ],
             edges: [
                 {from: 1, to: 2},
@@ -35,15 +59,16 @@ const RuleGraph = () => {
             ]
         },
         events: {
-            select: function ({nodes, edges}) {
-                console.log('Selected nodes:');
-                console.log(nodes);
-                console.log('Selected edges:');
-                console.log(edges);
-            },
-            click: function ({nodes, edges}) {
-                setCurrentNodeId(nodes[0]);
-                this.setSelection({nodes, edges});
+            select: function ({nodes, edges, pointer: {canvas}}) {
+                setCurrentNodeId(undefined);
+                setCurrentEdgeId(undefined);
+                if (!nodes[0]) {
+                    setCurrentEdgeId(edges[0]);
+                    setCurrentPointer({x: canvas.x, y: canvas.y});
+                } else {
+                    setCurrentNodeId(nodes[0]);
+                    setCurrentPointer({x: canvas.x, y: canvas.y});
+                }
             },
             doubleClick: ({nodes, edges, pointer: {canvas}}) => {
                 createNode(setState, nodes, edges, canvas.x, canvas.y);
@@ -54,6 +79,10 @@ const RuleGraph = () => {
     useEffect(() => {
         setCurrentNode(state?.graph?.nodes.find(node => node.id === currentNodeId));
     }, [currentNodeId, state?.graph?.nodes]);
+
+    useEffect(() => {
+        setCurrentEdge(state?.graph?.edges.find(edge => edge.id === currentEdgeId));
+        }, [currentEdgeId, state?.graph?.edges]);
 
     const RulesGraphRightPanel = () => {
         return (<>
@@ -91,7 +120,16 @@ const RuleGraph = () => {
                     <Icon name="korzina" color={variables.redColor}/>
                     <div
                         className={commonStyles.rightPanelBlockActionText}
-                        onClick={() => onRemoveNode(state, setState, currentNode)}>
+                        onClick={() => !currentNode
+                            ? (
+                                onRemoveEdge(state, setState, currentEdge),
+                                    setCurrentEdgeId(undefined)
+                            )
+                            : (
+                                onRemoveNode(state, setState, currentNode),
+                                    setCurrentNodeId(undefined)
+                            )
+                        }>
                         Удалить
                     </div>
                 </div>
@@ -102,15 +140,15 @@ const RuleGraph = () => {
     const RuleGraphToolbar = () => {
         return (
             <div className={commonStyles.toolbar}>
-                <PerformanceSelect/>
+                <EditorRulePerformanceSelect/>
                 <Select
                     placeholder="Добавить"
                     size="small"
                     onChange={value => onOk(value, setState)}
                     options={[
-                        {value: 'event', label: 'Событие'},
-                        {value: 'condition', label: 'Условие'},
-                        {value: 'action', label: 'Действие'}
+                        {value: 'Atomic event', label: 'Событие'},
+                        {value: 'Condition', label: 'Условие'},
+                        {value: 'Action', label: 'Действие'}
                     ]}
                 />
                 <div>Легенда</div>
@@ -126,13 +164,14 @@ const RuleGraph = () => {
         <EditNodeModal
             node={currentNode}
             onEdit={data => {
-                onEdit(data, state, setState, currentNode);
+                onEdit(data, state, setState, currentNode, currentPointer);
                 setIsEditGraphModalVisible(false);
             }}
             isVisible={isEditGraphModalVisible}
             onCancel={() => setIsEditGraphModalVisible(false)}
         />
         <AddEdgeModal
+            nodesState={state.graph.nodes}
             node={currentNode}
             onOk={data => {
                 onAddEdge(data, setState);
@@ -144,4 +183,4 @@ const RuleGraph = () => {
     </MainTemplate>;
 };
 
-export default RuleGraph;
+export default EditorRuleGraph;

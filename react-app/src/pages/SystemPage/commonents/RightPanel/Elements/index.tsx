@@ -1,9 +1,7 @@
 import Icon from '../../../../../common/components/Icon';
 import React from 'react';
-// @ts-ignore
 import stylesCommon from '../../../../../common/styles/styles.module.scss';
 import { Link } from 'react-router-dom';
-// @ts-ignore
 import variables from '../../../../../../variables.module.scss';
 
 const Elements = () => {

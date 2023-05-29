@@ -1,0 +1,42 @@
+@import "variables.module";
+
+.form {
+  &__modal {
+    margin-top: 30px;
+  }
+
+  &__footer {
+    margin-top: 30px;
+    display: flex;
+    justify-content: end;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+  &__tittle {
+    font-weight: 400;
+    font-size: 14px;
+    margin-right: 6px;
+    width: 15%;
+  }
+
+  &__select {
+    width: 100%;
+    border: 1px solid $light-grey-color;
+    border-radius: 8px;
+
+    div[class=ant-select-selector] > span {
+      color:$dark-blue-color !important;
+    }
+
+    span[class=ant-select-arrow] {
+      color: $grey-color !important;
+    }
+  }
+}

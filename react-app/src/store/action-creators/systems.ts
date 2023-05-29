@@ -7,12 +7,13 @@ import {
 } from '../types/systemsTypes';
 import {Dispatch} from 'redux';
 import {SystemService} from '../../api/services/SystemService';
+import {ActiveRulesInterface} from '../types/activeRulesTypes';
 
 export const setCurrentSystem = (system: SystemsInterface): SystemsAction => {
     return {type: SystemsActionTypes.SET_CURRENT_SYSTEM, payload: system};
 };
 
-export const setCurrentSystems = (systems: SystemsInterface[]): SystemsAction => {
+export const setCurrentSystems = (systems: SystemsInterface[] | ActiveRulesInterface[]): SystemsAction => {
     return {type: SystemsActionTypes.SET_CURRENT_SYSTEMS, payload: systems};
 };
 
@@ -38,9 +39,9 @@ export const addSystem = (body: AddSystemInterface) => {
     return async (dispatch: Dispatch<SystemsAction>) => {
         try {
             await SystemService.addSystem(body);
-            dispatch(fetchSystems())
+            dispatch(fetchSystems());
         } catch (e) {
-            console.error('Произошла ошибка добавления системы: ', e)
+            console.error('Произошла ошибка добавления системы: ', e);
         }
     };
 };
@@ -49,9 +50,9 @@ export const deleteSystem = (body: DeleteSystemInterface) => {
     return async (dispatch: Dispatch<SystemsAction>) => {
         try {
             await SystemService.deleteSystem(body);
-            dispatch(fetchSystems())
+            dispatch(fetchSystems());
         } catch (e) {
-            console.error('Произошла ошибка удаления системы: ', e)
+            console.error('Произошла ошибка удаления системы: ', e);
         }
     };
 };

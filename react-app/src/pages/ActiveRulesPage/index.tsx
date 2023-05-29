@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react';
 import MainTemplate from '../../common/MainTemplate';
-import RuleList from './components/Performance/RuleList';
+import RuleTags from './components/Performance/RuleTags';
 import {useAppDispatch, useTypedSelector} from '../../hooks/useTypedSelector';
 import {useAction} from '../../hooks/useAction';
 import {RulesPerformance} from '../../store/types/activeRulesTypes';
-import RuleGraph from './components/Performance/RuleGraph/index';
 import RuleTable from './components/Performance/RuleTable';
 import RightPanel from './components/RightPanel';
 
@@ -34,18 +33,14 @@ const ActiveRulesPage = () => {
 
     const getCurrentPerformance = () => {
         switch (currentPerformance) {
-            case RulesPerformance.list:
+            case RulesPerformance.tag:
                 return <MainTemplate blocks={<RightPanel/>}>
-                    <RuleList />
+                    <RuleTags />
                 </MainTemplate>;
             case RulesPerformance.table:
                 return <MainTemplate blocks={<RightPanel/>}>
                     <RuleTable />
                 </MainTemplate>;
-            case RulesPerformance.lang:
-                return <></>;
-            case RulesPerformance.graph:
-                return <RuleGraph />;
         }
     };
 

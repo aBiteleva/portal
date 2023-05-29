@@ -3,30 +3,31 @@ import styles from './styles.module.scss';
 import {Button, Form, Input, Modal} from 'antd';
 import {useAction} from '../../../../hooks/useAction';
 import {useAppDispatch} from '../../../../hooks/useTypedSelector';
-import {AddSystemInterface} from '../../../../store/types/systemsTypes';
+import {AddEventInterface} from '../../../../store/types/eventsTypes';
 
-interface AddModalInterface {
+interface AddEventModalInterface {
     isVisible: boolean;
     setIsVisible: (isVisible: boolean) => void;
+    currentSystemCode: string;
 }
 
-const AddModal: FC<AddModalInterface> = ({isVisible, setIsVisible}) => {
-    const {addSystem} = useAction();
+const AddEventModal: FC<AddEventModalInterface> = ({isVisible, setIsVisible, currentSystemCode}) => {
+    const {addEvent} = useAction();
     const dispatch = useAppDispatch();
 
     const handleCancel = () => {
         setIsVisible(false);
     };
 
-    const onFinish = async (data: AddSystemInterface) => {
-        await dispatch(() => addSystem(data));
+    const onFinish = async (data: AddEventInterface) => {
+        await dispatch(() => addEvent(data, currentSystemCode));
 
         setIsVisible(false);
     };
 
     return <>
         <Modal
-            title="Добавить систему"
+            title="Добавить событие"
             open={isVisible}
             onCancel={handleCancel}
             footer={[
@@ -37,14 +38,28 @@ const AddModal: FC<AddModalInterface> = ({isVisible, setIsVisible}) => {
         >
             <Form
                 name="addSystemForm"
-                labelCol={{span: 6}}
-                wrapperCol={{span: 16}}
+                labelCol={{span: 8}}
+                wrapperCol={{span: 14}}
                 onFinish={onFinish}
                 className={styles.form}
             >
                 <Form.Item
                     label="Название"
-                    name="name"
+                    name="description"
+                    rules={[{required: true, message: 'Заполните поле'}]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="Код контекста"
+                    name="contextParamCode"
+                    rules={[{required: true, message: 'Заполните поле'}]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    label="Код компонента"
+                    name="codeComponent"
                     rules={[{required: true, message: 'Заполните поле'}]}
                 >
                     <Input/>
@@ -54,4 +69,4 @@ const AddModal: FC<AddModalInterface> = ({isVisible, setIsVisible}) => {
     </>;
 };
 
-export default AddModal;
+export default AddEventModal;

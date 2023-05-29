@@ -46,11 +46,6 @@ const SystemPage = () => {
 
     useEffect(() => {
         setCurrentSystems(systems);
-        dispatch(() => setSystemPagesWay([{
-            name: 'ARS',
-            code: '0000',
-            systems
-        }]));
     }, [systems]);
 
     if (isLoading) {
@@ -64,7 +59,7 @@ const SystemPage = () => {
     const onDoubleClick = (elementChildren: any[]) => {
         if (elementChildren && elementChildren.length > 0) {
             dispatch(() => setSystemPagesWay([...systemPagesWay, {
-                name: ` / ${currentSystem.name}`,
+                name: systemPagesWay.length < 1 ? currentSystem.name : ` / ${currentSystem.name}`,
                 code: currentSystem.code,
                 systems: elementChildren
             }]));

@@ -8,30 +8,9 @@ import {RulesPerformance} from '../../../../store/types/activeRulesTypes';
 
 const Toolbar = () => {
     const {setCurrentPerformance} = useAction();
-    const {currentPerformance} = useTypedSelector(state => state.activeRulesValues);
-
-    const getExtraAction = () => {
-        switch (currentPerformance) {
-            case RulesPerformance.graph:
-                return <>
-                    <Select
-                        placeholder="Добавить"
-                        size="small"
-                        onChange={value => setCurrentPerformance(value)}
-                        options={[
-                            {value: 'event', label: 'Событие'},
-                            {value: 'condition', label: 'Условие'},
-                            {value: 'action', label: 'Действие'}
-                        ]}
-                    />
-                    <div style={{marginRight: '12px'}}>Легенда</div>
-                </>;
-        }
-    };
 
     return (
         <div className={commonStyles.toolbar}>
-            {getExtraAction()}
             <Select
                 placeholder="Представление"
                 size="small"

@@ -1,27 +1,55 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './styles.module.scss';
 import stylesCommon from '../../../../../styles/styles.module.scss';
 import Icon from '../../../../../components/Icon';
+import {useAppDispatch, useTypedSelector} from '../../../../../../hooks/useTypedSelector';
+import {useAction} from '../../../../../../hooks/useAction';
+import {SystemsInterface} from '../../../../../../store/types/systemsTypes';
+import variables from '../../../../../../../variables.module.scss';
 
 const LeftPanel = () => {
+    const {systems, systemPagesWay} = useTypedSelector(state => state.systemsValues);
+    const dispatch = useAppDispatch();
+    const {setSystemPagesWay, setCurrentSystems, setCurrentSystem} = useAction();
+
+    const parentSystems = systems?.filter(system => system.code === '00001');
+
+    const onChoseParentSystem = (system: SystemsInterface) => {
+        if (system.children && system.children.length > 0) {
+            dispatch(() => setSystemPagesWay([{
+                name: `${system.name}`,
+                code: system.code,
+                systems: system.children
+            }]));
+            setCurrentSystems(system.children);
+        }
+    };
+
     return <div className={styles.systems}>
         <div className={styles.header}>
             <div>Системы</div>
             <Icon name="plus"/>
         </div>
         <div className={styles.systemsBlocks}>
-            <div>
-                <Icon name="zavod"/>
-                <div>Завод - Краснореченская 107</div>
-            </div>
-            <div>
-                <Icon name="home"/>
-                <div>Умный дом - Ворошилова 50</div>
-            </div>
-            <div>
-                <Icon name="study"/>
-                <div>ВУЗ - Суворова 27</div>
-            </div>
+            {parentSystems.map(system => (
+                <div key={system.code}
+                     style={systemPagesWay?.[0]?.code === system.code
+                         ? {background: variables.yellowColor}
+                         : undefined}
+                     onClick={() => {
+                         setCurrentSystem(system);
+                         onChoseParentSystem(system);
+                     }}>
+                    <Icon name="zavod"
+                          color={systemPagesWay?.[0]?.code === system.code && variables.darkBlueColor}
+                    />
+                    <div style={systemPagesWay?.[0]?.code === system.code
+                        ? {color: variables.darkBlueColor}
+                        : undefined}>
+                        {system.name}
+                    </div>
+                </div>
+            ))}
         </div>
 
         <hr className={stylesCommon.line}/>
