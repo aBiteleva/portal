@@ -21,6 +21,9 @@ const options = {
         },
         shape: 'box'
     },
+    edges : {
+        color: variables.whiteColor,
+    },
     physics: {
         enabled: false
     }

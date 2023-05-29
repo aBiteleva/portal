@@ -42,7 +42,10 @@ export const onOk = (data, setGraphData) => {
                     ...nodes,
                     {
                         id,
-                        label: data!=='condition' && `${data}\nId: ${id}`,
+                        label: `${data}\n Id: ${id}`,
+                        font: {
+                            color: data.toLowerCase().includes('condition') ? 'transparent' : variables.whiteColor,
+                        },
                         color: {background: getColor(data)},
                         shape: getShape(data),
                         x: Math.random() * 600 - 300,
@@ -81,14 +84,15 @@ export const createNode = (setGraphData, currentNode, currentEdge, x, y) => {
 };
 
 
-export const onEdit = (data, graphData, setGraphData, currentNode) => {
-    setGraphData(({graph: {nodes, edges}, counter, ...rest}) => {
+export const onEdit = (data, graphData, setGraphData, currentNode, currentPointer) => {
+    setGraphData(({graph: {edges}, counter, ...rest}) => {
+        const temp = graphData.graph.nodes.filter(node => node.id !== currentNode.id);
         return {
             ...graphData,
             graph: {
                 nodes: [
-                    ...nodes,
-                    {...currentNode, label: data.label},
+                    ...temp,
+                    {...currentNode, label: data.label, x: currentPointer.x, y: currentPointer.y},
                 ],
                 edges: [
                     ...edges
@@ -100,7 +104,7 @@ export const onEdit = (data, graphData, setGraphData, currentNode) => {
 };
 
 export const onRemoveNode = (graphData, setGraphData, currentNode) => {
-    const temp = graphData.graph.nodes.filter(node => node.id !== currentNode.id);
+    const temp = graphData.graph.nodes.filter(node => node?.id !== currentNode?.id);
     setGraphData(({graph: {edges}, ...rest}) => {
         return {
             graph: {
@@ -116,6 +120,23 @@ export const onRemoveNode = (graphData, setGraphData, currentNode) => {
     });
 };
 
+export const onRemoveEdge = (graphData, setGraphData, currentEdge) => {
+    const temp = graphData.graph.edges.filter(edge => edge?.id !== currentEdge?.id);
+    setGraphData(({graph: {nodes}, ...rest}) => {
+        return {
+            graph: {
+                nodes: [
+                    ...nodes,
+                ],
+                edges: [
+                    ...temp,
+                ]
+            },
+            ...rest
+        };
+    });
+};
+
 export const onAddEdge = (data, setGraphData) => {
     setGraphData(({graph: {nodes, edges}, ...rest}) => {
         return {
@@ -123,9 +144,13 @@ export const onAddEdge = (data, setGraphData) => {
                 nodes: [
                     ...nodes
                 ],
-                edges: [
+                edges: data.condition ? [
                     ...edges,
-                    data.child && data.parent ? {from: data?.parent, to: data.child} : null
+                        data.event ? {from: data?.event, to: data.condition} : null,
+                        data.action ? {from: data?.condition, to: data.action} : null
+                ] : [
+                    ...edges,
+                    data.event && data.action ? {from: data?.event, to: data.action} : null
                 ]
             },
             ...rest
