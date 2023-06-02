@@ -1,0 +1,18 @@
+<div class="active-rule">
+    <ng-container *ngFor="let rule of activeRules">
+        <p-card class="active-rule__item">
+            <ng-template pTemplate="header">
+                <div class="active-rule__item--header">
+                    <span class="active-rule__item--header-title">{{rule.code}}</span>
+                    <app-button routerLink="/active-rules-script/edit/{{rule.code}}" icon="edit"></app-button>
+                </div>
+            </ng-template>
+
+            <div>RULE {{rule.code}}</div>
+            <div>TYPE = Classic</div>
+            <div>DESCRIPTION = {{rule.description}}</div>
+            <div>CONDITION = {{rule.condition}}</div>
+            <div>ACTION = {{rule.action}}</div>
+        </p-card>
+    </ng-container>
+</div>

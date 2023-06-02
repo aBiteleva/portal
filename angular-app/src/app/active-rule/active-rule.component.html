@@ -1,0 +1,10 @@
+<p-dialog [(visible)]="isDialogVisible" [closable]="false" [draggable]="false" [style]="{width: '1000px'}">
+    <ng-template pTemplate="header">
+        <div class="active-rule-dialog-header">
+            <app-button class="active-rule-dialog-header__back-btn" *ngIf="isEditorMode" routerLink="/active-rules-script" icon="arrow-left" iconSize="16" btnStyle="outline"></app-button>
+            <h2 class="active-rule-dialog-header__title">Языковое представление активных правил</h2>
+            <app-button *ngIf="!isEditorMode" routerLink="/active-rules-script/new" icon="plus" iconSize="16" btnStyle="outline"></app-button>
+        </div>
+    </ng-template>
+    <router-outlet (activate)='onAttach()'></router-outlet>
+</p-dialog>
