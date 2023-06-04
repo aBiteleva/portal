@@ -146,8 +146,8 @@ export const onAddEdge = (data, setGraphData) => {
                 ],
                 edges: data.condition ? [
                     ...edges,
-                        data.event ? {from: data?.event, to: data.condition} : null,
-                        data.action ? {from: data?.condition, to: data.action} : null
+                    data.event ? {from: data?.event, to: data.condition} : null,
+                    data.action ? {from: data?.condition, to: data.action} : null
                 ] : [
                     ...edges,
                     data.event && data.action ? {from: data?.event, to: data.action} : null

@@ -42,6 +42,13 @@ export interface DeleteActiveRuleInterface {
     code: string
 }
 
+export interface UpdateActiveRuleInterface {
+    description: string,
+    condition: string,
+    action: string,
+    code: string
+}
+
 
 export enum ActiveRulesActionTypes {
     FETCH_RULES_SYSTEM_CODE = 'FETCH_RULES_SYSTEM_CODE',

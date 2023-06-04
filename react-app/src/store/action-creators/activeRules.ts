@@ -3,7 +3,7 @@ import {
     ActiveRulesAction,
     ActiveRulesActionTypes,
     ActiveRulesInterface, AddActiveRuleInterface, DeleteActiveRuleInterface,
-    RulesPerformance
+    RulesPerformance, UpdateActiveRuleInterface
 } from '../types/activeRulesTypes';
 import {ActiveRuleService} from '../../api/services/ActiveRuleService';
 
@@ -26,22 +26,39 @@ export const fetchActiveRuleBySystemCode = (code: string): any => {
                 dispatch({type: ActiveRulesActionTypes.FETCH_RULES_SYSTEM_CODE_SUCCESS, payload: response.data});
             }
         } catch (e) {
-            dispatch({type: ActiveRulesActionTypes.FETCH_RULES_SYSTEM_CODE_ERROR, payload: 'Произошла ошибка загрузки систем: ' + e});
+            dispatch({
+                type: ActiveRulesActionTypes.FETCH_RULES_SYSTEM_CODE_ERROR,
+                payload: 'Произошла ошибка загрузки систем: ' + e
+            });
         }
     };
 };
 
-export const addActiveRule = (body: AddActiveRuleInterface, eventData: {codeEvent: string, typeBind: string},
+export const addActiveRule = (body: AddActiveRuleInterface, eventData: { codeEvent: string, typeBind: string },
                               currentSystemCode: string) => {
     return async (dispatch: Dispatch<ActiveRulesAction>) => {
         try {
             const activeRule = await ActiveRuleService.addActiveRule(body);
-            if(activeRule){
-                //@ts-ignore
-                await ActiveRuleService.bindActiveRuleEvent({codeRule: activeRule.data.code,
-                    codeEvent: eventData.codeEvent, typeBind: eventData.typeBind});
+            if (activeRule) {
+                await ActiveRuleService.bindActiveRuleEvent({
+                    //@ts-ignore
+                    codeRule: activeRule.data.code,
+                    codeEvent: eventData.codeEvent, typeBind: eventData.typeBind
+                });
                 dispatch(fetchActiveRuleBySystemCode(currentSystemCode));
             }
+
+        } catch (e) {
+            console.error('Произошла ошибка добавления активного правила: ', e);
+        }
+    };
+};
+
+export const updateActiveRule = (body: UpdateActiveRuleInterface, currentSystemCode: string) => {
+    return async (dispatch: Dispatch<ActiveRulesAction>) => {
+        try {
+            await ActiveRuleService.updateActiveRule(body);
+            dispatch(fetchActiveRuleBySystemCode(currentSystemCode));
 
         } catch (e) {
             console.error('Произошла ошибка добавления активного правила: ', e);

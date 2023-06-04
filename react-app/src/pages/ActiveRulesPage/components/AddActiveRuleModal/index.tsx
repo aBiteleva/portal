@@ -40,9 +40,7 @@ const AddActiveRuleModal: FC<AddActiveRuleModalInterface> = ({isVisible, setIsVi
                     {
                         category: 'condition',
                         description: data.condition,
-                        code: 'c00001',
-                        from: 'c00001',
-                        to: 'a00001'
+                        code: 'c00001'
                     }
                 ]
             }) : '',
@@ -51,7 +49,13 @@ const AddActiveRuleModal: FC<AddActiveRuleModalInterface> = ({isVisible, setIsVi
                     {
                         category: 'action',
                         description: data.action,
-                        code: 'a00001'
+                        code: 'a00001',
+                    }
+                ],
+                edges: [
+                    {
+                        from: 'c00001',
+                        to: 'a00001'
                     }
                 ]
             })

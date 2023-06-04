@@ -4,7 +4,7 @@ import {
     ActiveRulesInterface,
     AddActiveRuleInterface,
     AddBindInterface,
-    DeleteActiveRuleInterface
+    DeleteActiveRuleInterface, UpdateActiveRuleInterface
 } from '../../store/types/activeRulesTypes';
 
 export class ActiveRuleService {
@@ -22,6 +22,10 @@ export class ActiveRuleService {
 
     static async bindActiveRuleEvent(data: AddBindInterface): Promise<AxiosResponse<any[]>> {
         return api.post<any[]>('/active-rule/event', data);
+    }
+
+    static async updateActiveRule(data: UpdateActiveRuleInterface): Promise<AxiosResponse<any[]>> {
+        return api.patch<any[]>('/active-rule', data);
     }
 }
 

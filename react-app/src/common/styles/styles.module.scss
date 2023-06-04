@@ -101,13 +101,14 @@ svg, img {
   margin: 8px 0;
   padding: 6px;
   color: $light-grey-color;
-  text-transform: capitalize;
   align-items: center;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
+  gap: 12px;
 
   > div:first-child {
     margin-left: 0;
+    padding-right: 0;
   }
 
   &Extra {
