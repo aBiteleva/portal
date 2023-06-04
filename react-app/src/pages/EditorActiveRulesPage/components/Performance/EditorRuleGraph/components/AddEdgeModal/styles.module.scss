@@ -25,18 +25,4 @@
     margin-right: 6px;
     width: 15%;
   }
-
-  &__select {
-    width: 100%;
-    border: 1px solid $light-grey-color;
-    border-radius: 8px;
-
-    div[class=ant-select-selector] > span {
-      color:$dark-blue-color !important;
-    }
-
-    span[class=ant-select-arrow] {
-      color: $grey-color !important;
-    }
-  }
 }

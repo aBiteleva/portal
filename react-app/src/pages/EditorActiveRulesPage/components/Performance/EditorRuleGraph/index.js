@@ -11,6 +11,7 @@ import variables from '../../../../../../variables.module.scss';
 import MainTemplate from '../../../../../common/MainTemplate';
 import Header from '../../../../../common/components/Header';
 import Managing from '../../../../ActiveRulesPage/components/RightPanel/Managing';
+import {useTypedSelector} from '../../../../../hooks/useTypedSelector';
 
 const EditorRuleGraph = () => {
     const [currentNodeId, setCurrentNodeId] = useState();
@@ -20,43 +21,13 @@ const EditorRuleGraph = () => {
     const [currentPointer, setCurrentPointer] = useState({x: 0, y: 0});
     const [isEditGraphModalVisible, setIsEditGraphModalVisible] = useState(false);
     const [isAddEdgeModalVisible, setIsAddEdgeModalVisible] = useState(false);
+    const {currentActiveRule} = useTypedSelector(state => state.activeRulesValues);
+
     const [state, setState] = useState({
         counter: 5,
         graph: {
-            nodes: [
-                {
-                    id: 1, label: 'Atomic event\n Id: 1', shape: getShape('Atomic event'),
-                    color: {background: getColor('Atomic event')}, x: -20, y: -150
-                },
-                {
-                    id: 2,
-                    label: 'Condition\n Id: 2',
-                    font: {
-                        color: 'transparent',
-                        strokeColor: 'transparent'
-                    },
-                    shape: getShape('Condition'),
-                    color: {background: getColor('Condition')}, x: 50, y: 0
-                },
-                {
-                    id: 3, label: 'Action\n Id: 3', shape: getShape('Action'),
-                    color: {background: getColor('Action')}, x: -100, y: 150
-                },
-                {
-                    id: 4, label: 'Action\n Id: 4', shape: getShape('Action'),
-                    color: {background: getColor('Action')}, x: 0, y: 150
-                },
-                {
-                    id: 5, label: 'Action\n Id: 5', shape: getShape('Action'),
-                    color: {background: getColor('Action')}, x: 100, y: 150
-                }
-            ],
-            edges: [
-                {from: 1, to: 2},
-                {from: 1, to: 3},
-                {from: 2, to: 4},
-                {from: 2, to: 5}
-            ]
+            nodes: [],
+            edges: []
         },
         events: {
             select: function ({nodes, edges, pointer: {canvas}}) {
@@ -69,12 +40,99 @@ const EditorRuleGraph = () => {
                     setCurrentNodeId(nodes[0]);
                     setCurrentPointer({x: canvas.x, y: canvas.y});
                 }
-            },
-            doubleClick: ({nodes, edges, pointer: {canvas}}) => {
-                createNode(setState, nodes, edges, canvas.x, canvas.y);
             }
         }
     });
+
+    useEffect(() => {
+        const eventNodes = currentActiveRule?.event.map(ev => {
+            return {
+                id: ev.code,
+                label: `${ev.description} - ${ev.categoryEvent} event\n Code: ${ev.code}`,
+                shape: getShape(`${ev.categoryEvent} event`),
+                color: {background: getColor(`${ev.categoryEvent} event`)},
+                x: Math.random() * 600 - 300,
+                y: Math.random() * 600 - 300
+            };
+        });
+
+        const conditions = JSON.parse(currentActiveRule?.condition).data;
+        const actions = JSON.parse(currentActiveRule?.action).data;
+
+        const eventEdges = currentActiveRule?.event.map(ev => {
+            if(ev.association.typeBind === 'Event to Rule') {
+                return {
+                    from: ev.code,
+                    to: conditions.length > 0 ? conditions[0].code : actions.length > 0 ? actions[0].code : ''
+                };
+            } else {
+                return {
+                    from: conditions.length > 0 ? conditions[0].code : actions.length > 0 ? actions[0].code : '',
+                    to: ev.code
+                };
+            }
+        });
+
+        const actionNodes = actions?.map(act => {
+            return {
+                id: act.code,
+                label: `${act.description} - ${act.category}\n Code: ${act.code}`,
+                shape: getShape(act.category),
+                color: {background: getColor(act.category)},
+                x: Math.random() * 600 - 300,
+                y: Math.random() * 600 - 300
+            };
+        });
+
+        const conditionNodes = conditions?.map(cond => {
+            return {
+                id: cond.code,
+                font: {
+                    color: 'transparent',
+                },
+                label: `${cond.description} - ${cond.category}\n Code: ${cond.code}`,
+                shape: getShape(cond.category),
+                color: {background: getColor(cond.category)},
+                x: Math.random() * 600 - 300,
+                y: Math.random() * 600 - 300
+            };
+        });
+
+        const actionEdges = actions?.map(act => {
+            return {
+                from: act.from,
+                to: act.to
+            };
+        });
+
+        const conditionEdges = conditions?.map(cond => {
+            return {
+                from: cond.from,
+                to: cond.to
+            };
+        });
+
+        setState(({graph: {nodes, edges}, counter, ...rest}) => {
+            return {
+                ...state,
+                graph: {
+                    nodes: [
+                        ...nodes,
+                        ...eventNodes,
+                        ...actionNodes,
+                        ...conditionNodes
+                    ],
+                    edges: [
+                        ...edges,
+                        ...eventEdges,
+                        ...actionEdges,
+                        ...conditionEdges
+                    ]
+                },
+                ...rest
+            };
+        });
+    }, [currentActiveRule]);
 
     useEffect(() => {
         setCurrentNode(state?.graph?.nodes.find(node => node.id === currentNodeId));
@@ -82,7 +140,7 @@ const EditorRuleGraph = () => {
 
     useEffect(() => {
         setCurrentEdge(state?.graph?.edges.find(edge => edge.id === currentEdgeId));
-        }, [currentEdgeId, state?.graph?.edges]);
+    }, [currentEdgeId, state?.graph?.edges]);
 
     const RulesGraphRightPanel = () => {
         return (<>
@@ -146,9 +204,9 @@ const EditorRuleGraph = () => {
                     size="small"
                     onChange={value => onOk(value, setState)}
                     options={[
-                        {value: 'Atomic event', label: 'Событие'},
-                        {value: 'Condition', label: 'Условие'},
-                        {value: 'Action', label: 'Действие'}
+                        {value: 'atomic event', label: 'Событие'},
+                        {value: 'condition', label: 'Условие'},
+                        {value: 'action', label: 'Действие'}
                     ]}
                 />
                 <div>Легенда</div>

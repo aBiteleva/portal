@@ -2,27 +2,27 @@ import variables from '../../../../../../../variables.module.scss';
 
 export const getColor = (type) => {
     switch (type) {
-        case 'Action':
+        case 'action':
             return variables.actionColor;
-        case 'Condition':
+        case 'condition':
             return variables.conditionColor;
-        case 'Atomic event':
-        case 'Complex event':
-        case 'Aggregation event':
+        case 'atomic event':
+        case 'complex event':
+        case 'aggregation event':
             return variables.eventColor;
     }
 };
 
 export const getShape = (type) => {
     switch (type) {
-        case 'Action':
-            return 'ellipse';
-        case 'Condition':
-            return 'diamond';
-        case 'Atomic event':
-        case 'Complex event':
-        case 'Aggregation event':
+        case 'action':
             return 'box';
+        case 'condition':
+            return 'diamond';
+        case 'atomic event':
+        case 'complex event':
+        case 'aggregation event':
+            return 'ellipse';
     }
 };
 

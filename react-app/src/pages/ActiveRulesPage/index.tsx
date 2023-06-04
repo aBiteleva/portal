@@ -11,7 +11,7 @@ const ActiveRulesPage = () => {
     const {currentSystem, systemPagesWay} = useTypedSelector(state => state.systemsValues);
     const {isLoading, error, currentPerformance} = useTypedSelector(state => state.activeRulesValues);
     const dispatch = useAppDispatch();
-    const {setSystemPagesWay, fetchActiveRuleBySystemCode} = useAction();
+    const {setSystemPagesWay, fetchActiveRuleBySystemCode, fetchEventsBySystemCode} = useAction();
 
     useEffect(() => {
         setSystemPagesWay([...systemPagesWay, {
@@ -21,6 +21,7 @@ const ActiveRulesPage = () => {
         }]);
 
         dispatch(() => fetchActiveRuleBySystemCode(currentSystem.code));
+        dispatch(() => fetchEventsBySystemCode(currentSystem.code));
     }, [currentSystem]);
 
     if (isLoading) {

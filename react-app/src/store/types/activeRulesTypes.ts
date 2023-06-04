@@ -32,6 +32,12 @@ export interface AddActiveRuleInterface {
     action: string
 }
 
+export interface AddBindInterface {
+    codeRule: string,
+    codeEvent: string,
+    typeBind: string
+}
+
 export interface DeleteActiveRuleInterface {
     code: string
 }

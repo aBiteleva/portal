@@ -31,11 +31,18 @@ export const fetchActiveRuleBySystemCode = (code: string): any => {
     };
 };
 
-export const addActiveRule = (body: AddActiveRuleInterface, currentSystemCode: string) => {
+export const addActiveRule = (body: AddActiveRuleInterface, eventData: {codeEvent: string, typeBind: string},
+                              currentSystemCode: string) => {
     return async (dispatch: Dispatch<ActiveRulesAction>) => {
         try {
-            await ActiveRuleService.addActiveRule(body);
-            dispatch(fetchActiveRuleBySystemCode(currentSystemCode));
+            const activeRule = await ActiveRuleService.addActiveRule(body);
+            if(activeRule){
+                //@ts-ignore
+                await ActiveRuleService.bindActiveRuleEvent({codeRule: activeRule.data.code,
+                    codeEvent: eventData.codeEvent, typeBind: eventData.typeBind});
+                dispatch(fetchActiveRuleBySystemCode(currentSystemCode));
+            }
+
         } catch (e) {
             console.error('Произошла ошибка добавления активного правила: ', e);
         }
