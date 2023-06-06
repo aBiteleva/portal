@@ -20,9 +20,11 @@ const ActiveRulesPage = () => {
             systems: currentSystem.children
         }]);
 
-        dispatch(() => fetchActiveRuleBySystemCode(currentSystem.code));
-        dispatch(() => fetchEventsBySystemCode(currentSystem.code));
-    }, [currentSystem]);
+        const currentSystemCode = localStorage.getItem('currentSystemCode');
+
+        dispatch(() => fetchActiveRuleBySystemCode(currentSystemCode || currentSystem.code));
+        dispatch(() => fetchEventsBySystemCode(currentSystemCode || currentSystem.code));
+    }, [currentSystem, localStorage]);
 
     if (isLoading) {
         return <div>Идёт загрузка активных правил...</div>;

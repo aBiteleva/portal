@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import commonStyles from '../../../../../common/styles/styles.module.scss';
 import GraphComponent from './components/GraphComponent';
 import EditorRulePerformanceSelect from '../../EditorRulePerformanceSelect';
@@ -14,6 +14,10 @@ import {useTypedSelector} from '../../../../../hooks/useTypedSelector';
 import AddActionModal from './components/AddActionModal';
 import {useAction} from '../../../../../hooks/useAction';
 import {useDispatch} from 'react-redux';
+import classNames from 'classnames/bind';
+import styles from './styles.module.scss';
+
+const cn = classNames.bind(styles);
 
 const EditorRuleGraph = () => {
     const [currentNodeId, setCurrentNodeId] = useState();
@@ -25,13 +29,14 @@ const EditorRuleGraph = () => {
     const [isAddEdgeModalVisible, setIsAddEdgeModalVisible] = useState(false);
     const [isAddActionModalVisible, setIsActionModalVisible] = useState(false);
     const {currentActiveRule, activeRules} = useTypedSelector(state => state.activeRulesValues);
-    const {currentSystem} = useTypedSelector(state => state.systemsValues);
     const dispatch = useDispatch();
     const {setCurrentActiveRule, updateActiveRule} = useAction();
+    const currentActiveRuleObject = JSON.parse(localStorage.getItem('currentActiveRuleObject'));
+    const currentSystemCode = localStorage.getItem('currentSystemCode');
 
     useEffect(() => {
-        currentActiveRule && activeRules.length > 0 &&
-        setCurrentActiveRule(activeRules.find(ar => ar.code === currentActiveRule.code));
+        currentActiveRuleObject && activeRules.length > 0 &&
+        setCurrentActiveRule(activeRules.find(ar => ar.code === currentActiveRuleObject.code));
     }, [activeRules]);
 
     const [state, setState] = useState({
@@ -54,72 +59,70 @@ const EditorRuleGraph = () => {
         }
     });
 
+    const eventNodes = useMemo(() => currentActiveRuleObject?.event.map(ev => {
+        return {
+            id: ev.code,
+            label: `${ev.description} - ${ev.categoryEvent} event\n Code: ${ev.code}`,
+            shape: getShape(`${ev.categoryEvent} event`),
+            color: {background: getColor(`${ev.categoryEvent} event`)},
+            x: Math.random() * 600 - 300,
+            y: Math.random() * 600 - 300
+        };
+    }), [currentActiveRuleObject]);
+
+    const conditions = JSON.parse(currentActiveRuleObject?.condition);
+    const actions = JSON.parse(currentActiveRuleObject?.action);
+
+    const eventEdges = useMemo(() => currentActiveRuleObject?.event.map(ev => {
+        if (ev.association.typeBind === 'Event to Rule') {
+            return {
+                from: ev.code,
+                to: conditions.data.length > 0 ? conditions.data[0].code : actions.data.length > 0 ? actions.data[0].code : ''
+            };
+        } else {
+            return {
+                from: conditions.data.length > 0 ? conditions.data[0].code : actions.data.length > 0 ? actions.data[0].code : '',
+                to: ev.code
+            };
+        }
+    }), [currentActiveRuleObject]);
+
+    const conditionNodes = useMemo(() => conditions?.data.map(cond => {
+        return {
+            id: cond.code,
+            font: {
+                color: 'transparent',
+            },
+            label: `${cond.description} - ${cond.category}\n Code: ${cond.code}`,
+            shape: getShape(cond.category),
+            color: {background: getColor(cond.category)},
+            x: Math.random() * 600 - 300,
+            y: Math.random() * 600 - 300
+        };
+    }), [currentActiveRuleObject]);
+
+    const actionNodes = useMemo(() => actions?.data.length > 0 && actions?.data.map(act => {
+        return {
+            id: act.code,
+            label: `${act.description} - ${act.category}\n Code: ${act.code}`,
+            shape: getShape(act.category),
+            color: {background: getColor(act.category)},
+            x: Math.random() * 600 - 300,
+            y: Math.random() * 600 - 300
+        };
+    }), [currentActiveRuleObject]);
+
     useEffect(() => {
-        const eventNodes = currentActiveRule?.event.map(ev => {
-            return {
-                id: ev.code,
-                label: `${ev.description} - ${ev.categoryEvent} event\n Code: ${ev.code}`,
-                shape: getShape(`${ev.categoryEvent} event`),
-                color: {background: getColor(`${ev.categoryEvent} event`)},
-                x: Math.random() * 600 - 300,
-                y: Math.random() * 600 - 300
-            };
-        });
-
-        const conditions = JSON.parse(currentActiveRule?.condition);
-        const actions = JSON.parse(currentActiveRule?.action);
-
-        const eventEdges = currentActiveRule?.event.map(ev => {
-            if (ev.association.typeBind === 'Event to Rule') {
-                return {
-                    from: ev.code,
-                    to: conditions.data.length > 0 ? conditions.data[0].code : actions.data.length > 0 ? actions.data[0].code : ''
-                };
-            } else {
-                return {
-                    from: conditions.data.length > 0 ? conditions.data[0].code : actions.data.length > 0 ? actions.data[0].code : '',
-                    to: ev.code
-                };
-            }
-        });
-
-        const actionNodes = actions?.data.length > 0 && actions?.data.map(act => {
-            return {
-                id: act.code,
-                label: `${act.description} - ${act.category}\n Code: ${act.code}`,
-                shape: getShape(act.category),
-                color: {background: getColor(act.category)},
-                x: Math.random() * 600 - 300,
-                y: Math.random() * 600 - 300
-            };
-        });
-
-        const conditionNodes = conditions?.data.map(cond => {
-            return {
-                id: cond.code,
-                font: {
-                    color: 'transparent',
-                },
-                label: `${cond.description} - ${cond.category}\n Code: ${cond.code}`,
-                shape: getShape(cond.category),
-                color: {background: getColor(cond.category)},
-                x: Math.random() * 600 - 300,
-                y: Math.random() * 600 - 300
-            };
-        });
-
         setState(({graph: {nodes, edges}, counter, ...rest}) => {
             return {
                 ...state,
                 graph: {
                     nodes: [
-                        ...nodes,
                         ...eventNodes,
                         ...actionNodes,
                         ...conditionNodes
                     ],
                     edges: [
-                        ...edges,
                         ...eventEdges,
                         ...actions.edges
                     ]
@@ -137,19 +140,62 @@ const EditorRuleGraph = () => {
         setCurrentEdge(state?.graph?.edges.find(edge => edge.id === currentEdgeId));
     }, [currentEdgeId, state?.graph?.edges]);
 
-    const onRemoveNodeFromAR = async (currentNode, currentActiveRule) => {
+    const onEditNodeFromAR = async (currentNode, currentActiveRule, data) => {
         if (currentNode.shape === 'box') {
             const actions = JSON.parse(currentActiveRule.action);
-            actions.data.splice(actions.indexOf(actions.find(act => act.code === currentNode.id)), 1);
+            const editedNode = actions.data.find(act => act.code === currentNode.id);
+            const newData = actions.data.map(d => {
+                if (d.code === editedNode.code) {
+                    return {
+                        ...editedNode,
+                        description: `${data.label}`
+                    };
+                }
+                return {...d};
+            });
+
             const requestBody = {
                 description: currentActiveRule.description,
                 condition: currentActiveRule.condition,
-                action: JSON.stringify({data: actions, edges: [...actions.edges]}),
+                action: JSON.stringify({
+                    data: [...newData],
+                    edges: [...actions.edges]
+                }),
                 code: currentActiveRule.code
             };
 
-            await dispatch(() => updateActiveRule(requestBody, currentSystem.code));
+            await dispatch(() => updateActiveRule(requestBody, currentSystemCode));
         }
+    };
+
+    const onRemoveNodeFromAR = async (currentNode, currentActiveRule) => {
+        if (currentNode.shape === 'box') {
+            const actions = JSON.parse(currentActiveRule.action);
+            const deletedNode = actions.data.indexOf(actions.data.find(act => act.code === currentNode.id));
+            actions.data.splice(deletedNode, 1);
+            const requestBody = {
+                description: currentActiveRule.description,
+                condition: currentActiveRule.condition,
+                action: JSON.stringify({data: [...actions.data], edges: [...actions.edges]}),
+                code: currentActiveRule.code
+            };
+
+            await dispatch(() => updateActiveRule(requestBody, currentSystemCode));
+        }
+    };
+
+    const onRemoveEdgeFromAR = async (currentEdge, currentActiveRule) => {
+        const actions = JSON.parse(currentActiveRule.action);
+        const deletedEdge = actions.edges.indexOf(actions.edges.filter(ed => ed.from === currentEdge.from)
+            .find(ed => ed.to === currentEdge.to));
+        actions.edges.splice(deletedEdge, 1);
+        const requestBody = {
+            description: currentActiveRule.description,
+            condition: currentActiveRule.condition,
+            action: JSON.stringify({data: [...actions.data], edges: [...actions.edges]}),
+            code: currentActiveRule.code
+        };
+        await dispatch(() => updateActiveRule(requestBody, currentSystemCode));
     };
 
     const onAddEdgeInAR = async (data, currentActiveRule) => {
@@ -176,7 +222,7 @@ const EditorRuleGraph = () => {
             code: currentActiveRule.code
         };
 
-        await dispatch(() => updateActiveRule(requestBody, currentSystem.code));
+        await dispatch(() => updateActiveRule(requestBody, currentSystemCode));
     };
 
     const RulesGraphRightPanel = () => {
@@ -211,18 +257,22 @@ const EditorRuleGraph = () => {
                         Информация
                     </div>
                 </div>
-                <div className={commonStyles.rightPanelBlockAction} style={{color: variables.redColor}}>
+                <div className={cn(commonStyles.rightPanelBlockAction,
+                    {deleteDisabled: currentNode && actions.data.length < 2
+                            || currentEdge && actions.edges.length < 2})}
+                     style={{color: variables.redColor}}>
                     <Icon name="korzina" color={variables.redColor}/>
                     <div
                         className={commonStyles.rightPanelBlockActionText}
                         onClick={() => !currentNode
-                            ? (
-                                onRemoveEdge(state, setState, currentEdge),
+                            ? actions.edges.length > 1 && (
+                                onRemoveEdgeFromAR(currentEdge, currentActiveRuleObject),
+                                    onRemoveEdge(state, setState, currentEdge),
                                     setCurrentEdgeId(undefined)
                             )
-                            : (
+                            : actions.data.length > 1 && (
                                 onRemoveNode(state, setState, currentNode),
-                                    onRemoveNodeFromAR(currentNode, currentActiveRule),
+                                    onRemoveNodeFromAR(currentNode, currentActiveRuleObject),
                                     setCurrentNodeId(undefined)
                             )
                         }>
@@ -252,6 +302,7 @@ const EditorRuleGraph = () => {
             node={currentNode}
             onEdit={data => {
                 onEdit(data, state, setState, currentNode, currentPointer);
+                onEditNodeFromAR(currentNode, currentActiveRuleObject, data);
                 setIsEditGraphModalVisible(false);
             }}
             isVisible={isEditGraphModalVisible}
@@ -261,17 +312,17 @@ const EditorRuleGraph = () => {
             nodesState={state.graph.nodes}
             node={currentNode}
             onOk={data => {
-                onAddEdgeInAR(data, currentActiveRule);
-                    onAddEdge(data, setState);
-                    setIsAddEdgeModalVisible(false);
+                onAddEdgeInAR(data, currentActiveRuleObject);
+                onAddEdge(data, setState);
+                setIsAddEdgeModalVisible(false);
             }}
             isVisible={isAddEdgeModalVisible}
             onCancel={() => setIsAddEdgeModalVisible(false)}
         />
         <AddActionModal
-            currentSystemCode={currentSystem.code}
+            currentSystemCode={currentSystemCode}
             graphState={state.graph}
-            currentActiveRule={currentActiveRule}
+            currentActiveRule={currentActiveRuleObject}
             isVisible={isAddActionModalVisible}
             onCancel={() => setIsActionModalVisible(false)}
         />

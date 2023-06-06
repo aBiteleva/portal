@@ -92,7 +92,7 @@ export const onEdit = (data, graphData, setGraphData, currentNode, currentPointe
             graph: {
                 nodes: [
                     ...temp,
-                    {...currentNode, label: data.label, x: currentPointer.x, y: currentPointer.y},
+                    {...currentNode, label: `${data.label} - action \n Code: ${currentNode.id}`, x: currentPointer.x, y: currentPointer.y},
                 ],
                 edges: [
                     ...edges

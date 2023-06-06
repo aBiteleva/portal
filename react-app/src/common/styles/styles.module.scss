@@ -94,6 +94,7 @@ svg, img {
 }
 
 .toolbar {
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   border: 1px solid $border-color;

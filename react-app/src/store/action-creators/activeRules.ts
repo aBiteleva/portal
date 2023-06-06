@@ -57,8 +57,12 @@ export const addActiveRule = (body: AddActiveRuleInterface, eventData: { codeEve
 export const updateActiveRule = (body: UpdateActiveRuleInterface, currentSystemCode: string) => {
     return async (dispatch: Dispatch<ActiveRulesAction>) => {
         try {
-            await ActiveRuleService.updateActiveRule(body);
-            dispatch(fetchActiveRuleBySystemCode(currentSystemCode));
+            const res = await ActiveRuleService.updateActiveRule(body);
+            if(res) {
+                dispatch(fetchActiveRuleBySystemCode(currentSystemCode));
+                localStorage.removeItem('currentActiveRuleObject');
+                localStorage.setItem('currentActiveRuleObject', JSON.stringify(res.data));
+            }
 
         } catch (e) {
             console.error('Произошла ошибка добавления активного правила: ', e);

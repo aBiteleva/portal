@@ -4,7 +4,8 @@ import styles from './styles.module.scss';
 import commonStyles from '../../../../../../../common/styles/styles.module.scss';
 import {Controller, useForm} from 'react-hook-form';
 import PropTypes from 'prop-types';
-import {useTypedSelector} from '../../../../../../../hooks/useTypedSelector';
+import {useAppDispatch, useTypedSelector} from '../../../../../../../hooks/useTypedSelector';
+import {useAction} from '../../../../../../../hooks/useAction';
 
 const AddEdgeModal = ({isVisible, onCancel, onOk, nodesState}) => {
 
@@ -17,6 +18,9 @@ const AddEdgeModal = ({isVisible, onCancel, onOk, nodesState}) => {
     const watchEvent = watch('event');
     const watchAction = watch('action');
     const {events} = useTypedSelector(state => state.eventsValues);
+    const dispatch = useAppDispatch();
+    const {fetchEventsBySystemCode} = useAction();
+    const currentSystemCode = localStorage.getItem('currentSystemCode');
 
     useEffect(() => {
         reset({
@@ -24,6 +28,12 @@ const AddEdgeModal = ({isVisible, onCancel, onOk, nodesState}) => {
             condition: '',
             event: ''
         });
+    }, []);
+
+    useEffect(() => {
+        if(!events || events.length < 1) {
+            dispatch(() => fetchEventsBySystemCode(currentSystemCode || currentSystemCode));
+        }
     }, []);
 
     const eventOptions = useMemo(() => events

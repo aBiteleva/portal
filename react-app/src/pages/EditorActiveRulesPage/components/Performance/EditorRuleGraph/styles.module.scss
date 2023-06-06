@@ -31,3 +31,9 @@
   }
 }
 
+.deleteDisabled {
+  cursor: not-allowed !important;
+  text-decoration: none !important;
+  opacity: 0.4;
+}
+

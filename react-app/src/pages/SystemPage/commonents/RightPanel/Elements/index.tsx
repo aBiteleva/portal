@@ -3,8 +3,10 @@ import React from 'react';
 import stylesCommon from '../../../../../common/styles/styles.module.scss';
 import { Link } from 'react-router-dom';
 import variables from '../../../../../../variables.module.scss';
+import {useTypedSelector} from '../../../../../hooks/useTypedSelector';
 
 const Elements = () => {
+    const {currentSystem} = useTypedSelector(state => state.systemsValues);
     return (
         <>
             <div className={stylesCommon.rightPanelBlockTitle}>Элементы системы</div>
@@ -24,6 +26,10 @@ const Elements = () => {
                 <div className={stylesCommon.rightPanelBlockActionText}>
                     <Link
                         style={{textDecoration: 'none', color: variables.yellowColor}}
+                        onClick={() => {
+                            localStorage.removeItem('currentSystemCode');
+                            localStorage.setItem('currentSystemCode', currentSystem.code);
+                        }}
                         to="/active-rules"
                     >
                         Список правил
