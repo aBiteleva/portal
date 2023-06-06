@@ -44,10 +44,6 @@ const SystemPage = () => {
         dispatch(() => fetchSystems());
     }, []);
 
-    useEffect(() => {
-        setCurrentSystems(systems);
-    }, [systems]);
-
     if (isLoading) {
         return <div>Идёт загрузка систем...</div>;
     }

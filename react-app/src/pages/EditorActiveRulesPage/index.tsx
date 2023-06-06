@@ -10,18 +10,20 @@ import EditorRuleList from './components/Performance/EditorRuleList';
 
 const EditorActiveRulesPage = () => {
     const {currentEditorRulePerformance} = useTypedSelector(state => state.editorActiveRulesValues);
-    const currentActiveRuleObject = JSON.parse(localStorage.getItem('currentActiveRuleObject') || '');
+    const {currentActiveRule, activeRules} = useTypedSelector(state => state.activeRulesValues);
+    const {systemPagesWay} = useTypedSelector(state => state.systemsValues);
+    const {setSystemPagesWay} = useAction();
 
     useEffect(() => {
-        // if(currentActiveRuleObject) {
-        //     setSystemPagesWay([...systemPagesWay, {
-        //         name: ` / ${currentActiveRuleObject.description}`,
-        //         code: currentActiveRuleObject.code,
-        //         systems: activeRules
-        //     }]);
-        // }
+        if(currentActiveRule) {
+            setSystemPagesWay([...systemPagesWay, {
+                name: ` / ${currentActiveRule.description}`,
+                code: currentActiveRule.code,
+                systems: activeRules
+            }]);
+        }
 
-    }, [currentActiveRuleObject]);
+    }, []);
 
     const getCurrentEditorRulePerformance = () => {
         switch (currentEditorRulePerformance) {
