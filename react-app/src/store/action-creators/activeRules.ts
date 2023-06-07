@@ -63,7 +63,6 @@ export const updateActiveRule = (body: UpdateActiveRuleInterface, currentSystemC
                 localStorage.removeItem('currentActiveRuleObject');
                 localStorage.setItem('currentActiveRuleObject', JSON.stringify(res.data));
             }
-
         } catch (e) {
             console.error('Произошла ошибка добавления активного правила: ', e);
         }

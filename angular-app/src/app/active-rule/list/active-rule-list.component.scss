@@ -1,0 +1,23 @@
+.active-rule {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &__item {
+        min-width: 220px;
+        margin-bottom: 7px;
+
+        &--header {
+            padding: 10px 20px 0;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        &--header-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+    }
+}

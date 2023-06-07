@@ -49,7 +49,6 @@ export interface UpdateActiveRuleInterface {
     code: string
 }
 
-
 export enum ActiveRulesActionTypes {
     FETCH_RULES_SYSTEM_CODE = 'FETCH_RULES_SYSTEM_CODE',
     FETCH_RULES_SYSTEM_CODE_SUCCESS = 'FETCH_RULES_SYSTEM_CODE_SUCCESS',

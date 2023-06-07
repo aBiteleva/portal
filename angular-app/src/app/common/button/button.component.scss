@@ -1,0 +1,15 @@
+.button {
+    border-radius: 50%;
+    width: 2em;
+    padding: 6px;
+    height: 2em;
+    cursor: pointer;
+
+    &--outline {
+        border: 1px solid rgba(25, 31, 69, 0.9);
+    }
+
+    &:hover {
+        background: rgb(237, 237, 237);
+    }
+}

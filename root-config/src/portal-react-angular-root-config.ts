@@ -18,8 +18,7 @@ registerApplication({
 registerApplication({
   name: "@portal-react-angular/angular-app",
   app: () => System.import<LifeCycles>("@portal-react-angular/angular-app"),
-  activeWhen: ["/event"],
-  customProps: { domElement: document.getElementById("angular") },
+  activeWhen: ["/"],
 });
 
 start();
