@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import styles from './styles.module.scss';
 import stylesCommon from '../../../../../styles/styles.module.scss';
 import Icon from '../../../../../components/Icon';
@@ -8,7 +8,7 @@ import {SystemsInterface} from '../../../../../../store/types/systemsTypes';
 import variables from '../../../../../../../variables.module.scss';
 
 const LeftPanel = () => {
-    const {systems, systemPagesWay} = useTypedSelector(state => state.systemsValues);
+    const {systems, systemPagesWay, currentSystems} = useTypedSelector(state => state.systemsValues);
     const dispatch = useAppDispatch();
     const {setSystemPagesWay, setCurrentSystems, setCurrentSystem} = useAction();
 
@@ -24,6 +24,13 @@ const LeftPanel = () => {
             setCurrentSystems(system.children);
         }
     };
+
+    useEffect(() => {
+        if(location.pathname !== '/active-rules' && parentSystems?.length > 0 && currentSystems.length < 1) {
+            setCurrentSystem(parentSystems[0]);
+            onChoseParentSystem(parentSystems[0]);
+        }
+    }, []);
 
     return <div className={styles.systems}>
         <div className={styles.header}>

@@ -6,6 +6,11 @@ import PropTypes from 'prop-types';
 
 const options = {
     layout: {
+        hierarchical: {
+            direction: 'UD',
+            sortMethod: 'directed',
+            nodeSpacing: 200
+        },
         improvedLayout: false
     },
     nodes: {
@@ -21,11 +26,14 @@ const options = {
         },
         shape: 'box'
     },
-    edges : {
+    edges: {
         color: variables.whiteColor,
     },
     physics: {
         enabled: false
+    },
+    interaction: {
+        hover: true
     }
 };
 

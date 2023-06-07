@@ -1,6 +1,11 @@
 import {AxiosResponse} from 'axios';
 import api from '../htttp';
-import {ActiveRulesInterface, AddActiveRuleInterface, DeleteActiveRuleInterface} from '../../store/types/activeRulesTypes';
+import {
+    ActiveRulesInterface,
+    AddActiveRuleInterface,
+    AddBindInterface,
+    DeleteActiveRuleInterface, UpdateActiveRuleInterface
+} from '../../store/types/activeRulesTypes';
 
 export class ActiveRuleService {
     static async fetchActiveRuleBySystemCode(code: string = '00016'): Promise<AxiosResponse<ActiveRulesInterface[]>> {
@@ -13,6 +18,14 @@ export class ActiveRuleService {
 
     static async deleteActiveRule(data: DeleteActiveRuleInterface): Promise<AxiosResponse<any[]>> {
         return api.delete<any[]>('/active-rule', {data});
+    }
+
+    static async bindActiveRuleEvent(data: AddBindInterface): Promise<AxiosResponse<any[]>> {
+        return api.post<any[]>('/active-rule/event', data);
+    }
+
+    static async updateActiveRule(data: UpdateActiveRuleInterface): Promise<AxiosResponse<any[]>> {
+        return api.patch<any[]>('/active-rule', data);
     }
 }
 

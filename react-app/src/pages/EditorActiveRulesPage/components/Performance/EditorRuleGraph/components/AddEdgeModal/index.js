@@ -1,8 +1,11 @@
-import React, {useEffect} from 'react';
-import {Button, Input, Modal, Select} from 'antd';
+import React, {useEffect, useMemo} from 'react';
+import {Button, Modal, Select} from 'antd';
 import styles from './styles.module.scss';
+import commonStyles from '../../../../../../../common/styles/styles.module.scss';
 import {Controller, useForm} from 'react-hook-form';
 import PropTypes from 'prop-types';
+import {useAppDispatch, useTypedSelector} from '../../../../../../../hooks/useTypedSelector';
+import {useAction} from '../../../../../../../hooks/useAction';
 
 const AddEdgeModal = ({isVisible, onCancel, onOk, nodesState}) => {
 
@@ -14,6 +17,10 @@ const AddEdgeModal = ({isVisible, onCancel, onOk, nodesState}) => {
 
     const watchEvent = watch('event');
     const watchAction = watch('action');
+    const {events} = useTypedSelector(state => state.eventsValues);
+    const dispatch = useAppDispatch();
+    const {fetchEventsBySystemCode} = useAction();
+    const currentSystemCode = localStorage.getItem('currentSystemCode');
 
     useEffect(() => {
         reset({
@@ -23,14 +30,19 @@ const AddEdgeModal = ({isVisible, onCancel, onOk, nodesState}) => {
         });
     }, []);
 
-    const eventOptions = nodesState
-        .filter(node => node.label.includes('event'))
-        .map(eventNode => {
+    useEffect(() => {
+        if(!events || events.length < 1) {
+            dispatch(() => fetchEventsBySystemCode(currentSystemCode || currentSystemCode));
+        }
+    }, []);
+
+    const eventOptions = useMemo(() => events
+        .map(ev => {
             return {
-                label: eventNode.label,
-                value: eventNode.id
+                label: `${ev.description} - ${ev.categoryEvent[0].toUpperCase()}E`,
+                value: ev.code
             };
-        });
+        }), [events]);
 
     const conditionOptions = nodesState
         .filter(node => node.label.toLowerCase().includes('condition'))
@@ -58,7 +70,7 @@ const AddEdgeModal = ({isVisible, onCancel, onOk, nodesState}) => {
                     render={({field}) =>
                         <Select {...register('event', {
                             required: 'Выберите событие',
-                        })} className={styles.form__select} options={eventOptions} {...field}/>}
+                        })} className={commonStyles.select} options={eventOptions} {...field}/>}
                     name="event"
                     control={control}
                     defaultValue=""
@@ -67,7 +79,7 @@ const AddEdgeModal = ({isVisible, onCancel, onOk, nodesState}) => {
                 <div className={styles.form__tittle}>Условие</div>
                 <Controller
                     render={({field}) =>
-                        <Select {...register('condition')} className={styles.form__select}
+                        <Select {...register('condition')} className={commonStyles.select}
                                 options={[...conditionOptions, {
                                     label: 'Не выбрано',
                                     value: null
@@ -83,8 +95,9 @@ const AddEdgeModal = ({isVisible, onCancel, onOk, nodesState}) => {
                         <Select {...register('action', {
                             required: 'Выберите действие',
                         })}
-                                className={styles.form__select}
-                                options={actionOptions}{...field}
+                                className={commonStyles.select}
+                                options={actionOptions}
+                                {...field}
                         />}
                     name="action"
                     control={control}

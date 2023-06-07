@@ -1,9 +1,9 @@
-import React, {FC} from 'react';
+import React, {FC, useMemo} from 'react';
 import styles from './styles.module.scss';
-import {Button, Form, Input, Modal} from 'antd';
+import {Button, Form, Input, Modal, Select} from 'antd';
 import {useAction} from '../../../../hooks/useAction';
-import {useAppDispatch} from '../../../../hooks/useTypedSelector';
-import {AddActiveRuleInterface} from '../../../../store/types/activeRulesTypes';
+import {useAppDispatch, useTypedSelector} from '../../../../hooks/useTypedSelector';
+import commonStyles from '../../../../common/styles/styles.module.scss';
 
 interface AddActiveRuleModalInterface {
     isVisible: boolean;
@@ -11,7 +11,7 @@ interface AddActiveRuleModalInterface {
     currentSystemCode: string;
 }
 
-const AddEventModal: FC<AddActiveRuleModalInterface> = ({isVisible, setIsVisible, currentSystemCode}) => {
+const AddActiveRuleModal: FC<AddActiveRuleModalInterface> = ({isVisible, setIsVisible, currentSystemCode}) => {
     const {addActiveRule} = useAction();
     const dispatch = useAppDispatch();
 
@@ -19,15 +19,61 @@ const AddEventModal: FC<AddActiveRuleModalInterface> = ({isVisible, setIsVisible
         setIsVisible(false);
     };
 
-    const onFinish = async (data: AddActiveRuleInterface) => {
-        await dispatch(() => addActiveRule(data, currentSystemCode));
+    const {events} = useTypedSelector(state => state.eventsValues);
+
+    const eventOptions = useMemo(() => events
+        .map(ev => {
+            return {
+                label: `${ev.description} - ${ev.categoryEvent} event\n Code: ${ev.code}`,
+                value: ev.code
+            };
+        }), [events]);
+
+    const onFinish = async (data: {
+        description: string, condition: string,
+        action: string, codeEvent: string, typeBind: string
+    }) => {
+        const requestData = {
+            description: data.description,
+            condition: data.condition ? JSON.stringify({
+                data: [
+                    {
+                        category: 'condition',
+                        description: data.condition,
+                        code: 'c00001'
+                    }
+                ]
+            }) : '',
+            action: JSON.stringify({
+                data: [
+                    {
+                        category: 'action',
+                        description: data.action,
+                        code: 'a00001',
+                    }
+                ],
+                edges: [
+                    {
+                        from: 'c00001',
+                        to: 'a00001'
+                    }
+                ]
+            })
+        };
+
+        const eventData = {
+            codeEvent: data.codeEvent,
+            typeBind: data.typeBind
+        };
+
+        await dispatch(() => addActiveRule(requestData, eventData, currentSystemCode));
 
         setIsVisible(false);
     };
 
     return <>
         <Modal
-            title="Добавить событие"
+            title="Добавить активное правило"
             open={isVisible}
             onCancel={handleCancel}
             footer={[
@@ -64,9 +110,31 @@ const AddEventModal: FC<AddActiveRuleModalInterface> = ({isVisible, setIsVisible
                 >
                     <Input/>
                 </Form.Item>
+                <Form.Item label="Событие"
+                           name="codeEvent"
+                           rules={[{required: true, message: 'Выберите событие'}]}>
+                    <Select className={commonStyles.select}
+                            options={eventOptions}/>
+                </Form.Item>
+
+                <Form.Item label="Тип связи"
+                           name="typeBind"
+                           rules={[{required: true, message: 'Выберите тип связи'}]}>
+                    <Select className={commonStyles.select}
+                            options={[
+                                {
+                                    value: 'Event to Rule',
+                                    label: 'Событие к правилу'
+                                },
+                                {
+                                    value: 'Rule to Event',
+                                    label: 'Правило к событию'
+                                }
+                            ]}/>
+                </Form.Item>
             </Form>
         </Modal>
     </>;
 };
 
-export default AddEventModal;
+export default AddActiveRuleModal;

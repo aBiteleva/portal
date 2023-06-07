@@ -6,6 +6,7 @@ import RightPanel from '../ActiveRulesPage/components/RightPanel';
 import {EditorRulesPerformance} from '../../store/types/editorActiveRulesTypes';
 import EditorRulePerformanceSelect from './components/EditorRulePerformanceSelect';
 import {useAction} from '../../hooks/useAction';
+import EditorRuleList from './components/Performance/EditorRuleList';
 
 const EditorActiveRulesPage = () => {
     const {currentEditorRulePerformance} = useTypedSelector(state => state.editorActiveRulesValues);
@@ -22,13 +23,13 @@ const EditorActiveRulesPage = () => {
             }]);
         }
 
-    }, [currentActiveRule]);
+    }, []);
 
     const getCurrentEditorRulePerformance = () => {
         switch (currentEditorRulePerformance) {
             case EditorRulesPerformance.list:
                 return <MainTemplate blocks={<RightPanel/>}>
-                    <EditorRulePerformanceSelect/>
+                    <EditorRuleList />
                 </MainTemplate>;
             case EditorRulesPerformance.lang:
                 return <MainTemplate blocks={<RightPanel/>}>

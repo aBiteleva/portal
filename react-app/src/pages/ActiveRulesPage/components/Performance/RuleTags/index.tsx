@@ -28,7 +28,11 @@ const RuleTags = () => {
                         }
                         : undefined}
                     onClick={() => dispatch(() => setCurrentActiveRule(rule))}
-                    onDoubleClick={() => navigate('/editor-active-rules')}
+                    onDoubleClick={() => {
+                        localStorage.removeItem('currentActiveRuleObject');
+                        currentActiveRule && localStorage.setItem('currentActiveRuleObject', JSON.stringify(currentActiveRule));
+                        navigate('/editor-active-rules');
+                    }}
                     key={rule.code}
                 >
                     <div className={commonStyles.text}>

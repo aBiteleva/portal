@@ -9,12 +9,13 @@ const EditNodeModal = ({isVisible, onCancel, onEdit, node}) => {
     const {reset, control, handleSubmit} = useForm();
 
     useEffect(() => {
-        reset({
-            // eslint-disable-next-line react/prop-types
-            label: node?.label
-        });
-
-    }, [node]);
+        if (node?.label) {
+            reset({
+                // eslint-disable-next-line react/prop-types
+                label: node?.label.slice(0, node?.label.indexOf(' - A'))
+            });
+        }
+    }, [node?.label]);
 
 
     return <Modal title="Редактирование ноды" open={isVisible} onCancel={onCancel} footer={false}>
@@ -26,8 +27,7 @@ const EditNodeModal = ({isVisible, onCancel, onEdit, node}) => {
                     name="label"
                     control={control}
                     rules={{required: true}}
-                    // eslint-disable-next-line react/prop-types
-                    defaultValue={node?.label}
+                    defaultValue={node?.label.slice(0, node?.label.indexOf(' - A'))}
                 />
             </div>
             <div className={styles.footer}>

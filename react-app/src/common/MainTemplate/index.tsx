@@ -23,14 +23,14 @@ const MainTemplate: FC<MainTemplateInterface> = ({blocks, children}) => {
 
     const onPageNameClick = (page: SystemPagesWayInterface) => {
         if (location.pathname === '/editor-active-rules'
-            && systemPagesWay.indexOf(page) + 1 === systemPagesWay.length) {
+            && systemPagesWay.indexOf(page) + 1 === systemPagesWay.length-1) {
             navigate('/active-rules');
             dispatch(() => setCurrentSystems(page.systems));
-            systemPagesWay.splice(systemPagesWay.indexOf(page)+1, systemPagesWay.length);
+            systemPagesWay.splice(systemPagesWay.indexOf(page), systemPagesWay.length);
         } else {
             navigate('/');
             dispatch(() => setCurrentSystems(page.systems));
-            systemPagesWay.splice(systemPagesWay.indexOf(page)+1, systemPagesWay.length);
+            systemPagesWay.splice(systemPagesWay.indexOf(page) + 1, systemPagesWay.length);
         }
     };
 
@@ -41,8 +41,13 @@ const MainTemplate: FC<MainTemplateInterface> = ({blocks, children}) => {
 
             <div className={styles.pageContent}>
                 <div className={styles.pageContentHeader}>
-                    {systemPagesWay?.map(page => <div key={page.code} onClick={() => onPageNameClick(page)}
-                                                      className={styles.pageContentHeaderTitle}>{page.name}</div>)}
+                    {systemPagesWay?.map((page, index) => <div key={page.code}
+                                                               onClick={() => index !== systemPagesWay.length - 1
+                                                                   && onPageNameClick(page)}
+                                                               className={styles.pageContentHeaderTitle}>
+                            {page.name}
+                        </div>
+                    )}
                 </div>
                 {children}
             </div>

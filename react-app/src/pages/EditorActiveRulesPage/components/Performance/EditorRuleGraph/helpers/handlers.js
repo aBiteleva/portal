@@ -2,27 +2,27 @@ import variables from '../../../../../../../variables.module.scss';
 
 export const getColor = (type) => {
     switch (type) {
-        case 'Action':
+        case 'action':
             return variables.actionColor;
-        case 'Condition':
+        case 'condition':
             return variables.conditionColor;
-        case 'Atomic event':
-        case 'Complex event':
-        case 'Aggregation event':
+        case 'atomic event':
+        case 'complex event':
+        case 'aggregation event':
             return variables.eventColor;
     }
 };
 
 export const getShape = (type) => {
     switch (type) {
-        case 'Action':
-            return 'ellipse';
-        case 'Condition':
-            return 'diamond';
-        case 'Atomic event':
-        case 'Complex event':
-        case 'Aggregation event':
+        case 'action':
             return 'box';
+        case 'condition':
+            return 'diamond';
+        case 'atomic event':
+        case 'complex event':
+        case 'aggregation event':
+            return 'ellipse';
     }
 };
 
@@ -42,6 +42,7 @@ export const onOk = (data, setGraphData) => {
                     ...nodes,
                     {
                         id,
+                        title: id,
                         label: `${data}\n Id: ${id}`,
                         font: {
                             color: data.toLowerCase().includes('condition') ? 'transparent' : variables.whiteColor,
@@ -70,7 +71,7 @@ export const createNode = (setGraphData, currentNode, currentEdge, x, y) => {
             graph: {
                 nodes: [
                     ...nodes,
-                    {id, label: `Node ${id}`, color, x, y}
+                    {id, title: `Code ${id}`, label: `Node ${id}`, color, x, y}
                 ],
                 edges: [
                     ...edges,
@@ -92,7 +93,7 @@ export const onEdit = (data, graphData, setGraphData, currentNode, currentPointe
             graph: {
                 nodes: [
                     ...temp,
-                    {...currentNode, label: data.label, x: currentPointer.x, y: currentPointer.y},
+                    {...currentNode, label: `${data.label} - A`, x: currentPointer.x, y: currentPointer.y},
                 ],
                 edges: [
                     ...edges
@@ -146,8 +147,8 @@ export const onAddEdge = (data, setGraphData) => {
                 ],
                 edges: data.condition ? [
                     ...edges,
-                        data.event ? {from: data?.event, to: data.condition} : null,
-                        data.action ? {from: data?.condition, to: data.action} : null
+                    data.event ? {from: data?.event, to: data.condition} : null,
+                    data.action ? {from: data?.condition, to: data.action} : null
                 ] : [
                     ...edges,
                     data.event && data.action ? {from: data?.event, to: data.action} : null

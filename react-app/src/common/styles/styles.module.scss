@@ -57,6 +57,13 @@ svg, img {
   flex-direction: row;
   flex-wrap: wrap;
 
+  div > div > div {
+    position: absolute;
+      background: white;
+      color: black;
+      font-size: 14px;
+  }
+
   .element {
     display: flex;
     flex-direction: row;
@@ -94,6 +101,7 @@ svg, img {
 }
 
 .toolbar {
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   border: 1px solid $border-color;
@@ -101,13 +109,14 @@ svg, img {
   margin: 8px 0;
   padding: 6px;
   color: $light-grey-color;
-  text-transform: capitalize;
   align-items: center;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
+  gap: 12px;
 
   > div:first-child {
     margin-left: 0;
+    padding-right: 0;
   }
 
   &Extra {
@@ -182,4 +191,18 @@ td[class="ant-table-cell ant-table-cell-row-hover"] {
 
 td[class="ant-table-cell ant-table-cell-row-hover"]:last-child {
   border-right: none !important;
+}
+
+.select {
+  width: 100%;
+  border: 1px solid $light-grey-color;
+  border-radius: 8px;
+
+  div[class=ant-select-selector] > span {
+    color:$dark-blue-color !important;
+  }
+
+  span[class=ant-select-arrow] {
+    color: $grey-color !important;
+  }
 }

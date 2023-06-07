@@ -7,7 +7,7 @@ import MainTemplate from '../../common/MainTemplate';
 
 const EventsPage = () => {
     const {currentSystem, systemPagesWay} = useTypedSelector(state => state.systemsValues);
-    const {isLoading, error, events} = useTypedSelector(state => state.eventsValues);
+    const {isLoading, error} = useTypedSelector(state => state.eventsValues);
     const dispatch = useAppDispatch();
     const {setSystemPagesWay, fetchEventsBySystemCode} = useAction();
 
