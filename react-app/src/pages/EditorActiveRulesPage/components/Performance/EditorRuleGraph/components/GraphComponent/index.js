@@ -31,6 +31,9 @@ const options = {
     },
     physics: {
         enabled: false
+    },
+    interaction: {
+        hover: true
     }
 };
 

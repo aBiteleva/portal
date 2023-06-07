@@ -55,14 +55,15 @@ const EditorRuleGraph = () => {
                     setCurrentNodeId(nodes[0]);
                     setCurrentPointer({x: canvas.x, y: canvas.y});
                 }
-            }
+            },
         }
     });
 
     const eventNodes = useMemo(() => currentActiveRuleObject?.event.map(ev => {
         return {
             id: ev.code,
-            label: `${ev.description} - ${ev.categoryEvent} event\n Code: ${ev.code}`,
+            title: `Code ${ev.code}`,
+            label: `${ev.description} - ${ev.categoryEvent[0].toUpperCase()}E`,
             shape: getShape(`${ev.categoryEvent} event`),
             color: {background: getColor(`${ev.categoryEvent} event`)},
             x: Math.random() * 600 - 300,
@@ -90,10 +91,11 @@ const EditorRuleGraph = () => {
     const conditionNodes = useMemo(() => conditions?.data.map(cond => {
         return {
             id: cond.code,
+            title: `Code ${cond.code}`,
             font: {
                 color: 'transparent',
             },
-            label: `${cond.description} - ${cond.category}\n Code: ${cond.code}`,
+            label: `${cond.description} - ${cond.category[0]}\n`,
             shape: getShape(cond.category),
             color: {background: getColor(cond.category)},
             x: Math.random() * 600 - 300,
@@ -104,7 +106,8 @@ const EditorRuleGraph = () => {
     const actionNodes = useMemo(() => actions?.data.length > 0 && actions?.data.map(act => {
         return {
             id: act.code,
-            label: `${act.description} - ${act.category}\n Code: ${act.code}`,
+            title: `Code ${act.code}`,
+            label: `${act.description} - ${act.category[0].toUpperCase()}`,
             shape: getShape(act.category),
             color: {background: getColor(act.category)},
             x: Math.random() * 600 - 300,

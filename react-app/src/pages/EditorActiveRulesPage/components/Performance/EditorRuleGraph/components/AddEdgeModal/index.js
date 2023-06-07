@@ -39,7 +39,7 @@ const AddEdgeModal = ({isVisible, onCancel, onOk, nodesState}) => {
     const eventOptions = useMemo(() => events
         .map(ev => {
             return {
-                label: `${ev.description} - ${ev.categoryEvent} event\n Code: ${ev.code}`,
+                label: `${ev.description} - ${ev.categoryEvent[0].toUpperCase()}E`,
                 value: ev.code
             };
         }), [events]);

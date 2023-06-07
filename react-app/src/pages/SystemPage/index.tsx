@@ -30,7 +30,6 @@ const SystemPage = () => {
     const {
         isLoading,
         error,
-        systems,
         currentSystem,
         systemPagesWay,
         currentSystems

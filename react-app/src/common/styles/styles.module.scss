@@ -57,6 +57,13 @@ svg, img {
   flex-direction: row;
   flex-wrap: wrap;
 
+  div > div > div {
+    position: absolute;
+      background: white;
+      color: black;
+      font-size: 14px;
+  }
+
   .element {
     display: flex;
     flex-direction: row;

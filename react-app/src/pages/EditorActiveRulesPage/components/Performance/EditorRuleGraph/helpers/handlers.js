@@ -42,6 +42,7 @@ export const onOk = (data, setGraphData) => {
                     ...nodes,
                     {
                         id,
+                        title: id,
                         label: `${data}\n Id: ${id}`,
                         font: {
                             color: data.toLowerCase().includes('condition') ? 'transparent' : variables.whiteColor,
@@ -70,7 +71,7 @@ export const createNode = (setGraphData, currentNode, currentEdge, x, y) => {
             graph: {
                 nodes: [
                     ...nodes,
-                    {id, label: `Node ${id}`, color, x, y}
+                    {id, title: `Code ${id}`, label: `Node ${id}`, color, x, y}
                 ],
                 edges: [
                     ...edges,
@@ -92,7 +93,7 @@ export const onEdit = (data, graphData, setGraphData, currentNode, currentPointe
             graph: {
                 nodes: [
                     ...temp,
-                    {...currentNode, label: `${data.label} - action \n Code: ${currentNode.id}`, x: currentPointer.x, y: currentPointer.y},
+                    {...currentNode, label: `${data.label} - A`, x: currentPointer.x, y: currentPointer.y},
                 ],
                 edges: [
                     ...edges
