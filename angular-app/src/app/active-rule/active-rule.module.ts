@@ -15,6 +15,9 @@ import {ButtonModule} from "primeng/button";
 import {MessageModule} from "primeng/message";
 import {EventModule} from "../event/event.module";
 import {MultiSelectModule} from "primeng/multiselect";
+import {InputTextModule} from "primeng/inputtext";
+import {ConstructorComponent} from "./editor/constructor/constructor.component";
+import {FreeWriteComponent} from "./editor/free-write/free-write.component";
 
 @NgModule({
     imports: [
@@ -31,9 +34,10 @@ import {MultiSelectModule} from "primeng/multiselect";
         ButtonModule,
         AppButtonModule,
         MessageModule,
-        MultiSelectModule
+        MultiSelectModule,
+        InputTextModule
     ],
-    declarations: [ActiveRuleComponent, ActiveRuleListComponent, ActiveRuleEditorComponent],
+    declarations: [ActiveRuleComponent, ActiveRuleListComponent, ActiveRuleEditorComponent, ConstructorComponent, FreeWriteComponent],
     providers: [ActiveRuleService],
     exports: []
 })

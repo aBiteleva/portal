@@ -1,21 +1,19 @@
-import {Component, OnInit} from "@angular/core";
-import {AnalyzerResponse, CodeAnalyzer} from "./code-analyzer";
-import {AppRoutesEnum} from "../../app-routes.enum";
+import {ChangeDetectionStrategy, Component, Input, OnInit} from "@angular/core";
+import {AnalyzerResponse, CodeAnalyzer} from "../code-analyzer";
+import {Event} from "../../../event/event";
+import {ActiveRule, ActiveRuleEventTypeBind} from "../../active-rule";
 import {Router} from "@angular/router";
-import {ActiveRuleService} from "../active-rule.service";
-import {EventService} from "../../event/event.service";
-import {Event} from '../../event/event';
+import {ActiveRuleService} from "../../active-rule.service";
+import {AppRoutesEnum} from "../../../app-routes.enum";
 import {Observable} from "rxjs";
-import {ActiveRule, ActiveRuleEventTypeBind} from "../active-rule";
-import {NgControl, NgForm} from "@angular/forms";
 
 @Component({
-    selector: 'app-active-rule-editor',
-    templateUrl: 'active-rule-editor.component.html',
-    styleUrls: ['active-rule-editor.component.scss']
+    templateUrl: 'free-write.component.html',
+    selector: 'app-free-write-editor',
+    styleUrls: ['../active-rule-editor.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ActiveRuleEditorComponent implements OnInit {
-    content: string = 'content';
+export class FreeWriteComponent implements OnInit {
     codeMirrorOptions: any = {
         mode: "text/x-mysql",
         indentWithTabs: true,
@@ -39,53 +37,35 @@ ACTION = "action1"`;
     codeAnalyzerResponse: AnalyzerResponse | null | undefined;
     successMessage: string = '';
     isEditMode: boolean = false;
-    eventList: Event[] = [];
+    @Input() eventList: Event[] = [];
     selectedEvents: Event[] | undefined = [];
-    initialEventsList: Event[] | undefined = [];
-    activeRule: ActiveRule = new ActiveRule();
+    @Input() initialEventsList: Event[] | undefined = [];
+    @Input() activeRule!: ActiveRule;
 
     constructor(private codeAnalyzer: CodeAnalyzer,
                 private router: Router,
-                private activeRuleService: ActiveRuleService,
-                private eventService: EventService) {
+                private activeRuleService: ActiveRuleService) {
     }
 
     ngOnInit(): void {
         const currentRouteParts = this.router.url.split('/');
 
         this.isEditMode = currentRouteParts[2] === AppRoutesEnum.EDIT;
-
-        this.loadAdditionalData();
         if (this.isEditMode) {
-            this.loadEditorData(currentRouteParts[3]);
+            this.loadEditorData();
         } else {
             this.query = '';
         }
     }
 
-    loadEditorData(ruleCode: string) {
-        this.activeRuleService.getRuleByCode(ruleCode).subscribe(
-            rule => {
-                this.activeRule = rule;
-                this.selectedEvents = rule.event;
-                this.initialEventsList = rule.event;
-                this.initEditorQuery(rule);
-            }
-        )
-    }
-
-    loadAdditionalData() {
-        this.eventService.getEvents().subscribe(
-            events => {
-                this.eventList = events.map(e => {
-                    return {
-                        code: e.code,
-                        description: e.description,
-                        categoryEvent: e.categoryEvent
-                    }
-                });
-            }
-        )
+    loadEditorData() {
+        this.selectedEvents = this.activeRule?.event;
+        this.initialEventsList = this.activeRule?.event;
+        this.query = `RULE ${this.activeRule?.code}
+DESCRIPTION = "${this.activeRule?.description}"
+EVENT = "${this.activeRule?.event?.map(ev => ev.code).toString()}"
+CONDITION = "${this.activeRule?.condition}"
+ACTION = "${this.activeRule?.action}"`;
     }
 
     setEditorContent() {
@@ -97,14 +77,13 @@ ACTION = "action1"`;
         if (this.codeAnalyzerResponse.record) {
             this.successMessage = 'Ошибки не найдены';
         }
-        console.log(this.codeAnalyzerResponse.record)
     }
 
     onSave() {
         this.codeAnalyzerResponse = this.codeAnalyzer.analyseRule(this.query, this.isEditMode);
 
         if (!this.codeAnalyzerResponse.errorMessage) {
-            this.saveRequest(this.codeAnalyzerResponse.record).subscribe(
+            this.saveRequest().subscribe(
                 activeRule => {
                     this.selectedEvents?.forEach(ev => {
                         if (!this.initialEventsList?.includes(ev)) {
@@ -143,34 +122,19 @@ ACTION = "action1"`;
         this.query = this.codeAnalyzer.manageEventValueForEditor(this.selectedEvents, this.query);
     }
 
-    isControlValid(control: NgControl, form: NgForm): boolean {
-        if (form) {
-            return <boolean>control.valid;
-        }
-        return true;
-    }
-
-    initEditorQuery(activeRule: ActiveRule) {
-        this.query = `RULE ${activeRule.code}
-DESCRIPTION = "${activeRule.description}"
-CONDITION = "${activeRule.condition}"
-ACTION = "${activeRule.action}"
-EVENT = "${this.selectedEvents?.map(ev => ev.code).toString()}"`;
-    }
-
-    private saveRequest(activeRule: ActiveRule | null | undefined): Observable<ActiveRule> {
+    private saveRequest(): Observable<ActiveRule> {
         if (this.isEditMode) {
             return this.activeRuleService.updateRule({
-                code: activeRule?.code,
-                condition: activeRule?.condition,
-                action: activeRule?.action,
-                description: activeRule?.description
+                code: this.codeAnalyzerResponse?.record?.code,
+                condition: this.codeAnalyzerResponse?.record?.condition,
+                action: this.codeAnalyzerResponse?.record?.action,
+                description: this.codeAnalyzerResponse?.record?.description
             });
         } else {
             return this.activeRuleService.createRule({
-                condition: activeRule?.condition,
-                action: activeRule?.action,
-                description: activeRule?.description
+                condition: this.codeAnalyzerResponse?.record?.condition,
+                action: this.codeAnalyzerResponse?.record?.action,
+                description: this.codeAnalyzerResponse?.record?.description
             });
         }
     }

@@ -14,4 +14,16 @@
             margin-right: 7px;
         }
     }
+
+    &__constructor-item {
+        display: flex;
+        align-items: center;
+        width: 440px;
+        justify-content: space-between;
+        margin: 7px 0;
+
+        &--label {
+            width: 22%;
+        }
+    }
 }

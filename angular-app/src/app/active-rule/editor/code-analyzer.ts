@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {ActiveRule} from "../active-rule";
+import {Event} from '../../event/event';
 
 @Injectable({providedIn: 'root'})
 export class CodeAnalyzer {
@@ -35,10 +36,16 @@ export class CodeAnalyzer {
                         }
                     }
                     if (rowLexems.length > 3) {
-                        return {
-                            errorMessage: `Ошибка в строке ${i+1}: неверно указано значение поля "${field}"`,
-                            record: null
+                        const valueLexem = rowLexems.slice(2).join(' ');
+                        rowLexems.splice(2, rowLexems.length - 2, valueLexem);
+                        if (!valueLexem.endsWith('"') || !valueLexem.startsWith('"')
+                            || valueLexem.split('"').length !== 3) {
+                            return {
+                                errorMessage: `Ошибка в строке ${i+1}: неверно указано значение поля "${field}"`,
+                                record: null
+                            }
                         }
+
                     }
                     activeRule = this.setActiveRuleFieldValue(activeRule, field, rowLexems[2]);
                     requiredFields = requiredFields.filter(requiredField => requiredField !== field);
@@ -57,6 +64,22 @@ export class CodeAnalyzer {
                 record: activeRule
             }
         }
+    }
+
+    manageEventValueForEditor(selectedEvents: Event[] | undefined, query: string): string {
+        const queryRows = query.split('\n');
+        if (query.includes(RuleKeywords.EVENT)) {
+            for (let i = 0; i < queryRows.length; i++) {
+                const rowLexems = queryRows[i].trim().split(' ').filter(lex => lex !== '');
+                if (rowLexems.includes(RuleKeywords.EVENT)) {
+                    queryRows.splice(i, 1);
+                }
+            }
+        }
+        if (selectedEvents?.length) {
+            queryRows.push(`EVENT = "${selectedEvents.map(ev => ev.code).join(', ')}"`)
+        }
+        return queryRows.join('\n');
     }
 
     private setActiveRuleFieldValue(activeRule: ActiveRule, field: RuleKeywords, value: string) {
@@ -84,6 +107,11 @@ export enum RuleKeywords {
     EVENT = 'EVENT',
     CONDITION = 'CONDITION',
     ACTION = 'ACTION'
+}
+
+export enum ChangeEventMode {
+    DROPDOWN = 'dropdown',
+    EDITOR = 'editor'
 }
 
 export interface AnalyzerResponse {
