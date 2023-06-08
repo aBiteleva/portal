@@ -13,5 +13,5 @@ import {IconModule} from "../icon/icon.module";
         ButtonComponent
     ]
 })
-export class ButtonModule {
+export class AppButtonModule {
 }
