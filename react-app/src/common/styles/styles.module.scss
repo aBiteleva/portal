@@ -57,11 +57,11 @@ svg, img {
   flex-direction: row;
   flex-wrap: wrap;
 
-  div > div > div {
+  div > div > canvas~div {
     position: absolute;
-      background: white;
-      color: black;
-      font-size: 14px;
+    background: white;
+    color: black;
+    font-size: 14px;
   }
 
   .element {
