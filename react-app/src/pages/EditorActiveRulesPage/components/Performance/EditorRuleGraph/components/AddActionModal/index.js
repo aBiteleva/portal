@@ -21,7 +21,7 @@ const AddActionModal = ({isVisible, onCancel, currentActiveRule, graphState, cur
         }), [events]);
 
     const conditionOptions = graphState.nodes
-        .filter(node => node.label.toLowerCase().includes('condition'))
+        .filter(node => node.label.toLowerCase().includes('c'))
         .map(conditionNode => {
             return {
                 label: conditionNode.label,

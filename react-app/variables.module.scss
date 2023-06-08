@@ -1,4 +1,5 @@
 $dark-blue-color: rgba(33, 41, 92, 1);
+$yellow-bright-color: #FFC700;
 $yellow-color: rgba(255, 227, 163, 1);
 $light-yellow-color: rgba(255, 237, 194, 1);
 $hover-yellow-color: rgba(255, 227, 163, 0.2);
@@ -14,9 +15,12 @@ $action-color: rgb(13, 41, 194);
 $condition-color: rgb(28, 145, 189);
 $event-color: rgba(253, 44, 169, 1);
 $red-color: rgba(244, 67, 54, 1);
+$black-color: #000000E5;
+$green-bright-color: #61FF00;
 
 :export {
   darkBlueColor: $dark-blue-color;
+  yellowBrightColor: $yellow-bright-color;
   yellowColor: $yellow-color;
   lightYellowColor: $light-yellow-color;
   hoverYellowColor: $hover-yellow-color;
@@ -31,4 +35,6 @@ $red-color: rgba(244, 67, 54, 1);
   conditionColor: $condition-color;
   eventColor: $event-color;
   redColor: $red-color;
+  blackColor: $black-color;
+  greenBrightColor: $green-bright-color
 }

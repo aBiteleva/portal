@@ -134,6 +134,7 @@ const EditorRuleGraph = () => {
             };
         });
     }, [currentActiveRule]);
+
     useEffect(() => {
         setCurrentNode(state?.graph?.nodes.find(node => node.id === currentNodeId));
     }, [currentNodeId, state?.graph?.nodes]);

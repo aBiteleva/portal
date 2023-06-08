@@ -1,7 +1,86 @@
 import React from 'react';
+import MainTemplate from '../../../../../common/MainTemplate';
+import commonStyles from '../../../../../common/styles/styles.module.scss';
+import Header from '../../../../../common/components/Header';
+import Managing from '../../../../ActiveRulesPage/components/RightPanel/Managing';
+import Icon from '../../../../../common/components/Icon';
+import variables from '../../../../../../variables.module.scss';
+import Events from './components/Events';
+import Conditions from './components/Conditions';
+import EditorRulePerformanceSelect from '../../EditorRulePerformanceSelect';
 
 const EditorRuleList = ({}) => {
-    return <div> 1234</div>;
+    const RulesListRightPanel = () => {
+        return (<>
+            <div className={commonStyles.rightPanelBlock}>
+                <Header/>
+                <hr className={commonStyles.line}/>
+                <Managing/>
+                <hr className={commonStyles.line}/>
+                <div className={commonStyles.rightPanelBlockTitle}>Управление элементом</div>
+                <div className={commonStyles.rightPanelBlockAction}>
+                    <Icon name="plus"/>
+                    <div
+                        className={commonStyles.rightPanelBlockActionText}
+                        // onClick={() => setIsAddEdgeModalVisible(true)}
+                    >
+                        Добавить связь
+                    </div>
+                </div>
+                <div className={commonStyles.rightPanelBlockAction}>
+                    <Icon name="edit"/>
+                    <div
+                        className={commonStyles.rightPanelBlockActionText}
+                        // onClick={() => setIsEditGraphModalVisible(true)}
+                    >
+                        Изменить
+                    </div>
+                </div>
+                <div className={commonStyles.rightPanelBlockAction}>
+                    <Icon name="info"/>
+                    <div
+                        className={commonStyles.rightPanelBlockActionText}
+                        // onClick={() => setIsEditGraphModalVisible(true)}
+                    >
+                        Информация
+                    </div>
+                </div>
+                <div className={commonStyles.rightPanelBlockAction
+                    // {deleteDisabled: currentNode && actions.data.length < 2
+                    //         || currentEdge && actions.edges.length < 2}
+                }
+                     style={{color: variables.redColor}}>
+                    <Icon name="korzina" color={variables.redColor}/>
+                    <div
+                        className={commonStyles.rightPanelBlockActionText}
+                        // onClick={() => !currentNode
+                        //     ? actions.edges.length > 1 && (
+                        //     onRemoveEdgeFromAR(currentEdge, currentActiveRuleObject),
+                        //         onRemoveEdge(state, setState, currentEdge),
+                        //         setCurrentEdgeId(undefined)
+                        // )
+                        //     : actions.data.length > 1 && (
+                        //     onRemoveNode(state, setState, currentNode),
+                        //         onRemoveNodeFromAR(currentNode, currentActiveRuleObject),
+                        //         setCurrentNodeId(undefined)
+                        // )
+                        // }
+                    >
+                        Удалить
+                    </div>
+                </div>
+            </div>
+        </>);
+    };
+
+    return <MainTemplate blocks={<RulesListRightPanel/>}>
+        <div className={commonStyles.toolbar}>
+            <EditorRulePerformanceSelect/>
+        </div>
+        <Events/>
+        <Conditions/>
+        {/*<Actions/>*/}
+    </MainTemplate>;
 };
 
 export default EditorRuleList;
