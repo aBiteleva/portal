@@ -1,0 +1,10 @@
+<p-dialog [(visible)]="isDialogVisible" [closable]="false" [draggable]="false" [style]="{width: '1000px'}">
+    <ng-template pTemplate="header">
+        <div class="event-dialog-header">
+            <app-button class="event-dialog-header__back-btn" *ngIf="isEditorMode" routerLink="/events-script" icon="arrow-left" iconSize="16" btnStyle="outline"></app-button>
+            <h2 class="event-dialog-header__title">Языковое представление событий</h2>
+            <app-button *ngIf="!isEditorMode" routerLink="/events-script/new" icon="plus" iconSize="16" btnStyle="outline"></app-button>
+        </div>
+    </ng-template>
+    <router-outlet (activate)='onAttach()'></router-outlet>
+</p-dialog>

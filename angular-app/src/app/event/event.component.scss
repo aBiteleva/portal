@@ -1,0 +1,13 @@
+.event-dialog-header {
+    display: flex;
+    align-items: baseline;
+
+    &__title {
+        display: inline;
+        margin-right: 20px;
+    }
+
+    &__back-btn {
+        margin-right: 20px;
+    }
+}

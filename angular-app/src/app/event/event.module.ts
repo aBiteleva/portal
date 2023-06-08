@@ -5,6 +5,16 @@ import {DialogModule} from 'primeng/dialog';
 import {EventRoutingModule} from "./event-routing.module";
 import {CodemirrorModule} from "@ctrl/ngx-codemirror";
 import {EventService} from "./event.service";
+import {EventComponent} from "./event.component";
+import {EventListComponent} from "./list/event-list.component";
+import {EventEditorComponent} from "./editor/event-editor.component";
+import {AppButtonModule} from "../common/component/button/app-button.module";
+import {ButtonModule} from "primeng/button";
+import {CardModule} from "primeng/card";
+import {TabViewModule} from "primeng/tabview";
+import {MessageModule} from "primeng/message";
+import {MultiSelectModule} from "primeng/multiselect";
+import {InputTextModule} from "primeng/inputtext";
 
 @NgModule({
     imports: [
@@ -13,9 +23,17 @@ import {EventService} from "./event.service";
         EventRoutingModule,
         CodemirrorModule,
 
-        DialogModule
+        DialogModule,
+        ButtonModule,
+        CardModule,
+        TabViewModule,
+        ButtonModule,
+        AppButtonModule,
+        MessageModule,
+        MultiSelectModule,
+        InputTextModule
     ],
-    declarations: [],
+    declarations: [EventComponent, EventListComponent, EventEditorComponent],
     providers: [EventService],
     exports: []
 })

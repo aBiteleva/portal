@@ -9,6 +9,10 @@ const routes: Routes = [
         path: AppRoutesEnum.ACTIVE_RULE_SCRIPT
     },
     {
+        loadChildren: () => import('./event/event.module').then((m) => m.EventModule),
+        path: AppRoutesEnum.EVENT_SCRIPT
+    },
+    {
         path: '**',
         component: EmptyRouteComponent
     }

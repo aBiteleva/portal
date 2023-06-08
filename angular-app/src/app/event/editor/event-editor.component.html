@@ -1,0 +1,69 @@
+<p-tabView>
+    <p-tabPanel header="Свободный ввод">
+        <div style="margin-bottom: 10px">
+            <p-multiSelect (onChange)="manageEventAtCodeEditor()" [(ngModel)]="selectedEvents" [options]="eventList"
+                           [style]="{width: '300px'}" filterBy="code,description" optionLabel="code"
+                           placeholder="Выберите события">
+                <ng-template let-event pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                        {{event.code}} - {{event.description}}
+                    </div>
+                </ng-template>
+            </p-multiSelect>
+        </div>
+        <ngx-codemirror #codemirror
+                        (ngModelChange)="setEditorContent()"
+                        [(ngModel)]="query"
+                        [options]="codeMirrorOptions">
+        </ngx-codemirror>
+        <div *ngIf="codeAnalyzerResponse" class="editor__msg-wrapper">
+            <p-message *ngIf="codeAnalyzerResponse.errorMessage; else successMessageTemplate"
+                       [text]="codeAnalyzerResponse.errorMessage"
+                       severity="error"></p-message>
+            <ng-template #successMessageTemplate>
+                <p-message [style]="{width: '100%'}" [text]="successMessage" severity="success"></p-message>
+            </ng-template>
+        </div>
+        <div class="editor__btn-wrapper">
+            <button (click)="checkCodeSyntax()" class="editor__btn--with-indent" label="Проверить" pButton></button>
+            <button (click)="onSave()" label="Сохранить" pButton></button>
+        </div>
+
+    </p-tabPanel>
+    <p-tabPanel header="Конструктор">
+        <div>
+            RULE <span style="color: #164">{{activeRule.code}}</span>
+        </div>
+        <div class="editor__constructor-item">
+            <span class="editor__constructor-item--label">DESCRIPTION</span>
+            <span>=</span>
+            <input [(ngModel)]="activeRule.description" (input)="initEditorQuery(activeRule)" [style]="{width: '300px'}" pInputText required>
+        </div>
+        <div class="editor__constructor-item">
+            <span class="editor__constructor-item--label">CONDITION</span>
+            <span>=</span>
+            <input [(ngModel)]="activeRule.condition" (input)="initEditorQuery(activeRule)" [style]="{width: '300px'}" pInputText
+                   required>
+        </div>
+        <div class="editor__constructor-item">
+            <span class="editor__constructor-item--label">ACTION</span>
+            <span>=</span>
+            <input [(ngModel)]="activeRule.action" (input)="initEditorQuery(activeRule)" [style]="{width: '300px'}" pInputText required>
+        </div>
+        <div class="editor__constructor-item">
+            <span class="editor__constructor-item--label">EVENT</span>
+            <span>=</span>
+            <div>
+                <p-multiSelect (onChange)="manageEventAtCodeEditor()" [(ngModel)]="selectedEvents" [options]="eventList"
+                               [style]="{width: '300px'}" appendTo="body" filterBy="code,description"
+                               optionLabel="code" placeholder="Выберите события">
+                    <ng-template let-event pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            {{event.code}} - {{event.description}}
+                        </div>
+                    </ng-template>
+                </p-multiSelect>
+            </div>
+        </div>
+    </p-tabPanel>
+</p-tabView>
