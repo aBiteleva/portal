@@ -2,9 +2,10 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: stretch;
 
     &__item {
-        min-width: 220px;
+        width: 48%;
         margin-bottom: 7px;
 
         &--header {

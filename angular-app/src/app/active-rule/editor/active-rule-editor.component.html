@@ -1,10 +1,30 @@
 <p-tabView>
     <p-tabPanel header="Свободный ввод">
+        <div style="margin-bottom: 10px">
+            <p-multiSelect [options]="eventList" [style]="{width: '300px'}" filterBy="code,description" placeholder="Выберите события" [(ngModel)]="selectedEvents" optionLabel="code">
+                <ng-template let-event pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                        {{event.code}} - {{event.description}}
+                    </div>
+                </ng-template>
+            </p-multiSelect>
+        </div>
         <ngx-codemirror #codemirror
                         [options]="codeMirrorOptions"
                         [(ngModel)]="query"
                         (ngModelChange)="setEditorContent()">
         </ngx-codemirror>
+        <div class="editor__msg-wrapper" *ngIf="codeAnalyzerResponse">
+            <p-message *ngIf="codeAnalyzerResponse.errorMessage; else successMessage" severity="error" [text]="codeAnalyzerResponse.errorMessage"></p-message>
+            <ng-template #successMessage>
+                <p-message severity="success" [style]="{width: '100%'}" text="Ошибки не найдены"></p-message>
+            </ng-template>
+        </div>
+        <div class="editor__btn-wrapper">
+            <button class="editor__btn--with-indent" pButton label="Проверить" (click)="checkCodeSyntax()"></button>
+            <button pButton label="Сохранить" (click)="onSave()"></button>
+        </div>
+
     </p-tabPanel>
     <p-tabPanel header="Конструктор">
         <p>

@@ -3,13 +3,18 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {DialogModule} from 'primeng/dialog';
 import {ActiveRuleComponent} from "./active-rule.component";
-import {ButtonModule} from "../common/button/button.module";
+import {AppButtonModule} from "../common/component/button/app-button.module";
 import {CardModule} from "primeng/card";
 import {ActiveRuleRoutingModule} from "./active-rule-routing.module";
 import {ActiveRuleListComponent} from "./list/active-rule-list.component";
 import {ActiveRuleEditorComponent} from "./editor/active-rule-editor.component";
 import {TabViewModule} from "primeng/tabview";
 import {CodemirrorModule} from "@ctrl/ngx-codemirror";
+import {ActiveRuleService} from "./active-rule.service";
+import {ButtonModule} from "primeng/button";
+import {MessageModule} from "primeng/message";
+import {EventModule} from "../event/event.module";
+import {MultiSelectModule} from "primeng/multiselect";
 
 @NgModule({
     imports: [
@@ -17,13 +22,19 @@ import {CodemirrorModule} from "@ctrl/ngx-codemirror";
         FormsModule,
         ActiveRuleRoutingModule,
         CodemirrorModule,
+        EventModule,
 
         DialogModule,
         ButtonModule,
         CardModule,
-        TabViewModule
+        TabViewModule,
+        ButtonModule,
+        AppButtonModule,
+        MessageModule,
+        MultiSelectModule
     ],
     declarations: [ActiveRuleComponent, ActiveRuleListComponent, ActiveRuleEditorComponent],
+    providers: [ActiveRuleService],
     exports: []
 })
 export class ActiveRuleModule {

@@ -1,0 +1,17 @@
+.editor {
+    &__btn-wrapper {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+
+    &__msg-wrapper {
+        margin-top: 10px;
+    }
+
+    &__btn {
+        &--with-indent {
+            margin-right: 7px;
+        }
+    }
+}

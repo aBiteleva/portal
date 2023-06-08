@@ -1,14 +1,27 @@
-export interface ActiveRule {
-    code: string;
-    description: string;
-    condition: string;
-    action: string;
+import {Event} from '../event/event';
+
+export class ActiveRule {
+    code: string | undefined;
+    description: string | undefined;
+    condition: string | undefined;
+    action: string | undefined;
+    event?: Event[]
 }
 
-export interface ActiveRuleCreateItem {
-    description: string;
-    condition: string;
-    action: string;
+export class ActiveRuleCreateItem {
+    description: string | undefined;
+    condition: string | undefined;
+    action: string | undefined;
 }
 
 export interface ActiveRuleUpdateItem extends ActiveRule {}
+
+export class ActiveRuleEvent {
+    codeRule: string | undefined;
+    codeEvent: string | undefined;
+    typeBind!: ActiveRuleEventTypeBind;
+}
+
+export enum ActiveRuleEventTypeBind {
+    EVENT_TO_RULE = 'Event to Rule'
+}
