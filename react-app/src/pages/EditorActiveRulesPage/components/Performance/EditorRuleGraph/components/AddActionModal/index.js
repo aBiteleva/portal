@@ -6,9 +6,10 @@ import {useTypedSelector} from '../../../../../../../hooks/useTypedSelector';
 import {useDispatch} from 'react-redux';
 import {useAction} from '../../../../../../../hooks/useAction';
 
-const AddActionModal = ({isVisible, onCancel, currentActiveRule, graphState, currentSystemCode}) => {
-
+const AddActionModal = ({isVisible, onCancel, currentActiveRule, currentSystemCode}) => {
+    const currentActiveRuleObject = JSON.parse(localStorage.getItem('currentActiveRuleObject') || '');
     const {events} = useTypedSelector(state => state.eventsValues);
+    const conditions = JSON.parse(currentActiveRuleObject?.condition);
     const dispatch = useDispatch();
     const {updateActiveRule} = useAction();
 
@@ -20,14 +21,13 @@ const AddActionModal = ({isVisible, onCancel, currentActiveRule, graphState, cur
             };
         }), [events]);
 
-    const conditionOptions = graphState.nodes
-        .filter(node => node.label.toLowerCase().includes('c'))
-        .map(conditionNode => {
-            return {
-                label: conditionNode.label,
-                value: conditionNode.id
-            };
-        });
+    const conditionOptions = conditions.data.map(cond => {
+        return {
+            label: cond.description,
+            value: cond.code
+        };
+    });
+
 
     const onOk = async (data) => {
         const actionCode = 'a' + Math.round(Math.random() * 100);
@@ -93,7 +93,6 @@ AddActionModal.propTypes = {
     isVisible: PropTypes.bool,
     onCancel: PropTypes.func,
     currentActiveRule: PropTypes.object,
-    graphState: PropTypes.object,
     currentSystemCode: PropTypes.string
 };
 

@@ -29,6 +29,9 @@
 
 .card {
   width: 100%;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
 
   &__content {
     padding: 8px;
@@ -43,6 +46,44 @@
       display: flex;
       flex-direction: row;
       gap: 8px;
+    }
+
+    &_add {
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      gap: 8px;
+      cursor: pointer;
+
+      svg {
+        fill: $white-color;
+      }
+
+      &:hover {
+        background-color: $background-color-opacity;
+      }
+
+      &:active {
+        background-color: $grey-color;
+      }
+    }
+  }
+
+  &__withDelete{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    svg {
+      fill: $red-color;
+      cursor: pointer;
+    }
+  }
+
+  &__deleteBlock {
+    svg {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
   }
 
@@ -73,6 +114,14 @@
 
     &_condition {
       background-color: $condition-color;
+    }
+
+    &_systemTag {
+      background-color: $orange-color;
+    }
+
+    &_action {
+      background-color: $action-color;
     }
   }
 }

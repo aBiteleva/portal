@@ -28,7 +28,9 @@ const Elements = () => {
                         style={{textDecoration: 'none', color: variables.yellowColor}}
                         onClick={() => {
                             localStorage.removeItem('currentSystemCode');
+                            localStorage.removeItem('currentSystemName');
                             localStorage.setItem('currentSystemCode', currentSystem.code);
+                            localStorage.setItem('currentSystemName', currentSystem.name);
                         }}
                         to="/active-rules"
                     >

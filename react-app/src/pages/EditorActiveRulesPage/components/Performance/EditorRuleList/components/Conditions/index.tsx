@@ -55,7 +55,7 @@ const Conditions = () => {
                             if (act.from[0] !== 'c') {
                                 return actions.data.find((action: { code: string }) => action.code === act.from).description;
                             } else if (act.to[0] !== 'c') {
-                                return actions.data.find((action: { code: string }) => action.code === act.to).description;
+                                return actions.data.find((action: { code: string }) => action.code === act.to)?.description;
                             }
                         });
 

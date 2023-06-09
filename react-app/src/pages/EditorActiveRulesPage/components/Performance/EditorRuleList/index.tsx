@@ -7,6 +7,7 @@ import Icon from '../../../../../common/components/Icon';
 import variables from '../../../../../../variables.module.scss';
 import Events from './components/Events';
 import Conditions from './components/Conditions';
+import Actions from './components/Actions';
 import EditorRulePerformanceSelect from '../../EditorRulePerformanceSelect';
 
 const EditorRuleList = ({}) => {
@@ -79,7 +80,7 @@ const EditorRuleList = ({}) => {
         </div>
         <Events/>
         <Conditions/>
-        {/*<Actions/>*/}
+        <Actions/>
     </MainTemplate>;
 };
 

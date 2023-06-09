@@ -16,6 +16,7 @@ import {useAction} from '../../../../../hooks/useAction';
 import {useDispatch} from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
+import {onRemoveNodeFromAR} from '../../../helpers/onRemove';
 
 const cn = classNames.bind(styles);
 
@@ -171,22 +172,6 @@ const EditorRuleGraph = () => {
         }
     };
 
-    const onRemoveNodeFromAR = async (currentNode, currentActiveRule) => {
-        if (currentNode.shape === 'box') {
-            const actions = JSON.parse(currentActiveRule.action);
-            const deletedNode = actions.data.indexOf(actions.data.find(act => act.code === currentNode.id));
-            actions.data.splice(deletedNode, 1);
-            const requestBody = {
-                description: currentActiveRule.description,
-                condition: currentActiveRule.condition,
-                action: JSON.stringify({data: [...actions.data], edges: [...actions.edges]}),
-                code: currentActiveRule.code
-            };
-
-            await dispatch(() => updateActiveRule(requestBody, currentSystemCode));
-        }
-    };
-
     const onRemoveEdgeFromAR = async (currentEdge, currentActiveRule) => {
         const actions = JSON.parse(currentActiveRule.action);
         const deletedEdge = actions.edges.indexOf(actions.edges.filter(ed => ed.from === currentEdge.from)
@@ -275,7 +260,7 @@ const EditorRuleGraph = () => {
                             )
                             : actions.data.length > 1 && (
                                 onRemoveNode(state, setState, currentNode),
-                                    onRemoveNodeFromAR(currentNode, currentActiveRuleObject),
+                                    onRemoveNodeFromAR(currentNode.id),
                                     setCurrentNodeId(undefined)
                             )
                         }>
@@ -324,7 +309,6 @@ const EditorRuleGraph = () => {
         />
         <AddActionModal
             currentSystemCode={currentSystemCode}
-            graphState={state.graph}
             currentActiveRule={currentActiveRuleObject}
             isVisible={isAddActionModalVisible}
             onCancel={() => setIsActionModalVisible(false)}
