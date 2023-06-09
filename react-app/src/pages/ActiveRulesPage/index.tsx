@@ -12,6 +12,7 @@ const ActiveRulesPage = () => {
     const {isLoading, error, currentPerformance} = useTypedSelector(state => state.activeRulesValues);
     const dispatch = useAppDispatch();
     const {setSystemPagesWay, fetchActiveRuleBySystemCode, fetchEventsBySystemCode} = useAction();
+    const currentSystemCode = localStorage.getItem('currentSystemCode');
 
     useEffect(() => {
         setSystemPagesWay([...systemPagesWay, {
@@ -20,11 +21,9 @@ const ActiveRulesPage = () => {
             systems: currentSystem.children
         }]);
 
-        const currentSystemCode = localStorage.getItem('currentSystemCode');
-
         dispatch(() => fetchActiveRuleBySystemCode(currentSystemCode || currentSystem.code));
         dispatch(() => fetchEventsBySystemCode(currentSystemCode || currentSystem.code));
-    }, [currentSystem, localStorage]);
+    }, [currentSystem]);
 
     if (isLoading) {
         return <div>Идёт загрузка активных правил...</div>;

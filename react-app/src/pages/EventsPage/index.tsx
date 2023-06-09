@@ -10,6 +10,7 @@ const EventsPage = () => {
     const {isLoading, error} = useTypedSelector(state => state.eventsValues);
     const dispatch = useAppDispatch();
     const {setSystemPagesWay, fetchEventsBySystemCode} = useAction();
+    const currentSystemCode = localStorage.getItem('currentSystemCode');
 
     useEffect(() => {
         setSystemPagesWay([...systemPagesWay, {
@@ -18,7 +19,7 @@ const EventsPage = () => {
             systems: currentSystem.children
         }]);
 
-        dispatch(() => fetchEventsBySystemCode(currentSystem.code));
+        currentSystemCode && dispatch(() => fetchEventsBySystemCode(currentSystemCode));
     }, [currentSystem]);
 
     if (isLoading) {

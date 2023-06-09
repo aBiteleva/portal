@@ -35,7 +35,7 @@ const AddEventModal: FC<AddEventModalInterface> = ({isVisible, setIsVisible, cur
     const componentOptions = useMemo(() => {
         return component.map(comp => {
             return {
-                label: comp.name,
+                label: comp.description,
                 value: comp.code
             };
         });
