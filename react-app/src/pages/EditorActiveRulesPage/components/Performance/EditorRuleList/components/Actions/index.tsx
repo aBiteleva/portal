@@ -4,7 +4,7 @@ import {BlockType} from '../../types';
 import classNames from 'classnames/bind';
 import Icon from '../../../../../../../common/components/Icon';
 import AddActionModal from '../../../EditorRuleGraph/components/AddActionModal';
-import {onRemoveNodeFromAR} from '../../../../../helpers/onRemove';
+import {onRemoveNodeFromAR} from '../../../../../helpers';
 import {useTypedSelector} from '../../../../../../../hooks/useTypedSelector';
 
 const cn = classNames.bind(styles);

@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import commonStyles from '../../../../../common/styles/styles.module.scss';
 import GraphComponent from './components/GraphComponent';
 import EditorRulePerformanceSelect from '../../EditorRulePerformanceSelect';
-import {getColor, getShape, onAddEdge, onEdit, onOk, onRemoveEdge, onRemoveNode} from './helpers/handlers';
+import {getColor, getShape, onAddEdge, onEdit, onRemoveEdge, onRemoveNode} from './helpers/handlers';
 import EditNodeModal from './components/EditNodeModal';
 import AddEdgeModal from './components/AddEdgeModal';
 import Icon from '../../../../../common/components/Icon';
@@ -16,7 +16,7 @@ import {useAction} from '../../../../../hooks/useAction';
 import {useDispatch} from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
-import {onRemoveNodeFromAR} from '../../../helpers/onRemove';
+import {onAddEdgeInAR, onEditNodeFromAR, onRemoveEdgeFromAR, onRemoveNodeFromAR} from '../../../helpers';
 
 const cn = classNames.bind(styles);
 
@@ -30,8 +30,7 @@ const EditorRuleGraph = () => {
     const [isAddEdgeModalVisible, setIsAddEdgeModalVisible] = useState(false);
     const [isAddActionModalVisible, setIsActionModalVisible] = useState(false);
     const {currentActiveRule, activeRules} = useTypedSelector(state => state.activeRulesValues);
-    const dispatch = useDispatch();
-    const {setCurrentActiveRule, updateActiveRule} = useAction();
+    const {setCurrentActiveRule} = useAction();
     const currentActiveRuleObject = JSON.parse(localStorage.getItem('currentActiveRuleObject'));
     const currentSystemCode = localStorage.getItem('currentSystemCode');
 
@@ -144,75 +143,6 @@ const EditorRuleGraph = () => {
         setCurrentEdge(state?.graph?.edges.find(edge => edge.id === currentEdgeId));
     }, [currentEdgeId, state?.graph?.edges]);
 
-    const onEditNodeFromAR = async (currentNode, currentActiveRule, data) => {
-        if (currentNode.shape === 'box') {
-            const actions = JSON.parse(currentActiveRule.action);
-            const editedNode = actions.data.find(act => act.code === currentNode.id);
-            const newData = actions.data.map(d => {
-                if (d.code === editedNode.code) {
-                    return {
-                        ...editedNode,
-                        description: `${data.label}`
-                    };
-                }
-                return {...d};
-            });
-
-            const requestBody = {
-                description: currentActiveRule.description,
-                condition: currentActiveRule.condition,
-                action: JSON.stringify({
-                    data: [...newData],
-                    edges: [...actions.edges]
-                }),
-                code: currentActiveRule.code
-            };
-
-            await dispatch(() => updateActiveRule(requestBody, currentSystemCode));
-        }
-    };
-
-    const onRemoveEdgeFromAR = async (currentEdge, currentActiveRule) => {
-        const actions = JSON.parse(currentActiveRule.action);
-        const deletedEdge = actions.edges.indexOf(actions.edges.filter(ed => ed.from === currentEdge.from)
-            .find(ed => ed.to === currentEdge.to));
-        actions.edges.splice(deletedEdge, 1);
-        const requestBody = {
-            description: currentActiveRule.description,
-            condition: currentActiveRule.condition,
-            action: JSON.stringify({data: [...actions.data], edges: [...actions.edges]}),
-            code: currentActiveRule.code
-        };
-        await dispatch(() => updateActiveRule(requestBody, currentSystemCode));
-    };
-
-    const onAddEdgeInAR = async (data, currentActiveRule) => {
-        const actions = JSON.parse(currentActiveRule.action);
-        if (currentActiveRule.event[0].association.typeBind === 'Event to Rule') {
-            if (data.condition) {
-                actions.edges.push({from: data.event, to: data.condition});
-                actions.edges.push({from: data.condition, to: data.action});
-            } else {
-                actions.edges.push({from: data.event, to: data.action});
-            }
-        } else {
-            if (data.condition) {
-                actions.edges.push({from: data.condition, to: data.event});
-                actions.edges.push({from: data.condition, to: data.action});
-            } else {
-                actions.edges.push({from: data.action, to: data.event});
-            }
-        }
-        const requestBody = {
-            description: currentActiveRule.description,
-            condition: currentActiveRule.condition,
-            action: JSON.stringify({data: actions.data, edges: actions.edges}),
-            code: currentActiveRule.code
-        };
-
-        await dispatch(() => updateActiveRule(requestBody, currentSystemCode));
-    };
-
     const RulesGraphRightPanel = () => {
         return (<>
             <div className={commonStyles.rightPanelBlock}>
@@ -254,7 +184,7 @@ const EditorRuleGraph = () => {
                         className={commonStyles.rightPanelBlockActionText}
                         onClick={() => !currentNode
                             ? actions.edges.length > 1 && (
-                                onRemoveEdgeFromAR(currentEdge, currentActiveRuleObject),
+                                onRemoveEdgeFromAR(currentEdge),
                                     onRemoveEdge(state, setState, currentEdge),
                                     setCurrentEdgeId(undefined)
                             )
@@ -290,7 +220,7 @@ const EditorRuleGraph = () => {
             node={currentNode}
             onEdit={data => {
                 onEdit(data, state, setState, currentNode, currentPointer);
-                onEditNodeFromAR(currentNode, currentActiveRuleObject, data);
+                onEditNodeFromAR(currentNode.id, data.label);
                 setIsEditGraphModalVisible(false);
             }}
             isVisible={isEditGraphModalVisible}
@@ -300,7 +230,7 @@ const EditorRuleGraph = () => {
             nodesState={state.graph.nodes}
             node={currentNode}
             onOk={data => {
-                onAddEdgeInAR(data, currentActiveRuleObject);
+                onAddEdgeInAR(data);
                 onAddEdge(data, setState);
                 setIsAddEdgeModalVisible(false);
             }}

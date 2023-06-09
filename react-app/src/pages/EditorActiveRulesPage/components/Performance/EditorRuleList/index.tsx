@@ -52,21 +52,7 @@ const EditorRuleList = ({}) => {
                 }
                      style={{color: variables.redColor}}>
                     <Icon name="korzina" color={variables.redColor}/>
-                    <div
-                        className={commonStyles.rightPanelBlockActionText}
-                        // onClick={() => !currentNode
-                        //     ? actions.edges.length > 1 && (
-                        //     onRemoveEdgeFromAR(currentEdge, currentActiveRuleObject),
-                        //         onRemoveEdge(state, setState, currentEdge),
-                        //         setCurrentEdgeId(undefined)
-                        // )
-                        //     : actions.data.length > 1 && (
-                        //     onRemoveNode(state, setState, currentNode),
-                        //         onRemoveNodeFromAR(currentNode, currentActiveRuleObject),
-                        //         setCurrentNodeId(undefined)
-                        // )
-                        // }
-                    >
+                    <div className={commonStyles.rightPanelBlockActionText}>
                         Удалить
                     </div>
                 </div>
