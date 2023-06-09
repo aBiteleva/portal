@@ -7,6 +7,13 @@ import {useTypedSelector} from '../../../../../hooks/useTypedSelector';
 
 const Elements = () => {
     const {currentSystem} = useTypedSelector(state => state.systemsValues);
+    const onClickLink = () => {
+        localStorage.removeItem('currentSystemCode');
+        localStorage.removeItem('currentSystemName');
+        localStorage.setItem('currentSystemCode', currentSystem.code);
+        localStorage.setItem('currentSystemName', currentSystem.name);
+    };
+
     return (
         <>
             <div className={stylesCommon.rightPanelBlockTitle}>Элементы системы</div>
@@ -16,6 +23,7 @@ const Elements = () => {
                     <Link
                         style={{textDecoration: 'none', color: variables.yellowColor}}
                         to="/events"
+                        onClick={onClickLink}
                     >
                         Список событий
                     </Link>
@@ -26,12 +34,7 @@ const Elements = () => {
                 <div className={stylesCommon.rightPanelBlockActionText}>
                     <Link
                         style={{textDecoration: 'none', color: variables.yellowColor}}
-                        onClick={() => {
-                            localStorage.removeItem('currentSystemCode');
-                            localStorage.removeItem('currentSystemName');
-                            localStorage.setItem('currentSystemCode', currentSystem.code);
-                            localStorage.setItem('currentSystemName', currentSystem.name);
-                        }}
+                        onClick={onClickLink}
                         to="/active-rules"
                     >
                         Список правил
