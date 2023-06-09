@@ -1,7 +1,10 @@
+import {ContextParamsInterface} from './contextTypes';
 
-interface EventComponentInterface {
+export interface EventComponentInterface {
     code: string
-    description: string
+    description: string,
+    categoryEvent: string,
+    contextParam: ContextParamsInterface
 }
 
 export interface EventsInterface {
