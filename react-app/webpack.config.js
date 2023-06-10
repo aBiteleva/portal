@@ -39,9 +39,7 @@ module.exports = (webpackConfigEnv, argv) => {
                         {loader: 'style-loader'},
                         {
                             loader: 'css-loader', options: {
-                                modules: {
-                                    localIdentName: '[local]'
-                                },
+                                modules: true
                             }
                         },
                         {loader: 'sass-loader'},

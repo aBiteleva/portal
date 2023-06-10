@@ -23,6 +23,7 @@ const Elements = () => {
                     <Link
                         style={{textDecoration: 'none', color: variables.yellowColor}}
                         to="/events"
+                        data-testid="events-link"
                         onClick={onClickLink}
                     >
                         Список событий
@@ -36,6 +37,7 @@ const Elements = () => {
                         style={{textDecoration: 'none', color: variables.yellowColor}}
                         onClick={onClickLink}
                         to="/active-rules"
+                        data-testid="active-rules-link"
                     >
                         Список правил
                     </Link>
