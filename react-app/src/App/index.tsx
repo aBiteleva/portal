@@ -35,6 +35,7 @@ const App = (props: any) => {
                 <Route path="/active-rules" element={<ActiveRulesPage {...props} />} />
                 <Route path="/editor-active-rules" element={<EditorActiveRulesPage {...props} />} />
                 <Route path="/events" element={<EventsPage {...props} />} />
+                <Route path="/active-rules-script" element={<EditorActiveRulesPage isLang {...props} />}/>
             </Routes>
         </BrowserRouter>
     );

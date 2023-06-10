@@ -7,8 +7,10 @@ import {EditorRulesPerformance} from '../../store/types/editorActiveRulesTypes';
 import EditorRulePerformanceSelect from './components/EditorRulePerformanceSelect';
 import {useAction} from '../../hooks/useAction';
 import EditorRuleList from './components/Performance/EditorRuleList';
+import {setCurrentEditorRulePerformance} from '../../store/action-creators/editorActiveRules';
+import commonStyles from '../../common/styles/styles.module.scss';
 
-const EditorActiveRulesPage = () => {
+const EditorActiveRulesPage = ({isLang}: {isLang: boolean}) => {
     const {currentEditorRulePerformance} = useTypedSelector(state => state.editorActiveRulesValues);
     const {currentActiveRule, activeRules} = useTypedSelector(state => state.activeRulesValues);
     const {systemPagesWay} = useTypedSelector(state => state.systemsValues);
@@ -25,13 +27,19 @@ const EditorActiveRulesPage = () => {
 
     }, []);
 
+    useEffect(() => {
+        isLang && setCurrentEditorRulePerformance(EditorRulesPerformance.lang);
+    }, [isLang]);
+
     const getCurrentEditorRulePerformance = () => {
         switch (currentEditorRulePerformance) {
             case EditorRulesPerformance.list:
                 return <EditorRuleList />;
             case EditorRulesPerformance.lang:
                 return <MainTemplate blocks={<RightPanel/>}>
-                    <EditorRulePerformanceSelect/>
+                    <div className={commonStyles.toolbar}>
+                        <EditorRulePerformanceSelect/>
+                    </div>
                 </MainTemplate>;
             case EditorRulesPerformance.graph:
                 return <RuleGraph />;
