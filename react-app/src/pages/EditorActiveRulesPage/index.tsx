@@ -28,9 +28,7 @@ const EditorActiveRulesPage = () => {
     const getCurrentEditorRulePerformance = () => {
         switch (currentEditorRulePerformance) {
             case EditorRulesPerformance.list:
-                return <MainTemplate blocks={<RightPanel/>}>
-                    <EditorRuleList />
-                </MainTemplate>;
+                return <EditorRuleList />;
             case EditorRulesPerformance.lang:
                 return <MainTemplate blocks={<RightPanel/>}>
                     <EditorRulePerformanceSelect/>

@@ -45,7 +45,7 @@ const AddEdgeModal = ({isVisible, onCancel, onOk, nodesState}) => {
         }), [events]);
 
     const conditionOptions = nodesState
-        .filter(node => node.label.toLowerCase().includes('condition'))
+        .filter(node => node.label.toLowerCase().includes('c'))
         .map(conditionNode => {
             return {
                 label: conditionNode.label,
@@ -54,7 +54,7 @@ const AddEdgeModal = ({isVisible, onCancel, onOk, nodesState}) => {
         });
 
     const actionOptions = nodesState
-        .filter(node => node.label.toLowerCase().includes('action'))
+        .filter(node => node.label.toLowerCase().includes('a') && !node.label.toLowerCase().includes('e'))
         .map(actionNode => {
             return {
                 label: actionNode.label,

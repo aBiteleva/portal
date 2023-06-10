@@ -1,32 +1,127 @@
 @import "../../../../../../variables.module";
 
-.tagContainer {
-  border: 1px solid $middle-white;
-  border-radius: 5px;
-  margin: 0 0 8px;
+.block {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  height: auto;
+  gap: 4px;
+  margin-bottom: 12px;
 
-  .tagHeader {
-    border-bottom: 1px solid $middle-white;
+  &__title {
+    color: $white-color;
+    font-size: 14px;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  &__left_stroke {
+    background-color: white;
+    height: 100%;
+    width: 2px;
+    border-radius: 10px;
+  }
+}
+
+.card {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+
+  &__content {
+    padding: 8px;
+    border-color: 1px solid $border-color;
+    background-color: $dark-blue-color;
     border-radius: 5px;
-    margin: 0 0 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    div {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+    }
+
+    &_add {
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      gap: 8px;
+      cursor: pointer;
+
+      svg {
+        fill: $white-color;
+      }
+
+      &:hover {
+        background-color: $background-color-opacity;
+      }
+
+      &:active {
+        background-color: $grey-color;
+      }
+    }
+  }
+
+  &__withDelete{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    padding: 4px;
-
-    .tagName {
-      color: $light-yellow-color;
-      display: flex;
-      flex-direction: row;
-
-      div:last-child {
-        margin-left: 6px;
-      }
-    }
 
     svg {
-      width: 14px;
+      fill: $red-color;
+      cursor: pointer;
+    }
+  }
+
+  &__deleteBlock {
+    svg {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  &__tags {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__category {
+    border-radius: 2px;
+    padding: 2px;
+
+    &_event {
+      background-color: $event-color;
+    }
+
+    &_eventTag {
+      background-color: $yellow-bright-color;
+      color: $black-color;
+    }
+
+    &_actionTag {
+      background-color: $green-bright-color;
+      color: $black-color;
+    }
+
+    &_condition {
+      background-color: $condition-color;
+    }
+
+    &_systemTag {
+      background-color: $orange-color;
+    }
+
+    &_action {
+      background-color: $action-color;
     }
   }
 }

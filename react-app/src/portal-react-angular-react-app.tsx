@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import {rootReducer} from './store/reducers';
 
-const store: Store<any> & {
+export const store: Store<any> & {
     dispatch: any
 } = createStore(rootReducer, applyMiddleware(thunk));
 const lifecycles = singleSpaReact({

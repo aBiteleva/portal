@@ -6,7 +6,7 @@ import {
 } from '../types/editorActiveRulesTypes';
 
 const initialState: EditorActiveRulesState = {
-    currentEditorRulePerformance: EditorRulesPerformance.graph
+    currentEditorRulePerformance: EditorRulesPerformance.list
 };
 
 export const editorActiveRulesReducer = (state = initialState, action: EditorActiveRulesAction): EditorActiveRulesState => {

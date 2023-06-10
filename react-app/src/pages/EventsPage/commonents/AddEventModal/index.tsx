@@ -1,9 +1,10 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useMemo} from 'react';
 import styles from './styles.module.scss';
-import {Button, Form, Input, Modal} from 'antd';
+import {Button, Form, Input, Modal, Select} from 'antd';
 import {useAction} from '../../../../hooks/useAction';
-import {useAppDispatch} from '../../../../hooks/useTypedSelector';
+import {useAppDispatch, useTypedSelector} from '../../../../hooks/useTypedSelector';
 import {AddEventInterface} from '../../../../store/types/eventsTypes';
+import commonStyles from '../../../../common/styles/styles.module.scss';
 
 interface AddEventModalInterface {
     isVisible: boolean;
@@ -12,8 +13,33 @@ interface AddEventModalInterface {
 }
 
 const AddEventModal: FC<AddEventModalInterface> = ({isVisible, setIsVisible, currentSystemCode}) => {
-    const {addEvent} = useAction();
+    const {addEvent, fetchContextParams, fetchComponentParams} = useAction();
+    const {contextParams} = useTypedSelector(store => store.contextParamsValues);
+    const {component} = useTypedSelector(store => store.componentValues);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(() => fetchContextParams());
+        dispatch(() => fetchComponentParams());
+    }, [dispatch]);
+
+    const contextParamsOptions = useMemo(() => {
+        return contextParams.map(param => {
+            return {
+                label: param.name,
+                value: param.code
+            };
+        });
+    }, [contextParams]);
+
+    const componentOptions = useMemo(() => {
+        return component.map(comp => {
+            return {
+                label: comp.description,
+                value: comp.code
+            };
+        });
+    }, [component]);
 
     const handleCancel = () => {
         setIsVisible(false);
@@ -50,19 +76,17 @@ const AddEventModal: FC<AddEventModalInterface> = ({isVisible, setIsVisible, cur
                 >
                     <Input/>
                 </Form.Item>
-                <Form.Item
-                    label="Код контекста"
-                    name="contextParamCode"
-                    rules={[{required: true, message: 'Заполните поле'}]}
-                >
-                    <Input/>
+                <Form.Item label="Контекст"
+                           name="contextParamCode"
+                           rules={[{required: true, message: 'Выберите контекст'}]}>
+                    <Select className={commonStyles.select}
+                            options={contextParamsOptions}/>
                 </Form.Item>
-                <Form.Item
-                    label="Код компонента"
-                    name="codeComponent"
-                    rules={[{required: true, message: 'Заполните поле'}]}
-                >
-                    <Input/>
+                <Form.Item label="Компонент"
+                           name="codeComponent"
+                           rules={[{required: true, message: 'Выберите компонент'}]}>
+                    <Select className={commonStyles.select}
+                            options={componentOptions}/>
                 </Form.Item>
             </Form>
         </Modal>

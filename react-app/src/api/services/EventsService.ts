@@ -12,7 +12,7 @@ export class EventsService {
     }
 
     static async deleteEvent(data: DeleteEventInterface): Promise<AxiosResponse<any[]>> {
-        return api.delete<any[]>('/system/atomic', {data});
+        return api.delete<any[]>('/event/atomic', {data});
     }
 }
 
