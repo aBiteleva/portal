@@ -22,7 +22,7 @@ const MainTemplate: FC<MainTemplateInterface> = ({blocks, children}) => {
     const location = useLocation();
 
     const onPageNameClick = (page: SystemPagesWayInterface) => {
-        if (location.pathname === '/editor-active-rules'
+        if (['/editor-active-rules', '/active-rules-script'].includes(location.pathname)
             && systemPagesWay.indexOf(page) + 1 === systemPagesWay.length-1) {
             navigate('/active-rules');
             dispatch(() => setCurrentSystems(page.systems));

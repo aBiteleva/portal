@@ -15,10 +15,11 @@ const EditorRulePerformanceSelect = () => {
           placeholder="Представление"
           size="small"
           onChange={value => {
+              setCurrentEditorRulePerformance(value);
               if(value === EditorRulesPerformance.lang){
                   navigate('/active-rules-script');
               } else {
-                  setCurrentEditorRulePerformance(value);
+                  navigate('/editor-active-rules');
               }
           }}
           value={currentEditorRulePerformance}
