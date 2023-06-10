@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {ActiveRule} from "../active-rule";
-import {Event} from '../../event/event';
+import {EventListItem} from '../../event/event';
 
 @Injectable({providedIn: 'root'})
-export class CodeAnalyzer {
+export class ActiveRuleCodeAnalyzer {
 
     analyseRule(ruleQuery: string, isEditMode: boolean): AnalyzerResponse {
         let requiredFields = [RuleKeywords.DESCRIPTION, RuleKeywords.CONDITION, RuleKeywords.ACTION];
@@ -66,7 +66,7 @@ export class CodeAnalyzer {
         }
     }
 
-    manageEventValueForEditor(selectedEvents: Event[] | undefined, query: string): string {
+    manageEventValueForEditor(selectedEvents: EventListItem[] | undefined, query: string): string {
         const queryRows = query.split('\n');
         if (query.includes(RuleKeywords.EVENT)) {
             for (let i = 0; i < queryRows.length; i++) {

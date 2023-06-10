@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActiveRule} from "../active-rule";
 import {ActiveRuleService} from "../active-rule.service";
-import {Event} from '../../event/event';
+import {EventListItem} from '../../event/event';
 
 @Component({
     selector: 'app-active-rule-list',
@@ -24,7 +24,7 @@ export class ActiveRuleListComponent implements OnInit {
         })
     }
 
-    formatEventListToString(events: Event[] | undefined): string {
+    formatEventListToString(events: EventListItem[] | undefined): string {
         return <string>events?.map(ev => ev.code).join(', ');
     }
 }

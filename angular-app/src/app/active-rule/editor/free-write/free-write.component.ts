@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from "@angular/core";
-import {AnalyzerResponse, CodeAnalyzer} from "../code-analyzer";
-import {Event} from "../../../event/event";
+import {AnalyzerResponse, ActiveRuleCodeAnalyzer} from "../active-rule-code-analyzer";
+import {EventListItem} from "../../../event/event";
 import {ActiveRule, ActiveRuleEventTypeBind} from "../../active-rule";
 import {Router} from "@angular/router";
 import {ActiveRuleService} from "../../active-rule.service";
@@ -37,12 +37,12 @@ ACTION = "action1"`;
     codeAnalyzerResponse: AnalyzerResponse | null | undefined;
     successMessage: string = '';
     isEditMode: boolean = false;
-    @Input() eventList: Event[] = [];
-    selectedEvents: Event[] | undefined = [];
-    @Input() initialEventsList: Event[] | undefined = [];
+    @Input() eventList: EventListItem[] = [];
+    selectedEvents: EventListItem[] | undefined = [];
+    @Input() initialEventsList: EventListItem[] | undefined = [];
     @Input() activeRule!: ActiveRule;
 
-    constructor(private codeAnalyzer: CodeAnalyzer,
+    constructor(private codeAnalyzer: ActiveRuleCodeAnalyzer,
                 private router: Router,
                 private activeRuleService: ActiveRuleService) {
     }

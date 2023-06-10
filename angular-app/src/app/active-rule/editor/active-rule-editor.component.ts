@@ -1,10 +1,10 @@
 import {Component, OnInit} from "@angular/core";
-import {AnalyzerResponse, CodeAnalyzer} from "./code-analyzer";
+import {AnalyzerResponse, ActiveRuleCodeAnalyzer} from "./active-rule-code-analyzer";
 import {AppRoutesEnum} from "../../app-routes.enum";
 import {Router} from "@angular/router";
 import {ActiveRuleService} from "../active-rule.service";
 import {EventService} from "../../event/event.service";
-import {Event} from '../../event/event';
+import {EventListItem} from '../../event/event';
 import {Observable} from "rxjs";
 import {ActiveRule, ActiveRuleEventTypeBind} from "../active-rule";
 import {NgControl, NgForm} from "@angular/forms";
@@ -39,12 +39,12 @@ ACTION = "action1"`;
     codeAnalyzerResponse: AnalyzerResponse | null | undefined;
     successMessage: string = '';
     isEditMode: boolean = false;
-    eventList: Event[] = [];
-    selectedEvents: Event[] | undefined = [];
-    initialEventsList: Event[] | undefined = [];
+    eventList: EventListItem[] = [];
+    selectedEvents: EventListItem[] | undefined = [];
+    initialEventsList: EventListItem[] | undefined = [];
     activeRule: ActiveRule = new ActiveRule();
 
-    constructor(private codeAnalyzer: CodeAnalyzer,
+    constructor(private codeAnalyzer: ActiveRuleCodeAnalyzer,
                 private router: Router,
                 private activeRuleService: ActiveRuleService,
                 private eventService: EventService) {
@@ -97,7 +97,6 @@ ACTION = "action1"`;
         if (this.codeAnalyzerResponse.record) {
             this.successMessage = 'Ошибки не найдены';
         }
-        console.log(this.codeAnalyzerResponse.record)
     }
 
     onSave() {

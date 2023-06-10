@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {ActiveRule} from "../../active-rule";
-import {Event} from "../../../event/event";
+import {EventListItem} from "../../../event/event";
 
 @Component({
     templateUrl: 'constructor.component.html',
@@ -8,8 +8,8 @@ import {Event} from "../../../event/event";
 })
 export class ConstructorComponent {
     @Input() activeRule: ActiveRule = new ActiveRule();
-    @Input() eventList: Event[] = [];
-    selectedEvents: Event[] | undefined = [];
-    @Input() initialEventsList: Event[] | undefined = [];
+    @Input() eventList: EventListItem[] = [];
+    selectedEvents: EventListItem[] | undefined = [];
+    @Input() initialEventsList: EventListItem[] | undefined = [];
 
 }

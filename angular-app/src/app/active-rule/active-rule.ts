@@ -1,11 +1,11 @@
-import {Event} from '../event/event';
+import {EventListItem} from '../event/event';
 
 export class ActiveRule {
     code: string | undefined;
     description: string | undefined;
     condition: string | undefined;
     action: string | undefined;
-    event?: Event[]
+    event?: EventListItem[]
 }
 
 export class ActiveRuleCreateItem {
