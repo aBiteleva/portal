@@ -4,12 +4,13 @@
             <ng-template pTemplate="header">
                 <div class="active-rule__item--header">
                     <span class="active-rule__item--header-title">{{ev.code}}</span>
-                    <app-button routerLink="/active-rules-script/edit/{{ev.code}}" icon="edit"></app-button>
+                    <app-button routerLink="/events-script/edit/{{ev.code}}" icon="edit"></app-button>
                 </div>
             </ng-template>
 
             <div>EVENT {{ev.code}}</div>
             <div>DESCRIPTION = {{ev.description}}</div>
+            <div>TYPE = {{ev.categoryEvent}}</div>
         </p-card>
     </ng-container>
 </div>

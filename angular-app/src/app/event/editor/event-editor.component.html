@@ -1,16 +1,49 @@
 <p-tabView>
     <p-tabPanel header="Свободный ввод">
-        <div style="margin-bottom: 10px">
-            <p-multiSelect (onChange)="manageEventAtCodeEditor()" [(ngModel)]="selectedEvents" [options]="eventList"
-                           [style]="{width: '300px'}" filterBy="code,description" optionLabel="code"
-                           placeholder="Выберите события">
-                <ng-template let-event pTemplate="item">
-                    <div class="flex align-items-center gap-2">
-                        {{event.code}} - {{event.description}}
-                    </div>
-                </ng-template>
-            </p-multiSelect>
+        <div style="margin-bottom: 7px">Тип события</div>
+        <p-dropdown [(ngModel)]="event.categoryEvent" [options]="eventCategories"
+                    [style]="{width: '300px', marginBottom: '10px'}" [filter]="false" [readonly]="isEditMode"
+                    placeholder="Выберите тип события" appendTo="body">
+        </p-dropdown>
+        <div *ngIf="event.categoryEvent" style="display: flex">
+            <div style="margin-bottom: 10px; margin-right: 10px">
+                <div style="margin-bottom: 7px">Параметр контекста</div>
+                <p-dropdown (onChange)="manageParamAtCodeEditor()" [(ngModel)]="event.contextParam" [options]="contextParams"
+                            [style]="{width: '300px'}" filterBy="code,name" optionLabel="code"
+                            placeholder="Выберите параметр контекста" appendTo="body">
+                    <ng-template let-param pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            {{param.code}} - {{param.name}}
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+            <div *ngIf="event.categoryEvent === EventCategory.COMPLEX" style="margin-bottom: 10px">
+                <div style="margin-bottom: 7px">События</div>
+                <p-multiSelect (onChange)="manageEventsAtCodeEditor()" [(ngModel)]="event.inboundEvent" [options]="events"
+                               [style]="{width: '300px'}" filterBy="code,description" optionLabel="code"
+                               placeholder="Выберите события" appendTo="body">
+                    <ng-template let-param pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            {{param.code}} - {{param.description}}
+                        </div>
+                    </ng-template>
+                </p-multiSelect>
+            </div>
+            <div *ngIf="event.categoryEvent === EventCategory.ATOMIC" style="margin-bottom: 10px">
+                <div style="margin-bottom: 7px">Компонент</div>
+                <p-dropdown (onChange)="manageComponentAtCodeEditor()" [(ngModel)]="selectedComponent" [options]="components" [readonly]="isEditMode"
+                               [style]="{width: '300px'}" filterBy="code,description" optionLabel="code" optionValue="code"
+                               placeholder="Выберите компонент" appendTo="body">
+                    <ng-template let-param pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            {{param.code}} - {{param.description}}
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
         </div>
+
         <ngx-codemirror #codemirror
                         (ngModelChange)="setEditorContent()"
                         [(ngModel)]="query"
@@ -25,45 +58,107 @@
             </ng-template>
         </div>
         <div class="editor__btn-wrapper">
-            <button (click)="checkCodeSyntax()" class="editor__btn--with-indent" label="Проверить" pButton></button>
-            <button (click)="onSave()" label="Сохранить" pButton></button>
+            <button (click)="checkCodeSyntax()" [disabled]="event.categoryEvent === undefined" class="editor__btn--with-indent" label="Проверить" pButton></button>
+            <button (click)="onSave()" [disabled]="event.categoryEvent === undefined" label="Сохранить" pButton></button>
         </div>
 
     </p-tabPanel>
     <p-tabPanel header="Конструктор">
-        <div>
-            RULE <span style="color: #164">{{activeRule.code}}</span>
-        </div>
-        <div class="editor__constructor-item">
-            <span class="editor__constructor-item--label">DESCRIPTION</span>
-            <span>=</span>
-            <input [(ngModel)]="activeRule.description" (input)="initEditorQuery(activeRule)" [style]="{width: '300px'}" pInputText required>
-        </div>
-        <div class="editor__constructor-item">
-            <span class="editor__constructor-item--label">CONDITION</span>
-            <span>=</span>
-            <input [(ngModel)]="activeRule.condition" (input)="initEditorQuery(activeRule)" [style]="{width: '300px'}" pInputText
-                   required>
-        </div>
-        <div class="editor__constructor-item">
-            <span class="editor__constructor-item--label">ACTION</span>
-            <span>=</span>
-            <input [(ngModel)]="activeRule.action" (input)="initEditorQuery(activeRule)" [style]="{width: '300px'}" pInputText required>
-        </div>
-        <div class="editor__constructor-item">
-            <span class="editor__constructor-item--label">EVENT</span>
-            <span>=</span>
-            <div>
-                <p-multiSelect (onChange)="manageEventAtCodeEditor()" [(ngModel)]="selectedEvents" [options]="eventList"
-                               [style]="{width: '300px'}" appendTo="body" filterBy="code,description"
-                               optionLabel="code" placeholder="Выберите события">
-                    <ng-template let-event pTemplate="item">
-                        <div class="flex align-items-center gap-2">
-                            {{event.code}} - {{event.description}}
+        <div style="margin-bottom: 7px">Тип события</div>
+        <p-dropdown [(ngModel)]="event.categoryEvent" [options]="eventCategories"
+                    [style]="{width: '300px', marginBottom: '20px'}" [filter]="false" [readonly]="isEditMode"
+                    placeholder="Выберите тип события" appendTo="body">
+        </p-dropdown>
+        <ng-container *ngIf="event.categoryEvent">
+            <ng-container [ngSwitch]="event.categoryEvent">
+                <div>
+                    EVENT <span style="color: #164">{{event.code}}</span>
+                </div>
+                <div class="editor__constructor-item">
+                    <span class="editor__constructor-item--label">DESCRIPTION</span>
+                    <span>=</span>
+                    <input (input)="initEditorQuery(event)" [(ngModel)]="event.description"
+                           [style]="{width: '300px'}" pInputText required>
+                </div>
+                <div class="editor__constructor-item">
+                    <span class="editor__constructor-item--label">CONTEXT</span>
+                    <span>=</span>
+                    <p-dropdown (onChange)="manageParamAtCodeEditor()" [(ngModel)]="event.contextParam" [options]="contextParams"
+                                [style]="{width: '300px'}" filterBy="code,name" optionLabel="code"
+                                placeholder="Выберите параметр контекста" appendTo="body">
+                        <ng-template let-param pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                {{param.code}} - {{param.name}}
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                <ng-container *ngSwitchCase="EventCategory.ATOMIC">
+                    <div class="editor__constructor-item">
+                        <span class="editor__constructor-item--label">COMPONENT</span>
+                        <span>=</span>
+                        <p-dropdown (onChange)="manageComponentAtCodeEditor()" [(ngModel)]="selectedComponent" [options]="components" [readonly]="isEditMode"
+                                    [style]="{width: '300px'}" filterBy="code,description" optionLabel="code" optionValue="code"
+                                    placeholder="Выберите компонент" appendTo="body">
+                            <ng-template let-param pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    {{param.code}} - {{param.description}}
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+
+                </ng-container>
+                <ng-container *ngSwitchCase="EventCategory.AGGREGATION">
+                    <div class="editor__constructor-item">
+                        <span class="editor__constructor-item--label">AGGREGATION_QUERY</span>
+                        <span>=</span>
+                        <input (input)="initEditorQuery(event)" [(ngModel)]="event.aggregationQuery"
+                               [style]="{width: '300px'}" pInputText required>
+                    </div>
+                    <div class="editor__constructor-item">
+                        <span class="editor__constructor-item--label">TIMESTAMP_BEGIN</span>
+                        <span>=</span>
+                        <input (input)="initEditorQuery(event)" [(ngModel)]="event.timestampBegin"
+                               [style]="{width: '300px'}" pInputText required>
+                    </div>
+                    <div class="editor__constructor-item">
+                        <span class="editor__constructor-item--label">TIMESTAMP_END</span>
+                        <span>=</span>
+                        <input (input)="initEditorQuery(event)" [(ngModel)]="event.timestampEnd"
+                               [style]="{width: '300px'}" pInputText required>
+                    </div>
+
+                </ng-container>
+                <ng-container *ngSwitchCase="EventCategory.COMPLEX">
+                    <div class="editor__constructor-item">
+                        <span class="editor__constructor-item--label">TEMPLATE_EVENT</span>
+                        <span>=</span>
+                        <input (input)="initEditorQuery(event)" [(ngModel)]="event.templateEvent"
+                               [style]="{width: '300px'}" pInputText required>
+                    </div>
+                    <div class="editor__constructor-item">
+                        <span class="editor__constructor-item--label">EVENTS</span>
+                        <span>=</span>
+                        <div>
+                            <p-multiSelect (onChange)="manageEventsAtCodeEditor()" [(ngModel)]="event.inboundEvent" [options]="events"
+                                           [style]="{width: '300px'}" filterBy="code,description" optionLabel="code"
+                                           placeholder="Выберите события" appendTo="body">
+                                <ng-template let-param pTemplate="item">
+                                    <div class="flex align-items-center gap-2">
+                                        {{param.code}} - {{param.description}}
+                                    </div>
+                                </ng-template>
+                            </p-multiSelect>
                         </div>
-                    </ng-template>
-                </p-multiSelect>
-            </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+
+        <div class="editor__btn-wrapper">
+            <button (click)="onSave()" [disabled]="event.categoryEvent === undefined" label="Сохранить" pButton></button>
         </div>
+
     </p-tabPanel>
 </p-tabView>

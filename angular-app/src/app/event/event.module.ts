@@ -15,6 +15,7 @@ import {TabViewModule} from "primeng/tabview";
 import {MessageModule} from "primeng/message";
 import {MultiSelectModule} from "primeng/multiselect";
 import {InputTextModule} from "primeng/inputtext";
+import {DropdownModule} from "primeng/dropdown";
 
 @NgModule({
     imports: [
@@ -31,7 +32,8 @@ import {InputTextModule} from "primeng/inputtext";
         AppButtonModule,
         MessageModule,
         MultiSelectModule,
-        InputTextModule
+        InputTextModule,
+        DropdownModule
     ],
     declarations: [EventComponent, EventListComponent, EventEditorComponent],
     providers: [EventService],

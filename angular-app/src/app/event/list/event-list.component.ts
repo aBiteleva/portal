@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Event} from '../event';
+import {EventPageItem} from '../event';
 import {EventService} from "../event.service";
 
 @Component({
@@ -8,7 +8,7 @@ import {EventService} from "../event.service";
     styleUrls: ['event-list.component.scss']
 })
 export class EventListComponent implements OnInit {
-    events: Event[] = []
+    events: EventPageItem[] = []
 
     constructor(private eventService: EventService) {
     }
