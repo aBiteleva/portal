@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 const cn = classNames.bind(styles);
 
 const Events = () => {
-    const currentActiveRuleObject = JSON.parse(localStorage.getItem('currentActiveRuleObject') || '');
+    const currentActiveRuleObject = JSON.parse(localStorage.getItem('currentActiveRuleObject') || '{}');
 
     const events = useMemo(() => currentActiveRuleObject?.event.map((ev: BlockType) => {
         return {

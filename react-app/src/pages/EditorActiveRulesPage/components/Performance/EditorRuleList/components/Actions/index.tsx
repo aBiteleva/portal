@@ -10,7 +10,7 @@ import {useTypedSelector} from '../../../../../../../hooks/useTypedSelector';
 const cn = classNames.bind(styles);
 
 const Actions = () => {
-    const currentActiveRuleObject = JSON.parse(localStorage.getItem('currentActiveRuleObject') || '');
+    const currentActiveRuleObject = JSON.parse(localStorage.getItem('currentActiveRuleObject') || '{}');
     const actions = JSON.parse(currentActiveRuleObject?.action);
     const currentSystemCode = localStorage.getItem('currentSystemCode');
     const currentSystemName = localStorage.getItem('currentSystemName');

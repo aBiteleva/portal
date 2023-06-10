@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 const cn = classNames.bind(styles);
 
 const Conditions = () => {
-    const currentActiveRuleObject = JSON.parse(localStorage.getItem('currentActiveRuleObject') || '');
+    const currentActiveRuleObject = JSON.parse(localStorage.getItem('currentActiveRuleObject') || '{}');
     const actions = JSON.parse(currentActiveRuleObject?.action);
     const conditions = JSON.parse(currentActiveRuleObject?.condition);
 
