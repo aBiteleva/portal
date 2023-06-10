@@ -2,7 +2,7 @@ import {updateActiveRule} from '../../store/action-creators/activeRules';
 import {store} from '../../portal-react-angular-react-app';
 
 const currentSystemCode = localStorage.getItem('currentSystemCode');
-const currentActiveRuleObject = JSON.parse(localStorage.getItem('currentActiveRuleObject') || '');
+const currentActiveRuleObject = JSON.parse(localStorage.getItem('currentActiveRuleObject') || '{}');
 
 export const onRemoveNodeFromAR = async (currentNodeId: string) => {
     const actions = JSON.parse(currentActiveRuleObject.action);

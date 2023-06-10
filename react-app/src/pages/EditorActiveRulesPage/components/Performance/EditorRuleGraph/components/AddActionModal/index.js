@@ -7,7 +7,7 @@ import {useDispatch} from 'react-redux';
 import {useAction} from '../../../../../../../hooks/useAction';
 
 const AddActionModal = ({isVisible, onCancel, currentActiveRule, currentSystemCode}) => {
-    const currentActiveRuleObject = JSON.parse(localStorage.getItem('currentActiveRuleObject') || '');
+    const currentActiveRuleObject = JSON.parse(localStorage.getItem('currentActiveRuleObject') || '{}');
     const {events} = useTypedSelector(state => state.eventsValues);
     const conditions = JSON.parse(currentActiveRuleObject?.condition);
     const dispatch = useDispatch();
