@@ -16,6 +16,8 @@ import {MessageModule} from "primeng/message";
 import {MultiSelectModule} from "primeng/multiselect";
 import {InputTextModule} from "primeng/inputtext";
 import {DropdownModule} from "primeng/dropdown";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {TooltipModule} from "primeng/tooltip";
 
 @NgModule({
     imports: [
@@ -33,7 +35,9 @@ import {DropdownModule} from "primeng/dropdown";
         MessageModule,
         MultiSelectModule,
         InputTextModule,
-        DropdownModule
+        DropdownModule,
+        ConfirmDialogModule,
+        TooltipModule
     ],
     declarations: [EventComponent, EventListComponent, EventEditorComponent],
     providers: [EventService],

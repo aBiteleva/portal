@@ -1,10 +1,22 @@
-<p-dialog [(visible)]="isDialogVisible" [closable]="false" [draggable]="false" [style]="{width: '1000px'}">
+<p-dialog [(visible)]="isDialogVisible" [closable]="false" [draggable]="false"
+          [style]="{width: '1000px', maxHeight: !isEditorMode ? getDialogHeight() : 'auto', height: 'auto'}">
     <ng-template pTemplate="header">
-        <div class="active-rule-dialog-header">
-            <app-button class="active-rule-dialog-header__back-btn" *ngIf="isEditorMode" routerLink="/active-rules-script" icon="arrow-left" iconSize="16" btnStyle="outline"></app-button>
-            <h2 class="active-rule-dialog-header__title">Языковое представление активных правил</h2>
-            <app-button *ngIf="!isEditorMode" routerLink="/active-rules-script/new" icon="plus" iconSize="16" btnStyle="outline"></app-button>
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%">
+            <div class="active-rule-dialog-header">
+                <button *ngIf="isEditorMode"
+                        class="active-rule-dialog-header__back-btn p-button-rounded p-button-outlined"
+                        icon="pi pi-arrow-left" pButton pTooltip="К списку активных правил"
+                        routerLink="/active-rules-script"></button>
+                <h2 class="active-rule-dialog-header__title">Языковое представление активных правил</h2>
+                <button *ngIf="!isEditorMode" class="p-button-rounded p-button-outlined" icon="pi pi-plus"
+                        pButton
+                        routerLink="/active-rules-script/new"></button>
+            </div>
+            <button (click)="backToOtherPerformance()" class="p-button-rounded p-button-outlined" icon="pi pi-sign-in"
+                    pButton pTooltip="К другим представлениям"></button>
         </div>
+
     </ng-template>
     <router-outlet (activate)='onAttach()'></router-outlet>
 </p-dialog>
+<p-confirmDialog [style]="{width: '40vw'}"></p-confirmDialog>

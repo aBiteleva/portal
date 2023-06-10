@@ -18,6 +18,8 @@ import {MultiSelectModule} from "primeng/multiselect";
 import {InputTextModule} from "primeng/inputtext";
 import {ConstructorComponent} from "./editor/constructor/constructor.component";
 import {FreeWriteComponent} from "./editor/free-write/free-write.component";
+import {TooltipModule} from "primeng/tooltip";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 @NgModule({
     imports: [
@@ -35,7 +37,9 @@ import {FreeWriteComponent} from "./editor/free-write/free-write.component";
         AppButtonModule,
         MessageModule,
         MultiSelectModule,
-        InputTextModule
+        InputTextModule,
+        TooltipModule,
+        ConfirmDialogModule
     ],
     declarations: [ActiveRuleComponent, ActiveRuleListComponent, ActiveRuleEditorComponent, ConstructorComponent, FreeWriteComponent],
     providers: [ActiveRuleService],

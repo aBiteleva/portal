@@ -1,10 +1,22 @@
-<p-dialog [(visible)]="isDialogVisible" [closable]="false" [draggable]="false" [style]="{width: '1000px', height: '1000px'}">
+<p-dialog [(visible)]="isDialogVisible" [closable]="false" [draggable]="false"
+          [style]="{width: '1000px', maxHeight: !isEditorMode ? getDialogHeight() : 'auto', height: 'auto'}">
     <ng-template pTemplate="header">
-        <div class="event-dialog-header">
-            <app-button class="event-dialog-header__back-btn" *ngIf="isEditorMode" routerLink="/events-script" icon="arrow-left" iconSize="16" btnStyle="outline"></app-button>
-            <h2 class="event-dialog-header__title">Языковое представление событий</h2>
-            <app-button *ngIf="!isEditorMode" routerLink="/events-script/new" icon="plus" iconSize="16" btnStyle="outline"></app-button>
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%">
+            <div class="event-dialog-header">
+                <button *ngIf="isEditorMode" pTooltip="К списку событий"
+                        class="event-dialog-header__back-btn p-button-rounded p-button-outlined"
+                        icon="pi pi-arrow-left" pButton
+                        routerLink="/events-script"></button>
+                <h2 class="event-dialog-header__title">Языковое представление событий</h2>
+                <button *ngIf="!isEditorMode" class="p-button-rounded p-button-outlined" icon="pi pi-plus"
+                        pButton
+                        routerLink="/events-script/new"></button>
+            </div>
+            <button (click)="backToOtherPerformance()" class="p-button-rounded p-button-outlined"
+                    icon="pi pi-sign-in"
+                    pButton pTooltip="К другим представлениям"></button>
         </div>
     </ng-template>
     <router-outlet (activate)='onAttach()'></router-outlet>
 </p-dialog>
+<p-confirmDialog [style]="{width: '40vw'}"></p-confirmDialog>
