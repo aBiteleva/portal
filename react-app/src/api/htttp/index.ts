@@ -8,6 +8,7 @@ const api = axios.create({
     baseURL: STATIC_URL
 });
 
+// @ts-ignore
 api.interceptors.request.use(config => {
     if(config.headers) {
         config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;

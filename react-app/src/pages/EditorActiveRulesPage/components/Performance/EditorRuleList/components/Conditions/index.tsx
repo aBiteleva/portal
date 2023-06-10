@@ -10,7 +10,7 @@ const Conditions = () => {
     const actions = JSON.parse(currentActiveRuleObject?.action);
     const conditions = JSON.parse(currentActiveRuleObject?.condition);
 
-    const conditionsArray = useMemo(() => conditions?.data.map((cond: BlockType) => {
+    const conditionsArray = useMemo(() => conditions?.data?.map((cond: BlockType) => {
         return {
             code: cond.code,
             description: cond.description,
@@ -19,14 +19,14 @@ const Conditions = () => {
     }), [currentActiveRuleObject]);
 
     const eventEdges = useMemo(() => currentActiveRuleObject?.event.map((ev: any) => {
-        if (ev.association.typeBind === 'Event to Rule') {
+        if (ev.association?.typeBind === 'Event to Rule') {
             return {
                 from: ev.code,
-                to: conditions.data.length > 0 ? conditions.data[0].code : actions.data.length > 0 ? actions.data[0].code : ''
+                to: conditions.data?.length > 0 ? conditions.data[0]?.code : actions.data?.length > 0 ? actions.data[0]?.code : ''
             };
         } else {
             return {
-                from: conditions.data.length > 0 ? conditions.data[0].code : actions.data.length > 0 ? actions.data[0].code : '',
+                from: conditions.data?.length > 0 ? conditions.data[0]?.code : actions.data?.length > 0 ? actions.data[0]?.code : '',
                 to: ev.code
             };
         }
@@ -37,7 +37,7 @@ const Conditions = () => {
         <div className={styles.block__wrapper}>
             <div className={styles.block__left_stroke}/>
             <div className={styles.card}>
-                {conditionsArray.map((cond: BlockType) => {
+                {conditionsArray?.map((cond: BlockType) => {
                     const filteredEventEdges = eventEdges
                         .filter((event: { from: string, to: string }) => [event.to, event.from]
                             .includes(cond.code))

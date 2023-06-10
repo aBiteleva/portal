@@ -17,7 +17,7 @@ const Actions = () => {
     const [isAddActionModalVisible, setIsAddActionModalVisible] = useState<boolean>(false);
     const {currentSystem} = useTypedSelector(state => state.systemsValues);
 
-    const actionsArray = useMemo(() => actions?.data.map((cond: BlockType) => {
+    const actionsArray = useMemo(() => actions?.data?.map((cond: BlockType) => {
         return {
             code: cond.code,
             description: cond.description,
@@ -30,7 +30,7 @@ const Actions = () => {
         <div className={styles.block__wrapper}>
             <div className={styles.block__left_stroke}/>
             <div className={styles.card}>
-                {actionsArray.map((act: BlockType) => {
+                {actionsArray?.map((act: BlockType) => {
                     return <div id={act.code} key={act.code} className={styles.card__content}>
                         <div className={cn(styles.card__withDelete, {card__deleteBlock: actions.data.length<2})}>
                             <div>

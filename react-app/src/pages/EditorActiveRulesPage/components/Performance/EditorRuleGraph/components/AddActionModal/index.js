@@ -21,7 +21,7 @@ const AddActionModal = ({isVisible, onCancel, currentActiveRule, currentSystemCo
             };
         }), [events]);
 
-    const conditionOptions = conditions.data.map(cond => {
+    const conditionOptions = conditions.data?.map(cond => {
         return {
             label: cond.description,
             value: cond.code
