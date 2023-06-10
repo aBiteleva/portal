@@ -18,7 +18,7 @@ export const login = (email: string, password: string) => {
             localStorage.setItem('refreshToken', response.data.refreshToken);
             dispatch(setAuth(true));
         } catch (e: any) {
-            console.error(e.response.data.message?.[0]?.message || e.response.data.message);
+            console.error(e.response?.data.message?.[0]?.message || e.response?.data.message);
         }
     };
 };

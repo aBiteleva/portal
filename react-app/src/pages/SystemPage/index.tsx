@@ -62,7 +62,7 @@ const SystemPage = () => {
     };
 
 
-    return <MainTemplate blocks={<SystemRightPanel/>}>
+    return <MainTemplate blocks={<SystemRightPanel/>} dataTestId="systems-page">
         <div className={styles.addButton}>
             <AddButton onClick={() => setIsAddModalVisible(true)}/>
         </div>
