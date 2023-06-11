@@ -22,6 +22,7 @@ const EditorRulePerformanceSelect = () => {
                   navigate('/editor-active-rules');
               }
           }}
+          dropdownStyle={{zIndex: 1102}}
           value={currentEditorRulePerformance}
           options={[
               {value: 'graph', label: 'Графовое'},
