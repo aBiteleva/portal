@@ -13,7 +13,7 @@ const SystemElements: FC<SystemElementsInterface> = ({onDoubleClick}) => {
     const {currentSystem, currentSystems} = useTypedSelector(state => state.systemsValues);
     const {setCurrentSystem, setCurrentActiveRule} = useAction();
 
-    return <div className={commonStyles.elementsContainer}>
+    return <div className={commonStyles.elementsContainer} id="systems-container">
         {currentSystems?.map(element => (
             <div
                 className={commonStyles.element}
@@ -24,6 +24,7 @@ const SystemElements: FC<SystemElementsInterface> = ({onDoubleClick}) => {
                     }
                     : undefined}
                 key={element.code}
+                id={`system-element-${element.code}`}
                 onClick={() => {
                     {/*@ts-ignore*/}
                     setCurrentSystem({...element, currentSystems});

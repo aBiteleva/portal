@@ -11,11 +11,11 @@ import {useLocation, useNavigate} from 'react-router-dom';
 interface MainTemplateInterface {
     page?: string,
     blocks: ReactNode,
-    dataTestId?: string,
+    id?: string,
     children?: any
 }
 
-const MainTemplate: FC<MainTemplateInterface> = ({blocks, dataTestId, children}) => {
+const MainTemplate: FC<MainTemplateInterface> = ({blocks, id, children}) => {
     const {systemPagesWay} = useTypedSelector(state => state.systemsValues);
     const {setCurrentSystems} = useAction();
     const dispatch = useAppDispatch();
@@ -35,7 +35,7 @@ const MainTemplate: FC<MainTemplateInterface> = ({blocks, dataTestId, children})
         }
     };
 
-    return <div className={styles.mainTemplate} data-testId={dataTestId}>
+    return <div className={styles.mainTemplate} id={id}>
         <Header/>
         <div className={styles.container}>
             <LeftPanel/>

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import MainTemplate from '../../common/MainTemplate';
-import {useAppDispatch, useTypedSelector} from '../../hooks/useTypedSelector';
+import {useTypedSelector} from '../../hooks/useTypedSelector';
 import RuleGraph from './components/Performance/EditorRuleGraph/index';
 import RightPanel from '../ActiveRulesPage/components/RightPanel';
 import {EditorRulesPerformance} from '../../store/types/editorActiveRulesTypes';
@@ -36,7 +36,7 @@ const EditorActiveRulesPage = ({isLang}: {isLang: boolean}) => {
             case EditorRulesPerformance.list:
                 return <EditorRuleList />;
             case EditorRulesPerformance.lang:
-                return <MainTemplate blocks={<RightPanel/>}>
+                return <MainTemplate blocks={<RightPanel/>} id="editor-active-rules-container">
                     <div className={commonStyles.toolbar}>
                         <EditorRulePerformanceSelect/>
                     </div>

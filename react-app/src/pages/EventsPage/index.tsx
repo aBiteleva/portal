@@ -30,7 +30,7 @@ const EventsPage = () => {
         return <div>{error}</div>;
     }
 
-    return <MainTemplate blocks={<RightPanel/>} dataTestId="events-page">
+    return <MainTemplate blocks={<RightPanel/>} id="events-page">
         <EventsElements />
     </MainTemplate>;
 

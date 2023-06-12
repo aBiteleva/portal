@@ -9,7 +9,7 @@ const EventsElements = () => {
     const {setCurrentEvent} = useAction();
 
     return <>
-        <div className={commonStyles.elementsContainer}>
+        <div className={commonStyles.elementsContainer} id="events-container">
             {events?.map(event => (
                 <div className={commonStyles.element}
                      style={currentEvent.code === event.code

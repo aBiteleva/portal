@@ -27,7 +27,9 @@ const Managing = () => {
         <div className={stylesCommon.rightPanelBlockAction}>
             <Icon name="plus"/>
             <div className={stylesCommon.rightPanelBlockActionText}
-                 onClick={() => setIsAddEventModalVisible(true)}>
+                 onClick={() => setIsAddEventModalVisible(true)}
+                 id="add-event"
+            >
                 Добавить
             </div>
         </div>

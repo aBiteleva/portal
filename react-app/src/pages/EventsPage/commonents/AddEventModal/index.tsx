@@ -57,7 +57,7 @@ const AddEventModal: FC<AddEventModalInterface> = ({isVisible, setIsVisible, cur
             open={isVisible}
             onCancel={handleCancel}
             footer={[
-                <Button type="primary" form="addSystemForm" key="submit" htmlType="submit">
+                <Button type="primary" form="addSystemForm" key="submit" htmlType="submit" id="save-event-button">
                     Сохранить
                 </Button>
             ]}
@@ -74,19 +74,23 @@ const AddEventModal: FC<AddEventModalInterface> = ({isVisible, setIsVisible, cur
                     name="description"
                     rules={[{required: true, message: 'Заполните поле'}]}
                 >
-                    <Input/>
+                    <Input id="events-input-name"/>
                 </Form.Item>
                 <Form.Item label="Контекст"
                            name="contextParamCode"
                            rules={[{required: true, message: 'Выберите контекст'}]}>
                     <Select className={commonStyles.select}
-                            options={contextParamsOptions}/>
+                            options={contextParamsOptions}
+                            id="events-select-context"
+                    />
                 </Form.Item>
                 <Form.Item label="Компонент"
                            name="codeComponent"
                            rules={[{required: true, message: 'Выберите компонент'}]}>
                     <Select className={commonStyles.select}
-                            options={componentOptions}/>
+                            options={componentOptions}
+                            id="events-select-component"
+                    />
                 </Form.Item>
             </Form>
         </Modal>
