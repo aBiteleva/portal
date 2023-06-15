@@ -1,10 +1,9 @@
 import React, {FC, useEffect, useMemo} from 'react';
 import styles from './styles.module.scss';
-import {Button, Form, Input, Modal, Select} from 'antd';
+import {Button, Form, Input, Modal} from 'antd';
+import Select from 'react-select';
 import {useAction} from '../../../../hooks/useAction';
 import {useAppDispatch, useTypedSelector} from '../../../../hooks/useTypedSelector';
-import {AddEventInterface} from '../../../../store/types/eventsTypes';
-import commonStyles from '../../../../common/styles/styles.module.scss';
 
 interface AddEventModalInterface {
     isVisible: boolean;
@@ -45,8 +44,18 @@ const AddEventModal: FC<AddEventModalInterface> = ({isVisible, setIsVisible, cur
         setIsVisible(false);
     };
 
-    const onFinish = async (data: AddEventInterface) => {
-        await dispatch(() => addEvent(data, currentSystemCode));
+    const onFinish = async (data: {
+        description: string,
+        contextParamCode: { label: string, value: string },
+        codeComponent: { label: string, value: string },
+    }) => {
+        const requestData = {
+            ...data,
+            contextParamCode: data.contextParamCode.value,
+            codeComponent: data.codeComponent.value
+        };
+
+        await dispatch(() => addEvent(requestData, currentSystemCode));
 
         setIsVisible(false);
     };
@@ -79,16 +88,15 @@ const AddEventModal: FC<AddEventModalInterface> = ({isVisible, setIsVisible, cur
                 <Form.Item label="Контекст"
                            name="contextParamCode"
                            rules={[{required: true, message: 'Выберите контекст'}]}>
-                    <Select className={commonStyles.select}
-                            options={contextParamsOptions}
-                            id="events-select-context"
+                    <Select
+                        id="events-select-context"
+                        options={contextParamsOptions}
                     />
                 </Form.Item>
                 <Form.Item label="Компонент"
                            name="codeComponent"
                            rules={[{required: true, message: 'Выберите компонент'}]}>
-                    <Select className={commonStyles.select}
-                            options={componentOptions}
+                    <Select options={componentOptions}
                             id="events-select-component"
                     />
                 </Form.Item>

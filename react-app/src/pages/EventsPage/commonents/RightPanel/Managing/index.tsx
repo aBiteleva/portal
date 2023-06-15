@@ -40,6 +40,7 @@ const Managing = () => {
         <div className={stylesCommon.rightPanelBlockAction}>
             <Icon name="korzina"/>
             <div
+                id="delete-event-button"
                 className={stylesCommon.rightPanelBlockActionText}
                 onClick={onHandleDeleteEvent}
             >

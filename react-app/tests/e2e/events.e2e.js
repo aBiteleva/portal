@@ -21,11 +21,13 @@ describe('Events page test', () => {
         await EventsPage.loadEvents();
     });
 
-    // it('add events', async () => {
-    //     await EventsPage.addEvent('Новое событие', '00002', '00001');
-    //     // const select = $('div[id="events-select-context_list"]');
-    //     // const option = select.$$('div[role="option"]');
-    //     // console.log('Options ', option.length);
-    //     await browser.pause(10000);
-    // });
+    it('add event', async () => {
+        await EventsPage.addEvent('Новое событие', $('#react-select-2-option-1'), $('#react-select-3-option-0'));
+    });
+
+    it('delete event', async () => {
+        await EventsPage.deleteEvent('Новое событие');
+
+    });
 });
+

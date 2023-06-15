@@ -29,8 +29,8 @@ class EventsPage extends Page {
         return $('#save-event-button');
     }
 
-    get selectContextDropdown() {
-        return $('#events-select-context_list');
+    get deleteEventButton() {
+        return $('#delete-event-button');
     }
 
     async loadEvents() {
@@ -42,6 +42,7 @@ class EventsPage extends Page {
     }
 
     async getEvent(element) {
+        await element.waitForDisplayed({timeout: 3000});
         await element.click();
         await this.eventsLink.click();
     }
@@ -49,22 +50,24 @@ class EventsPage extends Page {
     async addEvent(name, context, component) {
         await this.addButton.click();
         await this.inputName.setValue(name);
+
         await this.selectContext.click();
+        await context.waitForDisplayed({timeout: 3000});
+        await context.click();
 
-        // await this.selectComponent.addValue(component);
+        await this.selectComponent.click();
+        await component.waitForDisplayed({timeout: 3000});
+        await component.click();
 
-        // await this.saveEventButton.click();
-
-
-        // await $('/html/body/div[4]/div/div/div[1]/div[2]').waitForDisplayed({timeout: 3000});
-        // await $('/html/body/div[4]/div/div/div[1]/div[2]').click();
-
-        // await context.waitForDisplayed({timeout: 3000});
-        // await context.click();
-        //*[@id="events-select-context_list"]
-
+        await this.saveEventButton.click();
     }
 
+    async deleteEvent(event) {
+        const header = await $(`div=${event}`);
+        await $(header).click();
+        await this.deleteEventButton.click();
+        await browser.pause(10000);
+    }
 
     open() {
         return super.open('');

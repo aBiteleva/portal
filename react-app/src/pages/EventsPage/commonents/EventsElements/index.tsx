@@ -20,6 +20,7 @@ const EventsElements = () => {
                          : undefined}
                      onClick={() => setCurrentEvent({...event})}
                      key={event.code}
+                     id={event.description}
                 >
                     <div className={commonStyles.text}>
                         <div>{event.description}</div>

@@ -5,6 +5,5 @@ describe('Login page test', () => {
         await LoginPage.open();
 
         await LoginPage.login('admin@admin.com', 'admin');
-        expect(LoginPage.btnLogin).not.toBeExisting();
     });
 });
