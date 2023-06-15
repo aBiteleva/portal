@@ -8,7 +8,13 @@ const initialState: EventsState = {
         code: '',
         description: '',
         categoryEvent: '',
-        component: []
+        component: [],
+        contextParam: {
+            code: '',
+            description: '',
+            dataType: '',
+            name: ''
+        }
     }
 };
 

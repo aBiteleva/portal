@@ -2,7 +2,13 @@ interface EventResponse {
     code: string
     description: string
     categoryEvent: string
-    component: {code: string, description: string}[]
+    component: {code: string, description: string}[],
+    contextParam: {
+        code: string,
+        description: string,
+        dataType: string,
+        name: string
+    }
 }
 
 export interface ActiveRulesInterface {

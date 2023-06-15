@@ -123,6 +123,15 @@
     &_action {
       background-color: $action-color;
     }
+
+    &_context {
+      color: $black-color;
+      background-color: $context-color;
+    }
+
+    &_component {
+      background-color: $component-color;
+    }
   }
 }
 

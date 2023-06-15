@@ -2,8 +2,7 @@ import React, {FC} from 'react';
 import styles from './styles.module.scss';
 import {Button, Form, Input, Modal} from 'antd';
 import {useAction} from '../../../../hooks/useAction';
-import {useAppDispatch} from '../../../../hooks/useTypedSelector';
-import {AddSystemInterface} from '../../../../store/types/systemsTypes';
+import {useAppDispatch, useTypedSelector} from '../../../../hooks/useTypedSelector';
 
 interface AddModalInterface {
     isVisible: boolean;
@@ -11,15 +10,16 @@ interface AddModalInterface {
 }
 
 const AddModal: FC<AddModalInterface> = ({isVisible, setIsVisible}) => {
-    const {addSystem} = useAction();
+    const {addComponent} = useAction();
     const dispatch = useAppDispatch();
+    const {currentSystem} = useTypedSelector(store => store.systemsValues);
 
     const handleCancel = () => {
         setIsVisible(false);
     };
 
-    const onFinish = async (data: AddSystemInterface) => {
-        await dispatch(() => addSystem(data));
+    const onFinish = async (body: {name: string}) => {
+        await dispatch(() => addComponent(body.name, currentSystem.code));
 
         setIsVisible(false);
     };
