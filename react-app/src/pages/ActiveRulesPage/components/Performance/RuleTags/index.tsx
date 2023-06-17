@@ -34,6 +34,7 @@ const RuleTags = () => {
                         navigate('/editor-active-rules');
                     }}
                     key={rule.code}
+                    id={`active-rule-element-${rule.code}`}
                 >
                     <div className={commonStyles.text}>
                         <div>{rule.description}</div>

@@ -210,7 +210,7 @@ const EditorRuleGraph = () => {
         );
     };
 
-    return <MainTemplate blocks={<RulesGraphRightPanel/>}>
+    return <MainTemplate blocks={<RulesGraphRightPanel/>} id="editor-active-rules-container">
         <RuleGraphToolbar/>
         <GraphComponent
             graphData={state}

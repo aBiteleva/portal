@@ -36,11 +36,11 @@ const ActiveRulesPage = () => {
     const getCurrentPerformance = () => {
         switch (currentPerformance) {
             case RulesPerformance.tag:
-                return <MainTemplate blocks={<RightPanel/>}>
+                return <MainTemplate blocks={<RightPanel/>} id="active-rules-container">
                     <RuleTags />
                 </MainTemplate>;
             case RulesPerformance.table:
-                return <MainTemplate blocks={<RightPanel/>}>
+                return <MainTemplate blocks={<RightPanel/>} id="active-rules-container">
                     <RuleTable />
                 </MainTemplate>;
         }

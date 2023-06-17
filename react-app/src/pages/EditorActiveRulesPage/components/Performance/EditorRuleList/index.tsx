@@ -60,7 +60,7 @@ const EditorRuleList = ({}) => {
         </>);
     };
 
-    return <MainTemplate blocks={<RulesListRightPanel/>}>
+    return <MainTemplate blocks={<RulesListRightPanel/>} id="editor-active-rules-container">
         <div className={commonStyles.toolbar}>
             <EditorRulePerformanceSelect/>
         </div>

@@ -11,6 +11,23 @@ const EditorRulePerformanceSelect = () => {
     const navigate = useNavigate();
 
     return <>
+        <Select placeholder="Представление"
+                id="events-select-component"
+                onChange={value => {
+                    setCurrentEditorRulePerformance(value);
+                    if(value === EditorRulesPerformance.lang){
+                        navigate('/active-rules-script');
+                    } else {
+                        navigate('/editor-active-rules');
+                    }
+                }}
+                value={currentEditorRulePerformance}
+                options={[
+                    {value: 'graph', label: 'Графовое'},
+                    {value: 'list', label: 'Списочное'},
+                    {value: 'lang', label: 'Языковое'}
+                ]}
+        />
       <Select
           placeholder="Представление"
           size="small"
@@ -22,6 +39,7 @@ const EditorRulePerformanceSelect = () => {
                   navigate('/editor-active-rules');
               }
           }}
+          dropdownStyle={{zIndex: 1102}}
           value={currentEditorRulePerformance}
           options={[
               {value: 'graph', label: 'Графовое'},

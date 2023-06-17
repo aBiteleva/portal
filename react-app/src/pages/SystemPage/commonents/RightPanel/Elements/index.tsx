@@ -21,6 +21,7 @@ const Elements = () => {
                 <Icon name="events"/>
                 <div className={stylesCommon.rightPanelBlockActionText}>
                     <Link
+                        id="events-link"
                         style={{textDecoration: 'none', color: variables.yellowColor}}
                         to="/events"
                         onClick={onClickLink}
@@ -36,6 +37,7 @@ const Elements = () => {
                         style={{textDecoration: 'none', color: variables.yellowColor}}
                         onClick={onClickLink}
                         to="/active-rules"
+                        id="active-rule-link"
                     >
                         Список правил
                     </Link>
