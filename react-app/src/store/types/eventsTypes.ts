@@ -11,7 +11,13 @@ export interface EventsInterface {
     code: string,
     description: string,
     categoryEvent: string,
-    component: EventComponentInterface[]
+    component: EventComponentInterface[],
+    contextParam: {
+        code: string,
+        dataType: string,
+        description: string,
+        name: string
+    }
 }
 
 export interface EventsState {

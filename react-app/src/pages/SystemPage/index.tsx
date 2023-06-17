@@ -12,6 +12,7 @@ import {useAppDispatch, useTypedSelector} from '../../hooks/useTypedSelector';
 import {useAction} from '../../hooks/useAction';
 import {setCurrentSystems, setSystemPagesWay} from '../../store/action-creators/systems';
 import AddModal from './commonents/AddModal';
+import {SystemService} from '../../api/services/SystemService';
 
 const SystemRightPanel = () => {
     return <>
@@ -31,8 +32,7 @@ const SystemPage = () => {
         isLoading,
         error,
         currentSystem,
-        systemPagesWay,
-        currentSystems
+        systemPagesWay
     } = useTypedSelector(state => state.systemsValues);
     const {fetchSystems, setSystemPagesWay, setCurrentSystems} = useAction();
     const dispatch = useAppDispatch();
@@ -51,15 +51,14 @@ const SystemPage = () => {
         return <div>{error}</div>;
     }
 
-    const onDoubleClick = (elementChildren: any[]) => {
-        if (elementChildren && elementChildren.length > 0) {
-            dispatch(() => setSystemPagesWay([...systemPagesWay, {
-                name: systemPagesWay.length < 1 ? currentSystem.name : ` / ${currentSystem.name}`,
-                code: currentSystem.code,
-                systems: elementChildren
-            }]));
-            setCurrentSystems(elementChildren);
-        }
+    const onDoubleClick = async (elementChildren: any[]) => {
+        const children = await SystemService.fetchSystemByCode(currentSystem.code);
+        dispatch(() => setSystemPagesWay([...systemPagesWay, {
+            name: systemPagesWay.length < 1 ? currentSystem.name : ` / ${currentSystem.name}`,
+            code: currentSystem.code,
+            systems: children.data.children
+        }]));
+        setCurrentSystems(children.data.children);
     };
 
 
@@ -67,7 +66,7 @@ const SystemPage = () => {
         <div className={styles.addButton}>
             <AddButton onClick={() => setIsAddModalVisible(true)}/>
         </div>
-        <SystemElements systems={currentSystems} onDoubleClick={onDoubleClick}/>
+        <SystemElements onDoubleClick={onDoubleClick}/>
         <AddModal isVisible={isAddModalVisible} setIsVisible={setIsAddModalVisible}/>
     </MainTemplate>;
 };

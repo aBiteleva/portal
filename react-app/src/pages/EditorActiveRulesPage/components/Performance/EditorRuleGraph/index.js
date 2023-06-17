@@ -13,7 +13,6 @@ import Managing from '../../../../ActiveRulesPage/components/RightPanel/Managing
 import {useTypedSelector} from '../../../../../hooks/useTypedSelector';
 import AddActionModal from './components/AddActionModal';
 import {useAction} from '../../../../../hooks/useAction';
-import {useDispatch} from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import {onAddEdgeInAR, onEditNodeFromAR, onRemoveEdgeFromAR, onRemoveNodeFromAR} from '../../../helpers';

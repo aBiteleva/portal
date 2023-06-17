@@ -18,6 +18,8 @@ $red-color: rgba(244, 67, 54, 1);
 $black-color: #000000E5;
 $green-bright-color: #61FF00;
 $orange-color: #D74D00;
+$context-color: #00FFE0;
+$component-color: #00A1D4;
 
 :export {
   darkBlueColor: $dark-blue-color;
@@ -39,4 +41,6 @@ $orange-color: #D74D00;
   blackColor: $black-color;
   greenBrightColor: $green-bright-color;
   orangeColor: $orange-color;
+  contextColor: $context-color;
+  componentColor: $component-color;
 }

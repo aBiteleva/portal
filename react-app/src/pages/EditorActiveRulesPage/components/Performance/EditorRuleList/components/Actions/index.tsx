@@ -15,7 +15,6 @@ const Actions = () => {
     const currentSystemCode = localStorage.getItem('currentSystemCode');
     const currentSystemName = localStorage.getItem('currentSystemName');
     const [isAddActionModalVisible, setIsAddActionModalVisible] = useState<boolean>(false);
-    const {currentSystem} = useTypedSelector(state => state.systemsValues);
 
     const actionsArray = useMemo(() => actions?.data?.map((cond: BlockType) => {
         return {
