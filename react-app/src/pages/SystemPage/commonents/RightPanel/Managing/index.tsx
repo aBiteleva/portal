@@ -6,7 +6,7 @@ import {useAppDispatch, useTypedSelector} from '../../../../../hooks/useTypedSel
 import {DeleteSystemInterface} from '../../../../../store/types/systemsTypes';
 
 const Managing = () => {
-    const {currentSystem} = useTypedSelector(state => state.systemsValues);
+    const {currentSystem, systemPagesWay} = useTypedSelector(state => state.systemsValues);
     const {deleteSystem} = useAction();
     const dispatch = useAppDispatch();
 
@@ -17,7 +17,8 @@ const Managing = () => {
             confirmComponent: false
         };
 
-        await dispatch(() => deleteSystem(body));
+        const parentCode = systemPagesWay.at(-2)?.code;
+        await dispatch(() => deleteSystem(body, parentCode));
     };
 
     return <>

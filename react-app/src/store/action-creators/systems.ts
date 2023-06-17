@@ -35,22 +35,36 @@ export const fetchSystems = (): any => {
     };
 };
 
-export const addSystem = (body: AddSystemInterface) => {
+export const addSystem = (name: string, system: SystemsInterface) => {
     return async (dispatch: Dispatch<SystemsAction>) => {
         try {
-            await SystemService.addSystem(body);
-            dispatch(fetchSystems());
+            const newSystem = await SystemService.addSystem({name});
+            if (newSystem) {
+                //@ts-ignore
+                await SystemService.addSystemAttachment({codeParent: system.code, codeAttach: newSystem.data.code});
+                const updatedSystem = await SystemService.fetchSystemByCode(system.code);
+                dispatch(fetchSystems());
+                if(updatedSystem) {
+                    dispatch(setCurrentSystems(updatedSystem.data.children));
+                }
+            }
         } catch (e) {
             console.error('Произошла ошибка добавления системы: ', e);
         }
     };
 };
 
-export const deleteSystem = (body: DeleteSystemInterface) => {
+export const deleteSystem = (body: DeleteSystemInterface, parentCode?: string) => {
     return async (dispatch: Dispatch<SystemsAction>) => {
         try {
             await SystemService.deleteSystem(body);
-            dispatch(fetchSystems());
+            if(parentCode) {
+                const updatedParentSystem = await SystemService.fetchSystemByCode(parentCode);
+                dispatch(fetchSystems());
+                if (updatedParentSystem) {
+                    dispatch(setCurrentSystems(updatedParentSystem.data.children));
+                }
+            }
         } catch (e) {
             console.error('Произошла ошибка удаления системы: ', e);
         }

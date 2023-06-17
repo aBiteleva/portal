@@ -10,16 +10,16 @@ interface AddModalInterface {
 }
 
 const AddModal: FC<AddModalInterface> = ({isVisible, setIsVisible}) => {
-    const {addComponent} = useAction();
+    const {addSystem} = useAction();
     const dispatch = useAppDispatch();
-    const {currentSystem} = useTypedSelector(store => store.systemsValues);
+    const {currentSystem, systems} = useTypedSelector(store => store.systemsValues);
 
     const handleCancel = () => {
         setIsVisible(false);
     };
 
     const onFinish = async (body: {name: string}) => {
-        await dispatch(() => addComponent(body.name, currentSystem.code));
+        await dispatch(() => addSystem(body.name, currentSystem));
 
         setIsVisible(false);
     };
