@@ -20,15 +20,6 @@ const EditorRuleList = ({}) => {
                 <hr className={commonStyles.line}/>
                 <div className={commonStyles.rightPanelBlockTitle}>Управление элементом</div>
                 <div className={commonStyles.rightPanelBlockAction}>
-                    <Icon name="plus"/>
-                    <div
-                        className={commonStyles.rightPanelBlockActionText}
-                        // onClick={() => setIsAddEdgeModalVisible(true)}
-                    >
-                        Добавить связь
-                    </div>
-                </div>
-                <div className={commonStyles.rightPanelBlockAction}>
                     <Icon name="edit"/>
                     <div
                         className={commonStyles.rightPanelBlockActionText}

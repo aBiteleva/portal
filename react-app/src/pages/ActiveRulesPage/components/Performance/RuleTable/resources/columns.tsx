@@ -16,12 +16,12 @@ export const columns = [
         title: 'Статус',
         dataIndex: 'status',
         key: 'status',
-        render: () => <Switch />
+        render: () => <Switch/>
     },
     {
         title: 'Тэги',
         dataIndex: 'tag',
         key: 'tag',
-        render: () => <Tag color="green">Что-то</Tag>
+        render: () => <><Tag color="green">Увлажнение</Tag><Tag color="orange">Кабинет начальника</Tag></>
     },
 ];

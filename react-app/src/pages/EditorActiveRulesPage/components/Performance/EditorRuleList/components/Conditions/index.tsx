@@ -53,7 +53,7 @@ const Conditions = () => {
                         .filter((act: { from: string, to: string }) => [act.to, act.from].includes(cond.code))
                         .map((act: { from: string, to: string }) => {
                             if (act.from[0] !== 'c') {
-                                return actions.data.find((action: { code: string }) => action.code === act.from).description;
+                                return actions.data.find((action: { code: string }) => action.code === act.from)?.description;
                             } else if (act.to[0] !== 'c') {
                                 return actions.data.find((action: { code: string }) => action.code === act.to)?.description;
                             }

@@ -59,9 +59,9 @@ export const updateActiveRule = (body: UpdateActiveRuleInterface, currentSystemC
         try {
             const res = await ActiveRuleService.updateActiveRule(body);
             if(res) {
-                dispatch(fetchActiveRuleBySystemCode(currentSystemCode));
                 localStorage.removeItem('currentActiveRuleObject');
                 localStorage.setItem('currentActiveRuleObject', JSON.stringify(res.data));
+                dispatch(fetchActiveRuleBySystemCode(currentSystemCode));
             }
         } catch (e) {
             console.error('Произошла ошибка добавления активного правила: ', e);
