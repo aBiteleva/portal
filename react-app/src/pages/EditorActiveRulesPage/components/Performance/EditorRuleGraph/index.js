@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import commonStyles from '../../../../../common/styles/styles.module.scss';
 import GraphComponent from './components/GraphComponent';
 import EditorRulePerformanceSelect from '../../EditorRulePerformanceSelect';
-import {getColor, getShape, onAddEdge, onEdit, onRemoveEdge, onRemoveNode} from './helpers/handlers';
+import {getColor, getShape} from './helpers/handlers';
 import EditNodeModal from './components/EditNodeModal';
 import AddEdgeModal from './components/AddEdgeModal';
 import Icon from '../../../../../common/components/Icon';
@@ -115,7 +115,7 @@ const EditorRuleGraph = () => {
     }), [currentActiveRuleObject]);
 
     useEffect(() => {
-        setState(({graph: {nodes, edges}, counter, ...rest}) => {
+        setState(({graph, counter, ...rest}) => {
             return {
                 ...state,
                 graph: {
@@ -184,11 +184,11 @@ const EditorRuleGraph = () => {
                         onClick={() => !currentNode
                             ? actions.edges.length > 1 && (
                                 onRemoveEdgeFromAR(currentEdge),
-                                    onRemoveEdge(state, setState, currentEdge),
+                                    // onRemoveEdge(state, setState, currentEdge),
                                     setCurrentEdgeId(undefined)
                             )
                             : actions.data.length > 1 && (
-                                onRemoveNode(state, setState, currentNode),
+                                // onRemoveNode(state, setState, currentNode),
                                     onRemoveNodeFromAR(currentNode.id),
                                     setCurrentNodeId(undefined)
                             )
@@ -218,7 +218,7 @@ const EditorRuleGraph = () => {
         <EditNodeModal
             node={currentNode}
             onEdit={data => {
-                onEdit(data, state, setState, currentNode, currentPointer);
+                // onEdit(data, state, setState, currentNode, currentPointer);
                 onEditNodeFromAR(currentNode.id, data.label);
                 setIsEditGraphModalVisible(false);
             }}
@@ -230,7 +230,7 @@ const EditorRuleGraph = () => {
             node={currentNode}
             onOk={data => {
                 onAddEdgeInAR(data);
-                onAddEdge(data, setState);
+                // onAddEdge(data, setState);
                 setIsAddEdgeModalVisible(false);
             }}
             isVisible={isAddEdgeModalVisible}

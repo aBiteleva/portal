@@ -45,7 +45,7 @@ const AddEdgeModal = ({isVisible, onCancel, onOk, nodesState}) => {
         }), [events]);
 
     const conditionOptions = nodesState
-        .filter(node => node.label.toLowerCase().includes('c'))
+        .filter(node => node.id.toLowerCase().includes('c'))
         .map(conditionNode => {
             return {
                 label: conditionNode.label,
